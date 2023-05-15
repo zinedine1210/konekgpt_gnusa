@@ -1,0 +1,8 @@
+docker port:
+domain:
+database:
+dark color:
+
+
+// CATATAN
+Versi node harus 14.15.0 ke atas
