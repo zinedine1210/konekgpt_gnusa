@@ -1,0 +1,1 @@
+# konekgpt_nextjs13
