@@ -5,7 +5,8 @@ export const MyContext = createContext();
 
 export function MyProvider({children}) {
     const [data, setData] = useState({
-        "dataDocumentation":null
+        "dataDocumentation":null,
+        "modal":null
     })
 
     return (
