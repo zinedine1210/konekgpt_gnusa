@@ -7,19 +7,19 @@ export default function EditContact() {
   return (
     <Layout title="CONTACT" desc="HALAMAN UTAMA">
       <Suspense fallback={"Loading"}>
-        <section className="w-11/12 bg-zinc-100 relative h-screen flex">
+        <section className="w-full bg-zinc-100 relative h-screen flex">
           <div className="w-full relative h-screen pt-16 overflow-y-auto">
-            <div className='mx-2 md:flex gap-2'>
-              <div className='w-full md:w-1/4 bg-white rounded-md shadow-md p-5'>
+            <div className='mx-0 md:mx-2 md:flex gap-2'>
+              <div className='w-full md:w-1/4 bg-white rounded-md shadow-md p-3 md:p-5'>
                 <div className="flex items-center gap-2 pt-1 pb-3">
                     <Link href={"/usr/contacts"}>
-                        <h1 class="text-sm dark:text-zinc-400 flex items-center gap-1 text-blue-500">
+                        <h1 className="text-sm dark:text-zinc-400 flex items-center gap-1 text-blue-500">
                             <FaChevronLeft />
                             Back
                         </h1>
                     </Link>
                     /
-                    <h1 class="text-sm">Contact Detail</h1>
+                    <h1 className="text-sm">Contact Detail</h1>
                 </div>
 
                 <div className="flex items-center gap-2 py-3">
@@ -33,7 +33,7 @@ export default function EditContact() {
                 </div>
 
                 <div className="border-t py-3">
-                    <p class="text-zinc-500 text-sm uppercase dark:text-zinc-400">Contact Handle</p>
+                    <p className="text-zinc-500 text-sm uppercase dark:text-zinc-400">Contact Handle</p>
 
                     <div className="space-y-2 mt-3">
                       <div className="flex items-center gap-3">
@@ -47,20 +47,20 @@ export default function EditContact() {
                 </div>
 
                 <div className="border-t py-3">
-                    <p class="text-zinc-500 text-sm uppercase dark:text-zinc-400">Contact Information</p>
+                    <p className="text-zinc-500 text-sm uppercase dark:text-zinc-400">Contact Information</p>
 
                     <div className="space-y-2 mt-3">
                       <div>
                           <label htmlFor='fullnamecontact' className='font-bold inline-block mb-1 text-sm'>Full Name <span className='text-red-500'>*</span></label>
-                          <input id='fullnamecontact' type="text" className="w-full block bg-zinc-50 text-sm py-2 px-2 outline-none border-2 hover:bg-zinc-100 focus:bg-white focus:border-ligthPrimary" placeholder='' />
+                          <input id='fullnamecontact' type="text" className="w-full block bg-zinc-50 text-sm py-2 px-2 outline-none border-2 hover:bg-zinc-100 focus:bg-white focus:border-lightPrimary" placeholder='' />
                       </div>
                       <div>
                           <label htmlFor='phonecontact' className='font-bold inline-block mb-1 text-sm'>Phone Number <span className='text-red-500'>*</span></label>
-                          <input id='phonecontact' type="text" className="w-full block bg-zinc-50 text-sm py-2 px-2 outline-none border-2 hover:bg-zinc-100 focus:bg-white focus:border-ligthPrimary" placeholder='' />
+                          <input id='phonecontact' type="text" className="w-full block bg-zinc-50 text-sm py-2 px-2 outline-none border-2 hover:bg-zinc-100 focus:bg-white focus:border-lightPrimary" placeholder='' />
                       </div>
                       <div>
                           <label htmlFor='emailcontact' className='font-bold inline-block mb-1 text-sm'>Email Address <span className='text-red-500'>*</span></label>
-                          <input id='emailcontact' type="text" className="w-full block bg-zinc-50 text-sm py-2 px-2 outline-none border-2 hover:bg-zinc-100 focus:bg-white focus:border-ligthPrimary" placeholder='' />
+                          <input id='emailcontact' type="text" className="w-full block bg-zinc-50 text-sm py-2 px-2 outline-none border-2 hover:bg-zinc-100 focus:bg-white focus:border-lightPrimary" placeholder='' />
                       </div>
                     </div>
 
@@ -72,7 +72,7 @@ export default function EditContact() {
               <div className="w-full md:w-3/4 bg-white rounded-md shadow-md p-5">
                 <div>
                   <div className="flex items-center justify-between">
-                    <p class="text-zinc-500 text-sm uppercase dark:text-zinc-400">Conversations</p>
+                    <p className="text-zinc-500 text-sm uppercase dark:text-zinc-400">Conversations</p>
                     <button><FaChevronDown className="text-sm text-gray-500"/></button>
                   </div>
                   <div className="space-y-2 mt-5">
@@ -106,7 +106,7 @@ export default function EditContact() {
 
                 <div className="border-t pt-4 mt-4">
                   <div className="flex items-center justify-between">
-                    <p class="text-zinc-500 text-sm uppercase dark:text-zinc-400">Campaigns</p>
+                    <p className="text-zinc-500 text-sm uppercase dark:text-zinc-400">Campaigns</p>
                     <button><FaChevronDown className="text-sm text-gray-500"/></button>
                   </div>
 

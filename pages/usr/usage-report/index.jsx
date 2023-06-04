@@ -9,7 +9,7 @@ import SimulationKnowledge from "@/components/Knowledge/SimulationKnowledge";
 import { MyContext } from "@/context/MyProvider";
 
 
-export default function Knowledge() {
+export default function UsageReport() {
   const {t} = useTranslation("common")
   const context = useContext(MyContext)
   
@@ -19,12 +19,12 @@ export default function Knowledge() {
         <section className="w-full bg-zinc-100 relative h-screen">
             <div className="px-3 md:px-5 pt-16 h-full overflow-y-auto">
                 <div className="p-0 md:p-5">
-                  <label className="text-sm font-bold text-zinc-600 uppercase dark:text-zinc-400">Knowledge Base</label>
+                  <label className="text-sm font-bold text-zinc-600 uppercase dark:text-zinc-400">Usage Report</label>
                   <p className="text-sm text-zinc-500 font-light">Your AI understands many topics, but you can add specific knowledge about your company or products to supplement it.</p>
 
                   <div className="flex gap-5">
-                    <div className={`my-5 w-full ${context.modal ? context.modal == "simulationKnowledge" ? "md:w-3/4":"md:w-full":""}`}>
-                      <h1 className="text-sm font-bold text-zinc-600 mb-3">All Stories Your Bot</h1>
+                    <div className={`my-5 w-full`}>
+                      <h1 className="text-sm font-bold text-zinc-600 mb-3">All Stories Your Token</h1>
                       <div className="md:flex items-center justify-between">
                         <input type="search" className="input-search w-full md:w-auto" placeholder="Search" />
 
@@ -37,7 +37,6 @@ export default function Knowledge() {
                         <TableKnowledge />
                       </div>
                     </div>
-                    <SimulationKnowledge />
                   </div>
                 </div>
             </div>

@@ -21,7 +21,7 @@ export default function InputSelect(props) {
 
 
   return (
-    <div ref={dropRef} className={`relative bg-zinc-50 py-2 px-4 outline-none border-2 w-full ${open ? "border-ligthPrimary bg-white":"hover:bg-zinc-100"}`}>
+    <div ref={dropRef} className={`relative bg-zinc-50 py-2 px-4 outline-none border-2 w-full ${open ? "border-lightPrimary bg-white":"hover:bg-zinc-100"}`}>
         <div onClick={() => setOpen(!open)} className="flex items-center justify-between cursor-pointer">
             <h1 className="text-sm mr-5">{props.defaultValue ? props.defaultValue : value ? value : "Select"}</h1>
             <FaChevronDown className={`${open ? "rotate-180":""} transition-transform duration-300 text-zinc-500 text-xs`}/>

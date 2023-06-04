@@ -20,13 +20,13 @@ export default function Channel({type}) {
   return (
     <Layout title="HOME" desc="HALAMAN UTAMA">
       <Suspense fallback={"Loading"}>
-        <section className="w-11/12 bg-zinc-100 relative h-screen flex">
+        <section className="w-full bg-zinc-100 relative h-screen flex">
           <ChannelType />
-          <div className="w-5/6 border bg-white relative h-screen pt-16 overflow-y-auto">
+          <div className="w-full md:w-5/6 border bg-white relative h-screen pt-16 overflow-y-auto">
             <div className="flex items-center gap-2 pt-1 pb-3 px-3">
-              <h1 class="text-xs text-zinc-500 uppercase dark:text-zinc-400">Integration</h1>
+              <h1 className="text-xs text-zinc-500 uppercase dark:text-zinc-400">Integration</h1>
               <FaChevronRight className="text-zinc-500 text-xs"/>
-              <h1 class="text-xs font-bold uppercase">{type}</h1>
+              <h1 className="text-xs font-bold uppercase">{type}</h1>
             </div>
             {
               type == "telegram" ?

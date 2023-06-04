@@ -15,7 +15,7 @@ export default function WhatsappList() {
         </div>
 
         <div className='py-10'>
-            <div className='mx-auto w-1/4 text-center'>
+            <div className='mx-auto w-full md:w-1/4 text-center'>
                 <h1>Image here...</h1>
                 <h1>No Whatsapp Business Account Yet</h1>
                 <p className='text-zinc-500 text-sm'>Your integrated WhatsApp Business account list will appear here.</p>

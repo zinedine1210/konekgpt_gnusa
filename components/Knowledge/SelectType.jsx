@@ -29,10 +29,10 @@ return (
       <FaChevronDown className={`${open ? "rotate-180":""} transition-transform duration-300 text-xs`}/>
     </button>
 
-    <div className={`${open ? "visible":"invisible"} bg-white rounded-md shadow-md w-[900px] absolute top-full right-0 mt-1 px-5 py-3`}>
+    <div className={`${open ? "visible":"invisible"} bg-white z-20 rounded-md shadow-md w-full md:w-[900px] absolute top-full right-0 mt-1 px-5 py-3`}>
       <h1 className="text-zinc-600 font-bold">Create New Bot</h1>
       <p className="text-zinc-500 font-light text-xs">Build your bot story from scratch or get started right away by importing a pre-build, task-specific template.</p>
-      <div className="gap-2 mt-3 grid grid-cols-2">
+      <div className="gap-2 mt-3 grid grid-cols-1 md:grid-cols-2">
         <Link href={"/usr/knowledge/create/scratch"}>
           <button className="text-start w-full block p-3 border border-zinc-200 rounded-md hover:border-blue-500">
             <FaFileWord className="text-blue-500 text-4xl mb-2"/>

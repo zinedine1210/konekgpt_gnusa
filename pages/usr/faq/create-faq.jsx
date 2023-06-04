@@ -9,26 +9,26 @@ export default function CreateFAQ() {
   return (
     <Layout title="HOME" desc="HALAMAN UTAMA">
       <Suspense fallback={"Loading"}>
-        <section className="w-11/12 bg-zinc-100 relative h-screen flex">
+        <section className="w-full bg-zinc-100 relative h-screen flex">
           <div className="w-full relative h-screen pt-16 overflow-y-auto">
-            <div className='mx-2'>
-              <div className='bg-white rounded-md shadow-md p-5'>
-                <label class="text-zinc-500 text-xl uppercase dark:text-zinc-400 font-semibold">Frequently Asked Question Builder</label>
+            <div className='mx-0 md:mx-2'>
+              <div className='bg-white rounded-md shadow-md p-3 md:p-5'>
+                <label className="text-zinc-500 text-base md:text-xl uppercase dark:text-zinc-400 font-semibold">Frequently Asked Question Builder</label>
                 <div className="flex items-center gap-2 pt-1 pb-3">
                     <Link href={"/usr/faq"}>
-                        <h1 class="text-sm dark:text-zinc-400 flex items-center gap-1 text-blue-500">
+                        <h1 className="text-sm dark:text-zinc-400 flex items-center gap-1 text-blue-500">
                             <FaChevronLeft />
                             Back
                         </h1>
                     </Link>
                     /
-                    <h1 class="text-sm">Create FAQ</h1>
+                    <h1 className="text-sm">Create FAQ</h1>
                 </div>
 
-                <div class="sm:flex sm:items-center sm:justify-between mt-5">
-                    <input type="search" placeholder="Filter by Question" className="input-search" />
-                    <div class="flex items-center justify-between gap-2">
-                        <button class="btn-secondary">
+                <div className="sm:flex sm:items-center sm:justify-between mt-5">
+                    <input type="search" placeholder="Filter by Question" className="input-search w-full md:w-auto" />
+                    <div className="flex items-center justify-between gap-2 mt-2 md:mt-0">
+                        <button className="btn-secondary">
                             Select all
                         </button>
                     </div>
@@ -51,7 +51,7 @@ export default function CreateFAQ() {
 
           <div className="backdrop-blur-md w-full absolute bottom-0 left-0 px-5 py-2 border-t border-zinc-200 flex items-center justify-between">
             <h1 className="text-zinc-600 text-sm"><span className="font-bold text-3xl">20</span> Questions Selected</h1>
-            <button class="btn-primary">
+            <button className="btn-primary">
                 <IoCreate className='text-white font-bold text-lg'/>
                 <span>Generate</span>
             </button>
