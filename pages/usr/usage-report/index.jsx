@@ -7,6 +7,7 @@ import SelectType from "@/components/Knowledge/SelectType";
 import TableKnowledge from "@/components/Knowledge/TableKnowledge";
 import SimulationKnowledge from "@/components/Knowledge/SimulationKnowledge";
 import { MyContext } from "@/context/MyProvider";
+import TableUsageReport from "@/components/UsageReport/TableUsageReport";
 
 
 export default function UsageReport() {
@@ -29,12 +30,14 @@ export default function UsageReport() {
                         <input type="search" className="input-search w-full md:w-auto" placeholder="Search" />
 
                         <div className="md:flex items-center gap-2 mt-2 md:mt-0 space-y-2 md:space-y-0">
-                          <SelectBot />
-                          <SelectType />
+                          {/* <SelectBot /> */}
+                          {/* <SelectType /> */}
+                          <button className="btn-primary">Create Token</button>
                         </div>
                       </div>
                       <div className="mt-5">
-                        <TableKnowledge />
+                        {/* <TableKnowledge /> */}
+                        <TableUsageReport />
                       </div>
                     </div>
                   </div>
