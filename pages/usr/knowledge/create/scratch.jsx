@@ -39,6 +39,8 @@ export default function BlinkScratch() {
                                     </textarea>
                                 </div>
                             </div>
+
+                            <button className='btn-primary'>Submit</button>
                         </div>
                     </div>
                     </div>

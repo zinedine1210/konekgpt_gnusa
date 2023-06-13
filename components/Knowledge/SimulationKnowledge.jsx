@@ -12,7 +12,8 @@ export default function SimulationKnowledge() {
 
     if(context.modal && context.modal == "simulationKnowledge")
   return (
-    <div className="md:block w-full md:w-[400px] h-screen md:h-[840px] border-8 border-black rounded-[50px] bg-white dark:bg-dark dark:border-black px-2 mx-auto outline outline-blue-300 shadow-2xl pb-16 pt-5 relative">
+    <div className="fixed top-0 left-0 z-50 md:block w-full md:w-[400px] h-screen md:h-[840px] md:border-8 border-black md:z-0 md:rounded-[50px] bg-white dark:bg-dark dark:border-black px-2 mx-auto outline outline-blue-300 shadow-2xl pb-16 md:relative">
+        <button className="text-center text-sm text-red-500 w-full py-1" onClick={() => context.setData({...context, modal:null, view:2})}>Tutup Simulasi</button>
         <div className="h-full overflow-y-hidden hover:overflow-y-auto">
             <div className="space-y-2 w-full mx-auto">
                 <div className="flex gap-2">

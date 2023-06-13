@@ -1,20 +1,19 @@
-import Repository from './Repository';
+import Repository, { baseWhatsappUrl } from './Repository';
 import cbor from 'cbor';
-
-const baseUrl = 'https://be1.whatsva.id'
 
 class WhatsappRepository {
     async createSession(params) {
         const data = new URLSearchParams(params).toString();
         // const data = JSON.stringify(params)
         const reponse = await Repository.post(
-            `${baseUrl}/sessions/add`,
+            `${baseWhatsappUrl}/sessions/add`,
             data,
             {
-                headers: {
+                // headers: {
 
-                },
-                contentType:"application/x-www-form-urlencoded",
+                // },
+                contentType:"application/json"
+                // contentType:"application/x-www-form-urlencoded",
                 // responseType: "arraybuffer"
             }
         )
@@ -24,7 +23,7 @@ class WhatsappRepository {
         })
         .catch((error) => {
             // const result = cbor.decode(error.response.data)
-            return error;
+            return error;   
         });
         return reponse;
     }
@@ -32,7 +31,7 @@ class WhatsappRepository {
     async findSession(params){
         // const dataId = new URLSearchParams(params.id).toString();
         const reponse = await Repository.get(
-            `${baseUrl}/sessions/find/${params.id}`,
+            `${baseWhatsappUrl}/sessions/find/${params.id}`,
             {
                 contentType:"application/json"
             }
@@ -42,6 +41,94 @@ class WhatsappRepository {
         })
         .catch((error) => {
             return error
+        });
+        return reponse;
+    }
+
+    async statusSession(params){
+        // const dataId = new URLSearchParams(params.id).toString();
+        const reponse = await Repository.get(
+            `${baseWhatsappUrl}/sessions/status/${params.id}`,
+            {
+                contentType:"application/json"
+            }
+        )
+        .then((response) => {
+            return response.data
+        })
+        .catch((error) => {
+            return error
+        });
+        return reponse;
+    }
+
+    async deleteSession(params){
+        // const dataId = new URLSearchParams(params.id).toString();
+        const reponse = await Repository.delete(
+            `${baseWhatsappUrl}/sessions/delete/${params.id}`,
+            {
+                contentType:"application/json"
+            }
+        )
+        .then((response) => {
+            return response.data
+        })
+        .catch((error) => {
+            return error
+        });
+        return reponse;
+    }
+
+    async getChatList(params){
+        const reponse = await Repository.get(
+            `${baseWhatsappUrl}/chats?id=${params.id}`,
+            {
+                contentType:"application/json"
+            }
+        )
+        .then((response) => {
+            return response.data
+        })
+        .catch((error) => {
+            return error
+        });
+        return reponse;
+    }
+
+    async getDetailChat(params){
+        const reponse = await Repository.get(
+            `${baseWhatsappUrl}/chats/${params.receiverId}?id=${params.id}&limit=100&cursor_id=&cursor_fromMe=true`,
+            {
+                contentType:"application/json"
+            }
+        )
+        .then((response) => {
+            return response.data
+        })
+        .catch((error) => {
+            return error
+        });
+        return reponse;
+    }
+
+    // MESSAGE
+    async sendMessage(params) {
+        const data = new URLSearchParams(params.data).toString();
+        // const data = JSON.stringify(params.data)
+        const reponse = await Repository.post(
+            `${baseWhatsappUrl}/chats/sendMessageText?id=${params.id}`,
+            data,
+            {
+                contentType:"application/json"
+            }
+        )
+        .then((response) => {
+            // const data = cbor.decode(response.data)
+            return response.data;
+        })
+        .catch((error) => {
+            // const result = cbor.decode(error.response.data)
+            return error;   
         });
         return reponse;
     }

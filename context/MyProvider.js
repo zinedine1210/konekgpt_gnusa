@@ -8,7 +8,9 @@ export function MyProvider({children}) {
         "dataDocumentation":null,
         "modal":null,
         "minimize":false,
-        "view":2
+        "view":2,
+        "chatDetail":null,
+        "infoChat":null
     })
 
     return (

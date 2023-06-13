@@ -19,10 +19,10 @@ export default function ChannelType() {
         <label className="px-3 text-xs text-zinc-500 uppercase dark:text-zinc-400">CHANNEL INTEGRATION</label>
 
         <div className="space-y-2 mt-2">
-            <button onClick={() => handlerRedirect("/usr/integration/telegram")} className="w-full hover:bg-zinc-100 transition-all duration-300 py-2 px-3 flex gap-2 cursor-pointer relative items-center">
+            {/* <button onClick={() => handlerRedirect("/usr/integration/telegram")} className="w-full hover:bg-zinc-100 transition-all duration-300 py-2 px-3 flex gap-2 cursor-pointer relative items-center">
                 <FaTelegramPlane className="text-blue-500 text-xl" />
                 <h1>Telegram</h1>
-            </button>
+            </button> */}
             {/* <div className="w-full hover:bg-zinc-100 transition-all duration-300 py-2 px-3 flex gap-2 cursor-pointer relative items-center">
                 <FaInstagram className="text-purple-800 text-xl" />
                 <h1>Instagram</h1>

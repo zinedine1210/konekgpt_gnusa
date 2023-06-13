@@ -24,6 +24,8 @@ const SEO = ({ title, description, image}) => {
       <title>{seo.title}</title>
       <link rel="icon" href="/favicon.ico"/>
       <meta charSet="utf-8"/>
+      <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"></meta>
+      <meta http-equiv="Content-Security-Policy" content="block-all-mixed-content"></meta>
       <meta name="viewport" content="width=device-width, initial-scale=1"/>
       <meta name="image" content={seo.image} />
       <meta name="application-name" content={seo.title} />
