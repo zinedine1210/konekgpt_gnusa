@@ -10,7 +10,9 @@ export function MyProvider({children}) {
         "minimize":false,
         "view":2,
         "chatDetail":null,
-        "infoChat":null
+        "infoChat":null,
+        'allChatList':[],
+        "chatFilter":null
     })
 
     return (

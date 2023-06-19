@@ -1,8 +1,40 @@
-import Layout from "@/components/Layouts/Layout";
 import Seo from "@/components/Seo";
-import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import Swal from "sweetalert2";
 
 export default function Login() {
+    const [step, setStep] = useState(1)
+    const [email, setEmail] = useState("")
+    const [pass, setPass] = useState("")
+    const router = useRouter()
+
+    const handlerSubmit = e => {
+        e.preventDefault()
+
+        if(step == 1){
+            if(email == "admin@gnusa.id"){
+                setStep(2)
+                return true
+            }else{
+                return Swal.fire({
+                    icon:"info",
+                    title:"Not Found"
+                })
+            }
+        }
+
+        if(pass == "Gnusa123" && email == "admin@gnusa.id"){
+            localStorage.setItem("auth", JSON.stringify({"email":"admin@gnusa.id", "password":"Gnusa123"}))
+            router.push("/usr")
+        }else{
+            Swal.fire({
+                icon:"info",
+                title:"Not Found"
+            })
+        }
+    }
+
   return (
     <>
         <Seo 
@@ -32,21 +64,30 @@ export default function Login() {
                     </div>
 
                     <div className="w-full max-w-md mx-auto mt-6">
-                        <form>
-                            <div>
-                                <label className="block mb-2 text-sm text-zinc-600 dark:text-zinc-200">Password</label>
-                                <input type="password" placeholder="Enter your password" className="block w-full px-5 py-3 mt-2 text-zinc-700 placeholder-zinc-400 bg-white border border-zinc-200 rounded-lg dark:placeholder-zinc-600 dark:bg-zinc-900 dark:text-zinc-300 dark:border-zinc-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                        <form onSubmit={(e) => handlerSubmit(e)}>
+                            <div className={`${step == 1 ? "":"hidden"} w-full`}>
+                                <label className="block mb-2 text-sm text-zinc-600 dark:text-zinc-200">Email</label>
+                                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email" className="block w-full px-5 py-3 mt-2 text-zinc-700 placeholder-zinc-400 bg-white border border-zinc-200 rounded-lg dark:placeholder-zinc-600 dark:bg-zinc-900 dark:text-zinc-300 dark:border-zinc-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                            </div>
+                            <div className={`${step == 1 ? "hidden":""} w-full`}>
+                                <div>
+                                    <label className="block mb-2 text-sm text-zinc-600 dark:text-zinc-200">Password</label>
+                                    <input type="password" value={pass} onChange={(e) => setPass(e.target.value)} placeholder="Enter your password" className="block w-full px-5 py-3 mt-2 text-zinc-700 placeholder-zinc-400 bg-white border border-zinc-200 rounded-lg dark:placeholder-zinc-600 dark:bg-zinc-900 dark:text-zinc-300 dark:border-zinc-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                                </div>
+
+                                <a href="#" className="inline-block mt-4 text-blue-500 capitalize hover:underline dark:text-blue-400">
+                                    reset password?
+                                </a>
                             </div>
 
-                            <a href="#" className="inline-block mt-4 text-blue-500 capitalize hover:underline dark:text-blue-400">
-                                reset password?
-                            </a>
-
-                            <Link href={"/usr/inbox"}>
-                                <button className="w-full px-6 py-3 mt-4 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+                            <div className="flex items-center gap-2">
+                                <button type="button" onClick={() => setStep(1)} className={`${step == 2 ? "":"hidden"} w-1/4 px-6 py-3 mt-4 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-500 rounded-lg hover:bg-red-400 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-50`}>
+                                    "Cancel"
+                                </button>
+                                <button type="submit" className={`${step == 1 ? "w-full":"w-3/4"} px-6 py-3 mt-4 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50`}>
                                     “Continue”
                                 </button>
-                            </Link>
+                            </div>
 
                             <div className="mt-6 text-center">
                                 <a href="#" className="text-sm text-blue-500 hover:underline dark:text-blue-400">

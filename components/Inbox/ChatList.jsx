@@ -1,17 +1,16 @@
 import { MyContext } from '@/context/MyProvider'
 import WhatsappRepository from '@/repositories/WhatsappRepository'
-import { getTimeAgo, getTimeDate } from '@/utils/script'
 import _ from 'lodash'
 import React, { useContext, useEffect, useState } from 'react'
-import {FaInstagram, FaTelegramPlane, FaTwitter, FaWhatsapp} from "react-icons/fa"
+import WhatsappChat from './WhatsappChat'
+import Swal from 'sweetalert2'
 
 
 export default function ChatList() {
     const context = useContext(MyContext)
-    const [data, setData] = useState([])
 
     useEffect(() => {
-        if(data.length == 0){
+        if(context.allChatList.length == 0){
             const getWhatsappList = JSON.parse(localStorage.getItem("whatsappList"))
             if(getWhatsappList){
                 const getActiveWhatsappList = getWhatsappList.filter(res => res.active == true)
@@ -20,66 +19,73 @@ export default function ChatList() {
                     getActiveWhatsappList.forEach(async val => {
                         const result = await WhatsappRepository.getChatList({id:val.id})
                         if(result.success){
-                            const value = result.data.slice(0, 20).filter(res => {
-                                let bool = false
-                                if(res?.messages?.[0]?.message?.message?.conversation){
-                                    bool = true
+                            const value = result.data.filter(res => {
+                                if(!res?.messages?.[0]){
+                                    return false
                                 }
-                                return bool
+                                // if(!res?.messages?.[0]?.message?.message?.)
+                                // if(!res?.messages?.[0]?.message?.message?.conversation){
+                                //     return false
+                                // }
+                                if(res?.messages?.[0]?.message?.messageStubType){
+                                    return false
+                                }
+
+                                return true
                             })
                             allWhatsappData = _.sortBy(_.concat(allWhatsappData, value), [o => {
                                 return Number(o.messages[0].message.messageTimestamp)
                             }]).reverse().map(obj => ({...obj, parentId:val.id}))
-                            setData(allWhatsappData)
+                        }else{
+                            Swal.fire({
+                                icon:"info",
+                                title:`Authentication to ${val.id} disconnected`,
+                                text:"Please reconnect it by scanning the qr code on the menu integration - whatsapp"
+                            })
+                            
+                            const getWhatsappList = JSON.parse(localStorage.getItem("whatsappList"))
+                            getWhatsappList.find(res => res.id == val.id)['active'] = false
+                            localStorage.setItem("whatsappList", JSON.stringify(getWhatsappList))
                         }
+                        context.setData({...context, allChatList:allWhatsappData, chatFilter:allWhatsappData})
                     });
+                }else{
+                    context.setData({...context, allChatList:[], chatFilter:[]})
                 }
+            }else{
+                context.setData({...context, allChatList:[], chatFilter:[]})
             }
         }
     }, [])
-
-
-    const handlerDetailChat = async (value) => {
-        const result = await WhatsappRepository.getDetailChat({id:value.parentId, receiverId:value.id})
-        if(result.success){
-            context.setData({...context, view:3, chatDetail:result.data, chatInfo:value})
-        }
-    }
     
   return (
-    <div className="space-y-2 mt-5 md:mt-2 max-h-screen overflow-auto absolute top-0 left-0 w-full pt-14">
-        <label className="block text-sm px-3 md:text-xs text-zinc-500 uppercase dark:text-zinc-400 ">INBOX</label>
+    <div className="max-h-screen overflow-auto absolute top-0 left-0 w-full pt-36">
         
-    {
-        data.length > 0 ?
-        data.map((item, key) => {
-            if(item.hasOwnProperty("messages")){
-                if(item.messages[0].message.message.hasOwnProperty("conversation"))
-                return (
-                    <button key={key} onClick={() => handlerDetailChat(item)} className="text-start w-full hover:bg-zinc-100 transition-all duration-300 border-b p-2 flex gap-2 cursor-pointer relative">
-                        <span className="bg-zinc-200 w-8 h-8 rounded-full flex items-center justify-center">
-                            <FaWhatsapp className='text-green-500 font-bold text-xl'/>
-                        </span>
-                        <div>
-                            <h1 className="text-[15px] font-bold">{"+" + item.id.split("@")[0]}</h1>
-                            {
-                                <p className="text-xs text-zinc-500">{item.messages[0].message.message.conversation.length > 20 ? item.messages[0].message.message.conversation.substring(0, 20) + "..." :item.messages[0].message.message.conversation}</p>
-                            }
-                        </div>
-                        <p className="text-[10px] absolute top-2 right-2">{getTimeAgo(Number(item.messages[0].message.messageTimestamp * 1000))}</p>
-                        {
-                            item.unreadCount ?
-                            <span className="rounded-full bg-green-500 w-5 text-sm font-bold flex items-center justify-center h-5 absolute bottom-2 right-2 text-white ">{item.unreadCount}</span>
-                            :""
-                        }
-                        {/* <FaWhatsapp className="text-green-500 absolute bottom-2 right-10" /> */}
-                    </button>
-                )
-
-            }
-        })
-        :""
-    }
+        {
+            context.chatFilter ?
+            context.chatFilter.length > 0 ?
+                context.chatFilter.map((item, key) => {
+                    return (
+                        <WhatsappChat item={item} key={key}/>
+                    )
+                })
+            :
+            <div className='px-3 text-center'>
+                <h1 className='text-red-500 uppercase text-sm py-2 font-bold'>Any chat not found</h1>
+            </div>
+            :
+            <div className='space-y-1'>
+                {
+                    new Array(20).fill("loading").map((item, key) => {
+                        return (
+                            <div className='py-10 animate-pulse bg-zinc-100 w-full'>
+        
+                            </div>
+                        )
+                    })
+                }
+            </div>
+        }
         {/* <button onClick={() => context.setData({...context, view:3})} className="text-start w-full hover:bg-zinc-100 transition-all duration-300 border-b p-2 flex gap-2 cursor-pointer relative">
             <span className="bg-zinc-200 w-8 h-8 rounded-full flex items-center justify-center">M</span>
             <div className="">

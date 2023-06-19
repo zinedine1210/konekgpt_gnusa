@@ -97,7 +97,7 @@ class WhatsappRepository {
 
     async getDetailChat(params){
         const reponse = await Repository.get(
-            `${baseWhatsappUrl}/chats/${params.receiverId}?id=${params.id}&limit=100&cursor_id=&cursor_fromMe=true`,
+            `${baseWhatsappUrl}/chats/${params.receiverId}?id=${params.id}&limit=${params.limit}&cursor_id=&cursor_fromMe=true`,
             {
                 contentType:"application/json"
             }

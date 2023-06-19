@@ -13,18 +13,18 @@ export default function ModalQRWhatsapp(props) {
 
   useEffect(() => {
     async function getQRCode(valueId){
-      const result = await WhatsappRepository.createSession({id:valueId, panel_domain:baseDomain, isLegacy:false})
+      const result = await WhatsappRepository.createSession({id:valueId, domain:baseDomain, isLegacy:true})
       if(result.success){
         setData(result.data)
       }else{
         if(result.message == "Session already exists, please use another id."){
-          // setId(null)
+          setId(null)
           setData(null)
         }
       }
     }
 
-    if(id || !data){
+    if(id){
       getQRCode(id)
     }
 
@@ -41,7 +41,7 @@ export default function ModalQRWhatsapp(props) {
 
   useEffect(() => {
     const polling = setInterval(() => {
-      if(id){
+      if(data){
         checkStatus(id);
       }
     }, 2000);
@@ -49,7 +49,7 @@ export default function ModalQRWhatsapp(props) {
     return () => {
       clearInterval(polling);
     };
-  }, [id]);
+  }, [data]);
 
   async function checkStatus(id) {
     try {

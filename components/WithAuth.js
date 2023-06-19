@@ -9,7 +9,19 @@ const WithAuth = (WrappedComponent) => {
 
     useEffect(() => {
         // cek kondisi
-        setAuth(true)
+        const getAuth = JSON.parse(localStorage.getItem("auth"))
+
+        if(getAuth){
+          if(getAuth.email == "admin@gnusa.id" && getAuth.password == "Gnusa123"){
+            setAuth("authenticated")
+          }else{
+            setAuth("logout")
+            router.push("/")
+          }
+        }else{
+          setAuth("logout")
+          router.push("/")
+        }
     }, []);
 
     if(auth){
