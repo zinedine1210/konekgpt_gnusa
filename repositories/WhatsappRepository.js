@@ -132,6 +132,111 @@ class WhatsappRepository {
         });
         return reponse;
     }
+
+    async sendImage(params) {
+        const data = new URLSearchParams(params.data).toString();
+        // const data = JSON.stringify(params.data)
+        const reponse = await Repository.post(
+            `${baseWhatsappUrl}/chats/sendimageURL?id=${params.id}`,
+            data,
+            {
+                contentType:"application/json"
+            }
+        )
+        .then((response) => {
+            // const data = cbor.decode(response.data)
+            return response.data;
+        })
+        .catch((error) => {
+            // const result = cbor.decode(error.response.data)
+            return error;   
+        });
+        return reponse;
+    }
+
+    async sendVideo(params) {
+        const data = new URLSearchParams(params.data).toString();
+        // const data = JSON.stringify(params.data)
+        const reponse = await Repository.post(
+            `${baseWhatsappUrl}/chats/sendVideoUrl?id=${params.id}`,
+            data,
+            {
+                contentType:"application/json"
+            }
+        )
+        .then((response) => {
+            // const data = cbor.decode(response.data)
+            return response.data;
+        })
+        .catch((error) => {
+            // const result = cbor.decode(error.response.data)
+            return error;   
+        });
+        return reponse;
+    }
+
+    async sendDocument(params) {
+        const data = new URLSearchParams(params.data).toString();
+        // const data = JSON.stringify(params.data)
+        const reponse = await Repository.post(
+            `${baseWhatsappUrl}/chats/sendDocumentUrl?id=${params.id}`,
+            data,
+            {
+                contentType:"application/json"
+            }
+        )
+        .then((response) => {
+            // const data = cbor.decode(response.data)
+            return response.data;
+        })
+        .catch((error) => {
+            // const result = cbor.decode(error.response.data)
+            return error;   
+        });
+        return reponse;
+    }
+
+    async sendContact(params) {
+        const data = new URLSearchParams(params.data).toString();
+        // const data = JSON.stringify(params.data)
+        const reponse = await Repository.post(
+            `${baseWhatsappUrl}/chats/sendVCard?id=${params.id}`,
+            data,
+            {
+                contentType:"application/json"
+            }
+        )
+        .then((response) => {
+            // const data = cbor.decode(response.data)
+            return response.data;
+        })
+        .catch((error) => {
+            // const result = cbor.decode(error.response.data)
+            return error;   
+        });
+        return reponse;
+    }
+
+    async checkNumber(params) {
+        const data = new URLSearchParams(params.data).toString();
+        // const data = JSON.stringify(params.data)
+        const reponse = await Repository.post(
+            `${baseWhatsappUrl}/chats/checkNumber?id=${params.id}`,
+            data,
+            {
+                contentType:"application/json"
+            }
+        )
+        .then((response) => {
+            // const data = cbor.decode(response.data)
+            return response.data;
+        })
+        .catch((error) => {
+            // const result = cbor.decode(error.response.data)
+            return error;   
+        });
+        return reponse;
+    }
 }
 
 export default new WhatsappRepository();

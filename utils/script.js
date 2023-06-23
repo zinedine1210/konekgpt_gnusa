@@ -54,10 +54,10 @@ export function getTimeAgo(timestamp) {
 
   if (seconds < 60) {
     return 'Baru saja';
-  } else if (minutes < 60) {
-    return getTimeDate(timestamp);
+  } else if (hours < 1) {
+    return `${minutes} menit yang lalu`;
   } else if (hours < 24) {
-    return `${hours} jam yang lalu`;
+    return getTimeDate(timestamp);
   } else if (days < 30) {
     return getValue(timestamp);
   } else if (months < 12) {

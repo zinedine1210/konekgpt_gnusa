@@ -13,7 +13,7 @@ export default function ModalSingleContact() {
   ]
 
   return (
-    <div className="fixed w-full h-screen bg-black bg-opacity-40 overflow-y-auto left-0 top-0 z-50 flex items-center justify-center">
+    <div className="fixed w-full h-screen bg-black backdrop-blur-md bg-opacity-40 overflow-y-auto left-0 top-0 z-50 flex items-center justify-center">
         <div className="bg-white w-full md:w-1/4 mx-auto rounded-md p-5">
           <div className="flex items-center justify-between">
             <h1 className="font-bold">Add New Contact</h1>

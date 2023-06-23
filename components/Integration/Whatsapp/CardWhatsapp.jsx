@@ -31,32 +31,65 @@ export default function CardWhatsapp(props) {
     }, [])
 
     const handlerDeleteSession = () => {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-          }).then((result) => {
-            if (result.isConfirmed) {
-                // WhatsappRepository.deleteSession({id:props.item.id}).then(res => {
-                //     console.log(res);
-                // })
-                const getWhatsappList = JSON.parse(localStorage.getItem("whatsappList"))
-                const deleteData = getWhatsappList.filter(res => {
-                    return res.id != props.item.id
-                })
+        console.log(status);
+        if(status == "authenticated"){
+            Swal.fire({
+                title: 'This number is still authenticated',
+                text: "are you sure you want to delete it?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    WhatsappRepository.deleteSession({id:props.item.id}).then(res => {
+                        console.log(res);
+                        if(res.success){
+                            const getWhatsappList = JSON.parse(localStorage.getItem("whatsappList"))
+                            const deleteData = getWhatsappList.filter(res => {
+                                return res.id != props.item.id
+                            })
 
-                localStorage.setItem("whatsappList", JSON.stringify(deleteData))
-              Swal.fire(
-                'Deleted!',
-                'Your session has been deleted.',
-                'success'
-              )
-            }
-        })
+                            localStorage.setItem("whatsappList", JSON.stringify(deleteData))
+
+                            Swal.fire(
+                                'Deleted!',
+                                'Your session has been deleted.',
+                                'success'
+                            )
+                        }
+                    })
+                }else{
+                    return false
+                }
+            })
+        }else{
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    const getWhatsappList = JSON.parse(localStorage.getItem("whatsappList"))
+                    const deleteData = getWhatsappList.filter(res => {
+                        return res.id != props.item.id
+                    })
+        
+                    localStorage.setItem("whatsappList", JSON.stringify(deleteData))
+    
+                    Swal.fire(
+                        'Deleted!',
+                        'Your session has been deleted.',
+                        'success'
+                    )
+                }
+            })
+        }
     }
 
     const handlerActive = () => {

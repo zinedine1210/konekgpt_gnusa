@@ -16,9 +16,19 @@ export default function WhatsappChat({item}) {
         const result = await WhatsappRepository.getDetailChat({id:value.parentId, receiverId:value.id, limit:200})
         // console.log("getdetailfirst", result.data.reverse());
         if(result.success){
-            console.log(result.data);
+            const filtering = result.data.filter(res => {
+            if(!res?.message?.stikerMessage){
+                    return false
+                }
+                // if(res?.messageStubType){
+                //     return true
+                // }
+                return true
+            })
+            console.log(filtering);
+            console.log("mantap", result.data);
             value.unreadCount = 0
-            // context.setData({...context, view:3, chatDetail:result.data, chatInfo:value})
+            context.setData({...context, view:3, chatDetail:result.data, chatInfo:value})
         }else{
             Swal.fire({
                 icon:"error",

@@ -3,6 +3,7 @@ import { baseDomain } from '@/repositories/Repository'
 import WhatsappRepository from '@/repositories/WhatsappRepository'
 import React, { useContext, useEffect, useState } from 'react'
 import { HiX } from 'react-icons/hi'
+import Swal from 'sweetalert2'
 
 
 export default function ModalQRWhatsapp(props) {
@@ -13,13 +14,18 @@ export default function ModalQRWhatsapp(props) {
 
   useEffect(() => {
     async function getQRCode(valueId){
-      const result = await WhatsappRepository.createSession({id:valueId, domain:baseDomain, isLegacy:true})
+      const result = await WhatsappRepository.createSession({id:valueId, domain:baseDomain, isLegacy:false})
       if(result.success){
         setData(result.data)
       }else{
         if(result.message == "Session already exists, please use another id."){
-          setId(null)
+          // setId(null)
           setData(null)
+          Swal.fire({
+            icon:"info",
+            title:"Session already exist",
+            text:"Please try again later"
+          })
         }
       }
     }
@@ -88,7 +94,7 @@ export default function ModalQRWhatsapp(props) {
 
 
   return (
-    <div className="fixed w-full h-screen bg-black bg-opacity-40 overflow-y-auto left-0 top-0 z-50 flex items-center justify-center">
+    <div className="fixed w-full h-screen bg-black backdrop-blur-md bg-opacity-40 overflow-y-auto left-0 top-0 z-50 flex items-center justify-center">
       {
         connect ?
           <div id="wifi-loader">
@@ -131,7 +137,7 @@ export default function ModalQRWhatsapp(props) {
                     </ul>
                   </div>
                   :
-                  <div className='bg-zinc-200 animate-pulse w-96 h-96 mx-auto'>
+                  <div className='bg-zinc-200 animate-pulse w-full h-96 mx-auto'>
 
                   </div>
                 }

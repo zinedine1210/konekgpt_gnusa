@@ -18,6 +18,7 @@ export default function ChatList() {
                     let allWhatsappData = []
                     getActiveWhatsappList.forEach(async val => {
                         const result = await WhatsappRepository.getChatList({id:val.id})
+                        // console.log("datalist", result.data);
                         if(result.success){
                             const value = result.data.filter(res => {
                                 if(!res?.messages?.[0]){
@@ -56,7 +57,7 @@ export default function ChatList() {
                 context.setData({...context, allChatList:[], chatFilter:[]})
             }
         }
-    }, [])
+    }, [context])
     
   return (
     <div className="max-h-screen overflow-auto absolute top-0 left-0 w-full pt-36">
