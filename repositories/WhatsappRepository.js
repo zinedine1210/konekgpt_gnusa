@@ -237,6 +237,22 @@ class WhatsappRepository {
         });
         return reponse;
     }
+
+    async getGroupList(params){
+        const reponse = await Repository.get(
+            `${baseWhatsappUrl}/groups?id=${params.id}`,
+            {
+                contentType:"application/json"
+            }
+        )
+        .then((response) => {
+            return response.data
+        })
+        .catch((error) => {
+            return error
+        });
+        return reponse;
+    }
 }
 
 export default new WhatsappRepository();

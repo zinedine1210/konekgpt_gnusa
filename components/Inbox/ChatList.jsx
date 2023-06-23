@@ -4,6 +4,7 @@ import _ from 'lodash'
 import React, { useContext, useEffect, useState } from 'react'
 import WhatsappChat from './WhatsappChat'
 import Swal from 'sweetalert2'
+import WhatsappGroup from './WhatsappGroup'
 
 
 export default function ChatList() {
@@ -18,25 +19,33 @@ export default function ChatList() {
                     let allWhatsappData = []
                     getActiveWhatsappList.forEach(async val => {
                         const result = await WhatsappRepository.getChatList({id:val.id})
-                        // console.log("datalist", result.data);
-                        if(result.success){
-                            const value = result.data.filter(res => {
+                        const groupResult = await WhatsappRepository.getGroupList({id:val.id})
+
+                        if(result.success && groupResult.success){
+                            
+                            const value = result.data.slice(0, 50).filter(res => {
                                 if(!res?.messages?.[0]){
                                     return false
                                 }
-                                // if(!res?.messages?.[0]?.message?.message?.)
-                                // if(!res?.messages?.[0]?.message?.message?.conversation){
-                                //     return false
-                                // }
-                                if(res?.messages?.[0]?.message?.messageStubType){
+                                if(res?.messages?.[0]?.message?.messageStubType && res?.messages?.[0]?.message?.messageStubType != "REVOKE"){
                                     return false
                                 }
 
                                 return true
                             })
-                            allWhatsappData = _.sortBy(_.concat(allWhatsappData, value), [o => {
+                            
+                            const groupValue = groupResult.data.slice(0, 20).filter(res => {
+                                return true
+                            }).map(obj => ({...obj, type:"group"}))
+
+                            console.log(groupValue);
+
+                            allWhatsappData = _.concat(value, groupValue)
+
+                            allWhatsappData = _.sortBy(allWhatsappData, [o => {
                                 return Number(o.messages[0].message.messageTimestamp)
                             }]).reverse().map(obj => ({...obj, parentId:val.id}))
+
                         }else{
                             Swal.fire({
                                 icon:"info",
@@ -66,6 +75,11 @@ export default function ChatList() {
             context.chatFilter ?
             context.chatFilter.length > 0 ?
                 context.chatFilter.map((item, key) => {
+                    if(item.type == "group"){
+                        return (
+                            <WhatsappGroup item={item} key={key}/>
+                        )
+                    }
                     return (
                         <WhatsappChat item={item} key={key}/>
                     )

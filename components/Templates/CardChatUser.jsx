@@ -13,6 +13,11 @@ export default function CardChatUser({dataChat, index}){
                 <h1 className="text-zinc-500 text-sm py-1">{dataChat.data.pushName ?? "+"+dataChat.data.key.remoteJid.split("@")[0]}</h1>
             :"" :""}
 
+            {index > 0 ? context.chatDetail[index - 1].data?.participant != dataChat.data?.participant ? 
+                <h1 className="text-zinc-500 text-sm py-1">{dataChat.data.pushName ?? "+"+dataChat.data?.participant.split("@")[0]}</h1>
+            :"" :""}
+
+
             <div className="space-y-2">
                 {
                     dataChat.data?.messageStubType == "CALL_MISSED_VOICE" ?
