@@ -7,16 +7,17 @@ import Swal from 'sweetalert2'
 import WhatsappGroup from './WhatsappGroup'
 
 
-export default function ChatList() {
+export default function ChatList(props) {
     const context = useContext(MyContext)
 
     useEffect(() => {
-        if(context.allChatList.length == 0){
+        if(!context.allChatList){
             const getWhatsappList = JSON.parse(localStorage.getItem("whatsappList"))
             if(getWhatsappList){
                 const getActiveWhatsappList = getWhatsappList.filter(res => res.active == true)
                 if(getActiveWhatsappList.length > 0){
                     let allWhatsappData = []
+                    let getKontak = []
                     getActiveWhatsappList.forEach(async val => {
                         const result = await WhatsappRepository.getChatList({id:val.id})
                         const groupResult = await WhatsappRepository.getGroupList({id:val.id})
@@ -33,17 +34,18 @@ export default function ChatList() {
 
                                 return true
                             })
+
+                            // get all number for kontak
+                            getKontak = _.concat(value.map(obj => ({number:obj.id, parentId:val.id})), getKontak)
                             
                             const groupValue = groupResult.data.slice(0, 20).filter(res => {
                                 return true
                             }).map(obj => ({...obj, type:"group"}))
 
-                            console.log(groupValue);
-
                             allWhatsappData = _.concat(value, groupValue)
 
                             allWhatsappData = _.sortBy(allWhatsappData, [o => {
-                                return Number(o.messages[0].message.messageTimestamp)
+                                return Number(o?.messages?.[0]?.message?.messageTimestamp)
                             }]).reverse().map(obj => ({...obj, parentId:val.id}))
 
                         }else{
@@ -57,31 +59,45 @@ export default function ChatList() {
                             getWhatsappList.find(res => res.id == val.id)['active'] = false
                             localStorage.setItem("whatsappList", JSON.stringify(getWhatsappList))
                         }
-                        context.setData({...context, allChatList:allWhatsappData, chatFilter:allWhatsappData})
+                        context.setData({...context, allChatList:allWhatsappData, allContact:getKontak})
                     });
                 }else{
-                    context.setData({...context, allChatList:[], chatFilter:[]})
+                    context.setData({...context, allChatList:[]})
                 }
             }else{
-                context.setData({...context, allChatList:[], chatFilter:[]})
+                context.setData({...context, allChatList:[]})
             }
         }
-    }, [context])
+    }, [context.allChatList])
+
+    console.log(context.allChatList);
     
   return (
     <div className="max-h-screen overflow-auto absolute top-0 left-0 w-full pt-36">
         
         {
-            context.chatFilter ?
-            context.chatFilter.length > 0 ?
-                context.chatFilter.map((item, key) => {
+            context.allChatList ?
+            context.allChatList.length > 0 ?
+                context.allChatList.filter(res => {
+                    if(props.keyword != ""){
+                        if(res?.messages?.[0]?.message?.message?.conversation && res?.messages?.[0]?.message?.message?.conversation.toLowerCase().includes(props.keyword.toLowerCase())){
+                            return true
+                        }
+                        if(res.id.split("@")[0].includes(props.keyword)){
+                            return true
+                        }
+                        return false
+                    }else{
+                        return true
+                    }
+                }).map((item, key) => {
                     if(item.type == "group"){
                         return (
                             <WhatsappGroup item={item} key={key}/>
                         )
                     }
                     return (
-                        <WhatsappChat item={item} key={key}/>
+                    <WhatsappChat item={item} key={key}/>
                     )
                 })
             :
@@ -93,7 +109,7 @@ export default function ChatList() {
                 {
                     new Array(20).fill("loading").map((item, key) => {
                         return (
-                            <div className='py-10 animate-pulse bg-zinc-100 w-full'>
+                            <div key={key} className='py-10 animate-pulse bg-zinc-100 w-full'>
         
                             </div>
                         )

@@ -3,7 +3,7 @@ import WhatsappRepository from '@/repositories/WhatsappRepository'
 import { getTimeAgo } from '@/utils/script'
 import React, { useContext } from 'react'
 import { BsCheck2Circle, BsReply } from 'react-icons/bs'
-import { FaImage, FaWhatsapp } from 'react-icons/fa'
+import { FaImage } from 'react-icons/fa'
 import { HiUserGroup, HiVideoCamera } from 'react-icons/hi'
 import { IoDocument } from 'react-icons/io5'
 import Swal from 'sweetalert2'
@@ -12,12 +12,11 @@ export default function WhatsappGroup({item}) {
     const context = useContext(MyContext)
 
     const handlerDetailChat = async (value) => {
-        context.setData({...context, view:3, chatDetail:null, chatInfo:null})
         const result = await WhatsappRepository.getDetailChat({id:value.parentId, receiverId:value.id, limit:200})
         // console.log("getdetailfirst", result.data.reverse());
         if(result.success){
             const filtering = result.data.slice(0, 50).filter(res => {
-            if(!res?.message?.stikerMessage){
+                if(res?.message?.stikerMessage){
                     return false
                 }
                 // if(res?.messageStubType){
@@ -25,10 +24,9 @@ export default function WhatsappGroup({item}) {
                 // }
                 return true
             })
-            console.log(filtering);
-            console.log("mantap", result.data);
+            console.log(result.data);
             value.unreadCount = 0
-            context.setData({...context, view:3, chatDetail:result.data, chatInfo:value})
+            context.setData({...context, view:3, chatDetail:filtering, infoChat:value, detailContact:null, modal:null})
         }else{
             Swal.fire({
                 icon:"error",
@@ -38,7 +36,7 @@ export default function WhatsappGroup({item}) {
         }
     }
 
-    const dataChat = item.messages[0].message.message
+    const dataChat = item.messages?.[0].message.message
     
   return (
     <button onClick={() => handlerDetailChat(item)} className="text-start w-full hover:bg-zinc-100 transition-all duration-300 border-b p-2 flex gap-2 cursor-pointer relative">
@@ -93,8 +91,13 @@ export default function WhatsappGroup({item}) {
                 </p>
                 :""
             }
+            {
+                dataChat?.type == "new" ?
+                    <p className='text-green-500 text-sm'>New Group</p>
+                :""
+            }
         </div>
-        <p className="text-[10px] absolute top-2 right-2">{getTimeAgo(Number(item.messages[0].message.messageTimestamp * 1000))}</p>
+        <p className="text-[10px] absolute top-2 right-2">{getTimeAgo(Number(item.messages?.[0].message.messageTimestamp * 1000))}</p>
         {
             item.unreadCount ?
             <span className="rounded-full bg-green-500 w-5 text-sm font-bold flex items-center justify-center h-5 absolute bottom-2 right-2 text-white ">{item.unreadCount}</span>

@@ -8,6 +8,7 @@ export default function ModalSendImage() {
     const [data, setData] = useState("")
     const [caption, setCaption] = useState("")
     const [step, setStep] = useState(1)
+    const modal = context.modal
 
     const handlerSubmit = async () => {
         if(step == 1){
@@ -15,21 +16,38 @@ export default function ModalSendImage() {
             return false
         }
 
-        const jidUser = context.chatInfo.id.split("@")[0]
-        const result = await WhatsappRepository.sendImage({id:context.chatInfo.parentId, data:{jid:jidUser, imageUrl:data, caption:caption}})
-        console.log(result);
-        if(result.success){
-            // context.chatInfo.messages[0].message.message.imageMessage.caption = caption
-            context.chatDetail.push({data:result.data, file_url:data})
-            setData("")
-            setCaption("")
-            context.setData({...context, chatDetail:context.chatDetail, chatInfo:context.chatInfo})
-            context.setData({...context, modal:null})
-        }
-    }
+        const jidUser = context.infoChat.id
+        let obj = {jid:jidUser, imageUrl:data, caption:caption}
 
-    if(context.modal)
-    if(context.modal == "modalsendimage")
+        // GROUP
+        if(modal && modal.type == "group"){
+            obj['instance_key'] = context.infoChat.parentId
+            const result = await WhatsappRepository.sendGroupImage({id:context.infoChat.parentId, data:obj})
+            console.log(result);
+            if(result.success){
+                context.infoChat.messages[0].message = result.data
+                context.chatDetail.push({data:result.data, file_url:data})
+                setData("")
+                setCaption("")
+                context.setData({...context, chatDetail:context.chatDetail, infoChat:context.infoChat})
+                context.setData({...context, modal:null})
+            }
+        }else{
+            obj['jid'] = obj['jid'].split("@")[0]
+            const result = await WhatsappRepository.sendImage({id:context.infoChat.parentId, data:obj})
+            console.log(result);
+            if(result.success){
+                context.infoChat.messages[0].message = result.data
+                context.chatDetail.push({data:result.data, file_url:data})
+                setData("")
+                setCaption("")
+                context.setData({...context, chatDetail:context.chatDetail, infoChat:context.infoChat})
+                context.setData({...context, modal:null})
+            }
+        }
+        
+    }
+    
     return (
         <div className="absolute w-full h-screen bg-black backdrop-blur-sm bg-opacity-40 overflow-y-auto left-0 top-0 z-30 flex items-center justify-center">
             <div className="bg-white w-full md:w-1/2 mx-auto rounded-md p-5">

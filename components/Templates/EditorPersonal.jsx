@@ -7,7 +7,7 @@ import { IoDocument, IoImage, IoLocation } from 'react-icons/io5'
 import { TfiClip } from 'react-icons/tfi'
 import Swal from 'sweetalert2'
 
-export default function Editor() {
+export default function EditorPersonal(props) {
     const [data, setData] = useState("")
     const [loading, setLoading] = useState(false)
     const context = useContext(MyContext)
@@ -34,14 +34,17 @@ export default function Editor() {
     const handlerSubmit = async e => {
         e.preventDefault()
         setLoading(true)
-        // console.log(context.chatInfo);
-        const result = await WhatsappRepository.sendMessage({id:context.chatInfo.parentId, data:{message:data, jid:context.chatInfo.id.split("@")[0]}})
+        // console.log(context.infoChat);
+        const result = await WhatsappRepository.sendMessage({id:context.infoChat.parentId, data:{message:data, jid:context.infoChat.id.split("@")[0]}})
         console.log(result);
         if(result.success){
-            context.chatInfo.messages[0].message.message.conversation = data
+            context.infoChat.messages[0].message = result.data
             context.chatDetail.push({data:result.data})
             setData("")
-            context.setData({...context, chatDetail:context.chatDetail, chatInfo:context.chatInfo})
+            context.setData({...context, chatDetail:context.chatDetail, infoChat:context.infoChat})
+
+            await waitForSomeTime()
+            props.ScrollOnTop()
         }else{
             Swal.fire({
                 icon:"error",
@@ -53,22 +56,28 @@ export default function Editor() {
         setLoading(false)
     }
 
+    function waitForSomeTime() {
+        return new Promise((resolve) => {
+          setTimeout(resolve, 100); // Menunggu 3 detik
+        });
+    }
+
   return (
     <>
     
         <div className='flex items-center gap-2'>
             <div ref={dropRef} className='relative'>
                 <div className={`${open ? "visible opacity-100 translate-y-0":"invisible opacity-0 translate-y-5"} transition-all duration-300 translate-y-0 absolute bottom-full mb-5 w-full grid grid-cols-1 gap-3`}>
-                    <button onClick={() => context.setData({...context, modal:"modalsendimage"})} className='w-full h-auto rounded-md flex items-center justify-center p-2 hover:bg-amber-200 bg-amber-100 shadow-lg'>
+                    <button onClick={() => context.setData({...context, modal:{type:"personal", name:"modalsendimage"}})} className='w-full h-auto rounded-md flex items-center justify-center p-2 hover:bg-amber-200 bg-amber-100 shadow-lg'>
                         <IoImage className='text-amber-600 text-2xl'/>
                     </button>
-                    <button onClick={() => context.setData({...context, modal:"modalsenddocument"})} className='w-full h-auto rounded-md flex items-center justify-center p-2 hover:bg-lime-200 bg-lime-100 shadow-lg'>
+                    <button onClick={() => context.setData({...context, modal:{type:"personal", name:"modalsenddocument"}})} className='w-full h-auto rounded-md flex items-center justify-center p-2 hover:bg-lime-200 bg-lime-100 shadow-lg'>
                         <IoDocument className='text-lime-600 text-2xl'/>
                     </button>
-                    <button onClick={() => context.setData({...context, modal:"modalsendvideo"})} className='w-full h-auto rounded-md flex items-center justify-center p-2 hover:bg-cyan-200 bg-cyan-100 shadow-lg'>
+                    <button onClick={() => context.setData({...context, modal:{type:"personal", name:"modalsendvideo"}})} className='w-full h-auto rounded-md flex items-center justify-center p-2 hover:bg-cyan-200 bg-cyan-100 shadow-lg'>
                         <FaVideo className='text-cyan-600 text-2xl'/>
                     </button>
-                    <button onClick={() => context.setData({...context, modal:"modalsendcontact"})} className='w-full h-auto rounded-md flex items-center justify-center p-2 hover:bg-rose-200 bg-rose-100 shadow-lg'>
+                    <button onClick={() => context.setData({...context, modal:{type:"personal", name:"modalsendcontact"}})} className='w-full h-auto rounded-md flex items-center justify-center p-2 hover:bg-rose-200 bg-rose-100 shadow-lg'>
                         <FaUser className='text-rose-600 text-2xl'/>
                     </button>
                     <button className='w-full h-auto rounded-md flex items-center justify-center p-2 hover:bg-indigo-200 bg-indigo-100 shadow-lg'>

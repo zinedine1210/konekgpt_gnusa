@@ -43,6 +43,17 @@ a {
   .user-avatar {
     @apply flex items-center justify-center rounded-full shadow-md font-bold
   }
+
+  .editable-text {
+    @apply inline-block dark:focus:bg-black dark:hover:bg-black py-0.5 rounded-sm focus:outline-none hover:bg-zinc-100 focus:bg-zinc-200 duration-300 transition-colors editable;
+  }
+}
+
+
+.editable:empty:before {
+  content: attr(data-placeholder);
+  color: #9e9e9e;
+  font-weight: 400;
 }
 
 /* width */

@@ -1,11 +1,7 @@
-import SelectBot from "@/components/Knowledge/SelectBot";
 import Layout from "../../../components/Layouts/Layout";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { Suspense, useContext, useState } from "react";
-import SelectType from "@/components/Knowledge/SelectType";
-import TableKnowledge from "@/components/Knowledge/TableKnowledge";
-import SimulationKnowledge from "@/components/Knowledge/SimulationKnowledge";
+import { Suspense, useContext } from "react";
 import { MyContext } from "@/context/MyProvider";
 import TableUsageReport from "@/components/UsageReport/TableUsageReport";
 

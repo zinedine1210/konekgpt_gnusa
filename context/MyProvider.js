@@ -11,8 +11,10 @@ export function MyProvider({children}) {
         "view":2,
         "chatDetail":null,
         "infoChat":null,
-        'allChatList':[],
-        "chatFilter":null
+        'allChatList':null,
+        "chatFilter":null,
+        "AllContact":[],
+        "detailContact":null
     })
 
     return (

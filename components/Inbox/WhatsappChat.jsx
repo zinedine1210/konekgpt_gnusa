@@ -12,12 +12,11 @@ export default function WhatsappChat({item}) {
     const context = useContext(MyContext)
 
     const handlerDetailChat = async (value) => {
-        context.setData({...context, view:3, chatDetail:null, chatInfo:null})
         const result = await WhatsappRepository.getDetailChat({id:value.parentId, receiverId:value.id, limit:200})
         // console.log("getdetailfirst", result.data.reverse());
         if(result.success){
             const filtering = result.data.filter(res => {
-            if(!res?.message?.stikerMessage){
+                if(res?.message?.stikerMessage){
                     return false
                 }
                 // if(res?.messageStubType){
@@ -25,10 +24,8 @@ export default function WhatsappChat({item}) {
                 // }
                 return true
             })
-            console.log(filtering);
-            console.log("mantap", result.data);
             value.unreadCount = 0
-            context.setData({...context, view:3, chatDetail:result.data, chatInfo:value})
+            context.setData({...context, view:3, chatDetail:filtering, infoChat:value, detailContact:null, modal:null})
         }else{
             Swal.fire({
                 icon:"error",

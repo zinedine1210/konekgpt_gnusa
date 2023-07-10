@@ -30,7 +30,7 @@ export default function WhatsappList() {
     {
         context.modal ?
         context.modal.name == "QRWhatsapp" ?
-            <ModalQRWhatsapp defaultId={context.modal.id}/>
+            <ModalQRWhatsapp defaultId={context.modal.id} defaultStep={context.modal.step}/>
         :""
         :""
     }

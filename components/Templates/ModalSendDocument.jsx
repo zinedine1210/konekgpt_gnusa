@@ -8,6 +8,7 @@ export default function ModalSendDocument() {
     const [data, setData] = useState("")
     const [caption, setCaption] = useState("")
     const [step, setStep] = useState(1)
+    const modal = context.modal
 
     const handlerSubmit = async () => {
         if(step == 1){
@@ -15,22 +16,38 @@ export default function ModalSendDocument() {
             return false
         }
 
-        const jidUser = context.chatInfo.id.split("@")[0]
+        const jidUser = context.infoChat.id
+        let obj = {instance_key:context.infoChat.parentId, jid:jidUser, documentUrl:data}
 
-        const result = await WhatsappRepository.sendDocument({id:context.chatInfo.parentId, data:{instance_key:context.chatInfo.parentId, jid:jidUser, documentUrl:data}})
-        console.log(result);
-        if(result.success){
-            // context.chatInfo.messages[0].message.message.videoMessage.caption = caption
-            context.chatDetail.push({data:result.data, file_url:data})
-            setData("")
-            setCaption("")
-            context.setData({...context, chatDetail:context.chatDetail, chatInfo:context.chatInfo})
-            context.setData({...context, modal:null})
+        if(modal && modal.type == "group"){
+            const result = await WhatsappRepository.sendGroupDocument({id:context.infoChat.parentId, data:obj})
+            console.log(result);
+            if(result.success){
+                context.infoChat.messages[0].message = result.data
+                context.chatDetail.push({data:result.data, file_url:data})
+                setData("")
+                setCaption("")
+                context.setData({...context, chatDetail:context.chatDetail, infoChat:context.infoChat})
+                context.setData({...context, modal:null})
+            }
+        }else{
+            obj['jid'] = obj['jid'].split("@")[0]
+            const result = await WhatsappRepository.sendDocument({id:context.infoChat.parentId, data:obj})
+            console.log(result);
+            if(result.success){
+                context.infoChat.messages[0].message = result.data
+                context.chatDetail.push({data:result.data, file_url:data})
+                setData("")
+                setCaption("")
+                context.setData({...context, chatDetail:context.chatDetail, infoChat:context.infoChat})
+                context.setData({...context, modal:null})
+            }
         }
+
     }
 
     if(context.modal)
-    if(context.modal == "modalsenddocument")
+    if(context.modal.name == "modalsenddocument")
     return (
         <div className="absolute w-full h-screen bg-black backdrop-blur-sm bg-opacity-40 overflow-y-auto left-0 top-0 z-30 flex items-center justify-center">
             <div className="bg-white w-full md:w-1/2 mx-auto rounded-md p-5">

@@ -25,10 +25,8 @@ export default function CardWhatsapp(props) {
         }
 
 
-        if(!status){
-            getStatus()
-        }
-    }, [])
+        getStatus()
+    }, [context.modal])
 
     const handlerDeleteSession = () => {
         console.log(status);
@@ -107,7 +105,7 @@ export default function CardWhatsapp(props) {
 
     const handlerCheck = () => {
         if(status == "disconnected"){
-            context.setData({...context, modal:{name:"QRWhatsapp", id:props.item.id}})
+            context.setData({...context, modal:{name:"QRWhatsapp", id:props.item.id, step:2}})
         }else{
             handlerActive()
         }

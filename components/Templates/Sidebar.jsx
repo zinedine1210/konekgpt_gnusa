@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useContext, useEffect, useRef, useState } from "react";
-import {BsArrowLeft, BsCheckCircle, BsFillFileEarmarkPdfFill, BsInbox, BsTrashFill} from "react-icons/bs"
+import {BsArrowLeft, BsCheckCircle, BsFillFileEarmarkPdfFill, BsInbox, BsPlugin, BsTrashFill} from "react-icons/bs"
 import { HiOutlinePuzzle, HiOutlineSpeakerphone, HiOutlineUsers } from "react-icons/hi";
 import {IoLink} from "react-icons/io5"
 import MinSidebar from "./MinSidebar";
@@ -80,10 +80,15 @@ export default function Sidebar() {
 
                             <span className="mx-2 text-sm font-medium">FAQ Builder</span>
                         </button>
-                        <button onClick={() => handlerRedirect("/usr/integration")} className={`${router.asPath == "/usr/integration" ? "bg-blue-100":"hover:bg-zinc-100 dark:hover:bg-zinc-800 dark:hover:text-zinc-200 hover:text-zinc-700"} w-full flex items-center px-3 py-2 text-zinc-600 transition-colors duration-300 transform rounded-lg dark:text-zinc-200`}>
+                        <button onClick={() => handlerRedirect("/usr/integration/whatsapp")} className={`${router.asPath == "/usr/integration/whatsapp" ? "bg-blue-100":"hover:bg-zinc-100 dark:hover:bg-zinc-800 dark:hover:text-zinc-200 hover:text-zinc-700"} w-full flex items-center px-3 py-2 text-zinc-600 transition-colors duration-300 transform rounded-lg dark:text-zinc-200`}>
                             <HiOutlinePuzzle className="w-5 h-5"/>
 
                             <span className="mx-2 text-sm font-medium">Integration</span>
+                        </button>
+                        <button onClick={() => handlerRedirect("/usr/add-ons")} className={`${router.asPath == "/usr/add-ons" ? "bg-blue-100":"hover:bg-zinc-100 dark:hover:bg-zinc-800 dark:hover:text-zinc-200 hover:text-zinc-700"} w-full flex items-center px-3 py-2 text-zinc-600 transition-colors duration-300 transform rounded-lg dark:text-zinc-200`}>
+                            <BsPlugin className="w-5 h-5"/>
+
+                            <span className="mx-2 text-sm font-medium">Add Ons</span>
                         </button>
                         <button onClick={() => handlerRedirect("/usr/usage-report")} className={`${router.asPath == "/usr/usage-report" ? "bg-blue-100":"hover:bg-zinc-100 dark:hover:bg-zinc-800 dark:hover:text-zinc-200 hover:text-zinc-700"} w-full flex items-center px-3 py-2 text-zinc-600 transition-colors duration-300 transform rounded-lg dark:text-zinc-200`}>
                             <FaTasks className="w-5 h-5"/>

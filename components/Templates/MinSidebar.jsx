@@ -2,7 +2,7 @@ import { MyContext } from "@/context/MyProvider";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext } from "react";
-import { BsArrowRight, BsCheckCircle, BsChevronRight, BsInbox } from "react-icons/bs";
+import { BsArrowRight, BsCheckCircle, BsChevronRight, BsInbox, BsPlugin } from "react-icons/bs";
 import { FaTasks } from "react-icons/fa";
 import { HiOutlinePuzzle, HiOutlineSpeakerphone, HiOutlineUsers } from "react-icons/hi";
 import { TfiLayoutGrid2 } from "react-icons/tfi";
@@ -52,8 +52,11 @@ export default function MinSidebar() {
                 </svg>
             </button>
 
-            <button onClick={() => handlerRedirect("/usr/integration")} className={`${router.asPath == "/usr/integration" ? "bg-blue-100":"dark:text-zinc-400 dark:hover:bg-zinc-800 hover:bg-zinc-100"} p-1.5 inline-block text-zinc-500 focus:outline-nones transition-colors duration-200 rounded-lg`}>
+            <button onClick={() => handlerRedirect("/usr/integration/whatsapp")} className={`${router.asPath == "/usr/integration" ? "bg-blue-100":"dark:text-zinc-400 dark:hover:bg-zinc-800 hover:bg-zinc-100"} p-1.5 inline-block text-zinc-500 focus:outline-nones transition-colors duration-200 rounded-lg`}>
                 <HiOutlinePuzzle className="w-5 h-5"/>
+            </button>
+            <button onClick={() => handlerRedirect("/usr/add-ons")} className={`${router.asPath == "/usr/add-ons" ? "bg-blue-100":"dark:text-zinc-400 dark:hover:bg-zinc-800 hover:bg-zinc-100"} p-1.5 inline-block text-zinc-500 focus:outline-nones transition-colors duration-200 rounded-lg`}>
+                <BsPlugin className="w-5 h-5"/>
             </button>
             <button onClick={() => handlerRedirect("/usr/usage-report")} className={`${router.asPath == "/usr/usage-report" ? "bg-blue-100":"dark:text-zinc-400 dark:hover:bg-zinc-800 hover:bg-zinc-100"} p-1.5 inline-block text-zinc-500 focus:outline-nones transition-colors duration-200 rounded-lg`}>
                 <FaTasks className="w-5 h-5"/>

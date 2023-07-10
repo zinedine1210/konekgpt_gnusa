@@ -8,25 +8,40 @@ export default function ModalSendContact() {
     const [data, setData] = useState("")
     const [phoneNumber, setPhoneNumber] = useState("")
     const [step, setStep] = useState(1)
+    const modal = context.modal
 
     const handlerSubmit = async () => {
-        const jidUser = context.chatInfo.id.split("@")[0]
-        console.log(context.chatInfo);
+        const jidUser = context.infoChat.id
+        let obj = {instance_key:context.infoChat.parentId, jid:jidUser, fullname:data, organization:"gnusachat", phoneNumber:`62${phoneNumber}`}
 
-        const result = await WhatsappRepository.sendContact({id:context.chatInfo.parentId, data:{instance_key:context.chatInfo.parentId, jid:jidUser, fullname:data, organization:"gnusachat", phoneNumber:`62${phoneNumber}`}})
-        console.log(result);
-        if(result.success){
-            // context.chatInfo.messages[0].message.message.videoMessage.caption = caption
-            context.chatDetail.push({data:result.data})
-            setData("")
-            setPhoneNumber("")
-            context.setData({...context, chatDetail:context.chatDetail, chatInfo:context.chatInfo})
-            context.setData({...context, modal:null})
+        if(modal && modal.type == "group"){
+            const result = await WhatsappRepository.sendGroupContact({id:context.infoChat.parentId, data:obj})
+            console.log(result);
+            if(result.success){
+                context.infoChat.messages[0].message = result.data
+                context.chatDetail.push({data:result.data})
+                setData("")
+                setPhoneNumber("")
+                context.setData({...context, chatDetail:context.chatDetail, infoChat:context.infoChat})
+                context.setData({...context, modal:null})
+            }
+        }else{
+            obj['jid'] = obj['jid'].split("@")[0]
+            const result = await WhatsappRepository.sendContact({id:context.infoChat.parentId, data:obj})
+            console.log(result);
+            if(result.success){
+                context.infoChat.messages[0].message = result.data
+                context.chatDetail.push({data:result.data})
+                setData("")
+                setPhoneNumber("")
+                context.setData({...context, chatDetail:context.chatDetail, infoChat:context.infoChat})
+                context.setData({...context, modal:null})
+            }
         }
     }
 
     if(context.modal)
-    if(context.modal == "modalsendcontact")
+    if(context.modal.name == "modalsendcontact")
     return (
         <div className="absolute w-full h-screen bg-black backdrop-blur-sm bg-opacity-40 overflow-y-auto left-0 top-0 z-30 flex items-center justify-center">
             <div className="bg-white w-full md:w-1/2 mx-auto rounded-md p-5">
