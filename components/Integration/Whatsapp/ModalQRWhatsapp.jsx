@@ -1,4 +1,5 @@
 import { MyContext } from '@/context/MyProvider'
+import ChannelRepository from '@/repositories/ChannelRepository'
 import { baseDomain } from '@/repositories/Repository'
 import WhatsappRepository from '@/repositories/WhatsappRepository'
 import axios from 'axios'
@@ -60,29 +61,41 @@ export default function ModalQRWhatsapp(props) {
     };
   }, [data]);
 
+  const insertChannel = async (getID) => {
+    const getxa = JSON.parse(localStorage.getItem("XA"))
+    let obj = {
+      "code": 1,
+      "name":"guest",
+      "identity": getID
+    }
+    const result = await ChannelRepository.insertChannel({xa:{XA:getxa}, data:obj})
+    console.log(result);
+
+    const getWhatsappList = JSON.parse(localStorage.getItem("whatsappChannel"))
+    if(getWhatsappList){
+      const getDetailWhatsappList = getWhatsappList.find(res => res.identity == id)
+      if(getDetailWhatsappList){
+        getWhatsappList.find(res => res.identity == id)['active'] = true
+      }else{
+        getWhatsappList.push(result.data)
+      }
+      localStorage.setItem("whatsappChannel", JSON.stringify(getWhatsappList))
+      context.setData({...context, channelWhatsapp:getWhatsappList})
+    }else{
+      localStorage.setItem("whatsappChannel", JSON.stringify([result.data]))
+      context.setData({...context, channelWhatsapp:[result.data]})
+    }
+    setData(null)
+    context.setData({...context, modal:null})
+  }
+
   async function checkStatus(id) {
     try {
       const response = await WhatsappRepository.statusSession({id:id})
       // console.log(response);
       if(response.success && response.data.status == "authenticated"){
         setConnect(true)
-        const getWhatsappList = JSON.parse(localStorage.getItem("whatsappList"))
-        if(getWhatsappList){
-          const getDetailWhatsappList = getWhatsappList.find(res => res.id == id)
-          // getWhatsappList.forEach(val => {
-          //   val.active = false
-          // });
-          if(getDetailWhatsappList){
-            getWhatsappList.find(res => res.id == id)['active'] = true
-          }else{
-            getWhatsappList.push({id:id, active:true})
-          }
-          localStorage.setItem("whatsappList", JSON.stringify(getWhatsappList))
-        }else{
-          localStorage.setItem("whatsappList", JSON.stringify([{id:id, active:true}]))
-        }
-        setData(null)
-        context.setData({...context, modal:null})
+        insertChannel(id)
       }
     } catch (error) {
       console.error(error);
@@ -163,7 +176,6 @@ function CreateSession(props){
   const [keyword, setKeyword] = useState("")
   const [choose, setChoose] = useState({name:"Indonesia", dial_code:"+62"})
   const dropRef = useRef(null)
-  const [datatimeout, setDatatimeout] = useState(null)
 
   useEffect(() => {
     axios.get("/dial.json").then(res => {

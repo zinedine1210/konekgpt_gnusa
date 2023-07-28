@@ -1,29 +1,30 @@
 import { MyContext } from '@/context/MyProvider'
-import WhatsappRepository from '@/repositories/WhatsappRepository'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { FaWhatsapp } from 'react-icons/fa'
 import ModalQRWhatsapp from './ModalQRWhatsapp'
 import CardWhatsapp from './CardWhatsapp'
+import ChannelRepository from '@/repositories/ChannelRepository'
 
 export default function WhatsappList() {
     const context = useContext(MyContext)
-    const [data, setData] = useState(null)
+    const data = JSON.parse(localStorage.getItem("whatsappChannel"))
 
     const handlerCreateSession = async () => {
         context.setData({...context, modal:{name:"QRWhatsapp", id:null}})
     }
 
+    const getAllChannel = async () => {
+        const getxa = JSON.parse(localStorage.getItem("XA"))
+        const result = await ChannelRepository.getAllChannel({xa:getxa})
+        localStorage.setItem("whatsappChannel", JSON.stringify(result.data))
+        context.setData({...context, channelWhatsapp:result.data})
+    }
 
     useEffect(() => {
-        const polling = setInterval(() => {
-            const getDataWhatsappList = JSON.parse(localStorage.getItem("whatsappList"))
-            setData(getDataWhatsappList ?? [])
-        }, 1000);
-    
-        return () => {
-          clearInterval(polling);
-        };
-    }, [context.modal]);
+        if(!context.channelWhatsapp){
+            getAllChannel()
+        }
+    }, [context.channelWhatsapp]);
 
   return (
     <>

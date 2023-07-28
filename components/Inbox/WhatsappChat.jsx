@@ -86,7 +86,7 @@ export default function WhatsappChat({item}) {
                 dataChat?.templateMessage ?
                 <p className='text-sm text-green-600 flex items-center gap-1'>
                     <BsCheck2Circle className='text-green-400'/>
-                    {dataChat?.templateMessage.hydratedTemplate.hydratedContentText ? dataChat.templateMessage.hydratedTemplate.hydratedContentText.length > 33 ? dataChat.templateMessage.hydratedTemplate.hydratedContentText.substring(0, 33)+"..." : dataChat.templateMessage.hydratedTemplate.hydratedContentText :"Photo"}
+                    {dataChat?.templateMessage?.hydratedTemplate?.hydratedContentText ? dataChat.templateMessage.hydratedTemplate.hydratedContentText.length > 33 ? dataChat.templateMessage.hydratedTemplate.hydratedContentText.substring(0, 33)+"..." : dataChat.templateMessage.hydratedTemplate.hydratedContentText :"Photo"}
                 </p>
                 :""
             }

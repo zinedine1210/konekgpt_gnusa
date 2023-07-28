@@ -15,7 +15,7 @@ export default function SelectAuth(props) {
 
     useEffect(() => {
         if(!list){
-            const data = JSON.parse(localStorage.getItem("whatsappList"))
+            const data = JSON.parse(localStorage.getItem("whatsappChannel"))
             console.log(data);
             setList(data)
         }

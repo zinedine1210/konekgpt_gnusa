@@ -12,15 +12,15 @@ export default function ChatList(props) {
 
     useEffect(() => {
         if(!context.allChatList){
-            const getWhatsappList = JSON.parse(localStorage.getItem("whatsappList"))
+            const getWhatsappList = JSON.parse(localStorage.getItem("whatsappChannel"))
             if(getWhatsappList){
                 const getActiveWhatsappList = getWhatsappList.filter(res => res.active == true)
                 if(getActiveWhatsappList.length > 0){
                     let allWhatsappData = []
                     let getKontak = []
                     getActiveWhatsappList.forEach(async val => {
-                        const result = await WhatsappRepository.getChatList({id:val.id})
-                        const groupResult = await WhatsappRepository.getGroupList({id:val.id})
+                        const result = await WhatsappRepository.getChatList({id:val.identity})
+                        const groupResult = await WhatsappRepository.getGroupList({id:val.identity})
 
                         if(result.success && groupResult.success){
                             
@@ -36,7 +36,7 @@ export default function ChatList(props) {
                             })
 
                             // get all number for kontak
-                            getKontak = _.concat(value.map(obj => ({number:obj.id, parentId:val.id})), getKontak)
+                            getKontak = _.concat(value.map(obj => ({number:obj.id, parentId:val.identity})), getKontak)
                             
                             const groupValue = groupResult.data.slice(0, 20).filter(res => {
                                 return true
@@ -46,18 +46,18 @@ export default function ChatList(props) {
 
                             allWhatsappData = _.sortBy(allWhatsappData, [o => {
                                 return Number(o?.messages?.[0]?.message?.messageTimestamp)
-                            }]).reverse().map(obj => ({...obj, parentId:val.id}))
+                            }]).reverse().map(obj => ({...obj, parentId:val.identity}))
 
                         }else{
                             Swal.fire({
                                 icon:"info",
-                                title:`Authentication to ${val.id} disconnected`,
+                                title:`Authentication to ${val.identity} disconnected`,
                                 text:"Please reconnect it by scanning the qr code on the menu integration - whatsapp"
                             })
                             
-                            const getWhatsappList = JSON.parse(localStorage.getItem("whatsappList"))
-                            getWhatsappList.find(res => res.id == val.id)['active'] = false
-                            localStorage.setItem("whatsappList", JSON.stringify(getWhatsappList))
+                            const getWhatsappList = JSON.parse(localStorage.getItem("whatsappChannel"))
+                            getWhatsappList.find(res => res.id == val.identity)['active'] = false
+                            localStorage.setItem("whatsappChannel", JSON.stringify(getWhatsappList))
                         }
                         context.setData({...context, allChatList:allWhatsappData, allContact:getKontak})
                     });
@@ -110,7 +110,6 @@ export default function ChatList(props) {
                     new Array(20).fill("loading").map((item, key) => {
                         return (
                             <div key={key} className='py-10 animate-pulse bg-zinc-100 w-full'>
-        
                             </div>
                         )
                     })

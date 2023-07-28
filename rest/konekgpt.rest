@@ -24,7 +24,7 @@ param: user
 
 ##### section channel#####
 ### insert channel
-POST https://konekgpt.gnusa.id/gpt-konek/channel HTTP/1.1
+POST https://konekgpt.gnusa.id/service/gpt-konek/channel HTTP/1.1
 content-type: application/cbor
 # code --> 1 = WA, 2 = TELEGRAM
 # identity --> jika seperti WA/TELE isinya nomor 08128492910, jika IG/TW @test
@@ -50,7 +50,9 @@ content-type: application/cbor
 ### delete channel
 DELETE https://konekgpt.gnusa.id/service/gpt-konek/channel HTTP/1.1
 content-type: application/cbor
-["a2fpk21pska3"]
+XA: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AZ251c2EuaWQiLCJwYXNzd29yZCI6IjcyZGZhYjMzNWNlODIwYjkyZWRjMmEwN2RiMmMxZGQ0Y2FjYTU2MTMifQ.ceCFGSKxjDEH2jPVmICL3SjMu1-9rgLKnBOL1mPnWaQ
+
+["fc0183e7-c7e6-4589-b7a5-c164d632b3c6"]
 
 ### get channel
 GET https://konekgpt.gnusa.id/service/gpt-konek/channel HTTP/1.1
@@ -115,6 +117,8 @@ XA: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AZ251c2EuaWQiLCJwYXN
 ### simulation knowledge
 POST https://konekgpt.gnusa.id/service/gpt-konek/knowledge/simulation HTTP/1.1
 content-type: application/cbor
+XA: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AZ251c2EuaWQiLCJwYXNzd29yZCI6IjcyZGZhYjMzNWNlODIwYjkyZWRjMmEwN2RiMmMxZGQ0Y2FjYTU2MTMifQ.ceCFGSKxjDEH2jPVmICL3SjMu1-9rgLKnBOL1mPnWaQ
+
 {
     "file_id": "d5f07265-4cbe-4bae-aa62-196ae5a84815",
     "text": "apa itu website gnusa?"

@@ -1,26 +1,17 @@
 import {HiOutlineArrowSmRight} from "react-icons/hi"
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { MyContext } from "@/context/MyProvider";
-import KnowledgeRepository from "@/repositories/KnowledgeRepository";
 
-export default function SimulationKnowledge() {
+export default function ChatHelp() {
     const [data, setData] = useState(null)
     const context = useContext(MyContext)
 
     const handlerChange = value => {
         setData(value)
     }
+    
 
-    const handlerSubmit = async e => {
-        e.preventDefault()
-        let obj = {
-            "file_id": context.modal.data.id,
-            "text": data
-        }
-        const result = await KnowledgeRepository.simulationKnowledge({xa:{XA:JSON.parse(localStorage.getItem("XA"))}, data:obj})
-        console.log(result);
-    }
-
+    if(context.modal && context.modal == "chatHelp")
   return (
     <div className="fixed top-0 left-0 z-50 md:block w-full md:w-[500px] h-screen md:h-[840px] md:border-8 border-black md:z-0 md:rounded-[50px] bg-white dark:bg-dark dark:border-black px-2 mx-auto outline outline-blue-300 shadow-2xl pb-16 md:relative">
         <button className="text-center text-sm text-red-500 w-full py-1" onClick={() => context.setData({...context, modal:null, view:2})}>Tutup Simulasi</button>

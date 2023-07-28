@@ -21,7 +21,7 @@ export default function AddOns() {
                   <label className="text-sm font-bold text-zinc-600 uppercase dark:text-zinc-400">Add Ons</label>
                   <p className="text-sm text-zinc-500 font-light">Your AI understands many topics, but you can add specific knowledge about your company or products to supplement it.</p>
 
-                  <div className="grid grid-cols-5 gap-5 mt-5">
+                  <div className="grid grid-cols-1 md:grid-cols-5 gap-5 mt-5">
                     <div className="bg-white shadow-md rounded-md p-5">
                         <div className="w-10 h-10 flex items-center justify-center rounded-full bg-blue-100">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 text-blue-500">

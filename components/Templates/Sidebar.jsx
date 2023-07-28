@@ -90,6 +90,7 @@ export default function Sidebar() {
 
                             <span className="mx-2 text-sm font-medium">Add Ons</span>
                         </button>
+                        
                         <button onClick={() => handlerRedirect("/usr/usage-report")} className={`${router.asPath == "/usr/usage-report" ? "bg-blue-100":"hover:bg-zinc-100 dark:hover:bg-zinc-800 dark:hover:text-zinc-200 hover:text-zinc-700"} w-full flex items-center px-3 py-2 text-zinc-600 transition-colors duration-300 transform rounded-lg dark:text-zinc-200`}>
                             <FaTasks className="w-5 h-5"/>
 

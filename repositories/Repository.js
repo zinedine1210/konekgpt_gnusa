@@ -1,7 +1,7 @@
 import axios from 'axios';
 export const baseDomain = 'https://konekgpt.gnusa.id'; // API for products (PRODUCTION MODE)
 // const baseDomainAPI = 'https://psychotest-client.gnusa.id/psychotest-service'; // API for product (PRODUCTION MODE)
-const baseDomainAPI = 'https://s-gactivity.gnusa.id/gactivity-service'; // API for product (DEVELOPMENT MODE)
+const baseDomainAPI = 'https://konekgpt.gnusa.id/service'; // API for product (DEVELOPMENT MODE)
 // export const baseWhatsappUrl = 'http://120.29.228.83:17114'
 export const baseWhatsappUrl = 'https://wa.gnscenter.com'
 // const baseDomainAPI = 'http://localhost:8080/psychotest-service'; // API for product (DEVELOPMENT MODE 2)

@@ -14,7 +14,9 @@ export function MyProvider({children}) {
         'allChatList':null,
         "chatFilter":null,
         "AllContact":[],
-        "detailContact":null
+        "detailContact":null,
+        "channelWhatsapp":null,
+        "dataKnowledge":null
     })
 
     return (

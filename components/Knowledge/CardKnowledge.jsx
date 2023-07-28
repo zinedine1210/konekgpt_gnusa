@@ -1,9 +1,16 @@
 import { MyContext } from "@/context/MyProvider";
+import KnowledgeRepository from "@/repositories/KnowledgeRepository";
 import { useContext } from "react";
-import { IoEyeSharp } from "react-icons/io5";
+import { IoEyeSharp, IoTrash } from "react-icons/io5";
 
-export default function CardKnowledge() {
+export default function CardKnowledge({item}) {
     const context = useContext(MyContext)
+
+    const handlerDelete = async () => {
+        const result = await KnowledgeRepository.deleteKnowledge({xa:{xa:JSON.parse(localStorage.getItem("XA"))}, data:[item.id]})
+        console.log(result);
+    }
+
   return (
     <tr>
         <td className="px-4 py-4 text-sm font-medium text-zinc-700 whitespace-nowrap">
@@ -19,8 +26,8 @@ export default function CardKnowledge() {
                         {/* <span>That</span> */}
                     </label>
                     <div>
-                        <h2 className="font-normal text-zinc-800 dark:text-white ">Zinedine Ziddan Fahdlevy</h2>
-                        <p className="text-xs font-normal text-zinc-500 dark:text-zinc-400">20 Pages</p>
+                        <h2 className="font-normal text-zinc-800 dark:text-white ">{item.name}</h2>
+                        <p className="text-xs font-normal text-zinc-500 dark:text-zinc-400">{item.id}</p>
                     </div>
                 </div>
             </div>
@@ -32,10 +39,17 @@ export default function CardKnowledge() {
             </div>
         </td>
         <td className="px-4 py-4 text-sm text-zinc-500 dark:text-zinc-300 whitespace-nowrap">Jan 4, 2022</td>
-        <td className="px-4 py-4 text-sm text-zinc-500 dark:text-zinc-300 whitespace-nowrap">Scratch</td>
-        <td className="px-4 py-4 text-sm whitespace-nowrap">
-            <button onClick={() => context.setData({...context, view:3, modal:"simulationKnowledge"})} className="p-2 text-zinc-500 transition-colors duration-200 rounded-lg dark:text-zinc-300 hover:bg-zinc-100">
+        <td className="px-4 py-4 text-sm text-zinc-500 dark:text-zinc-300 whitespace-nowrap">
+            {item.type_training == 1 && <span className="bg-lime-100 text-lime-500 font-bold text-xs rounded-md uppercase py-1 px-3">Upload</span>}
+            {item.type_training == 2 && <span className="bg-indigo-100 text-indigo-500 font-bold text-xs rounded-md uppercase py-1 px-3">Url</span>}
+            {item.type_training == 4 && <span className="bg-teal-100 text-teal-500 font-bold text-xs rounded-md uppercase py-1 px-3">Scratch</span>}
+        </td>
+        <td className="px-4 py-4 text-sm whitespace-nowrap space-x-2">
+            <button onClick={() => context.setData({...context, view:3, modal:{name:"simulationKnowledge", data:item}})} className="p-2 text-zinc-500 transition-colors duration-200 rounded-lg dark:text-zinc-300 hover:bg-zinc-100">
                 <IoEyeSharp />
+            </button>
+            <button onClick={() => handlerDelete()} className="p-2 text-red-500 transition-colors duration-200 rounded-lg dark:text-red-300 hover:bg-red-100">
+                <IoTrash />
             </button>
         </td>
     </tr>

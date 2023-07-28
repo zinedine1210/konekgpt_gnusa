@@ -37,7 +37,11 @@ export default function Knowledge() {
                         <TableKnowledge />
                       </div>
                     </div>
-                    <SimulationKnowledge />
+                    {
+                      context.modal && context.modal.name == "simulationKnowledge" && (
+                        <SimulationKnowledge />
+                      )
+                    }
                   </div>
                 </div>
             </div>

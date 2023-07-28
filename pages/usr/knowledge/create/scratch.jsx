@@ -1,9 +1,22 @@
 import Layout from '@/components/Layouts/Layout'
+import KnowledgeRepository from '@/repositories/KnowledgeRepository'
 import Link from 'next/link'
-import React, { Suspense } from 'react'
+import React, { Suspense, useState } from 'react'
 import { FaChevronLeft } from 'react-icons/fa'
 
 export default function BlinkScratch() {
+    const [data, setData] = useState({
+        "type_training": 4,
+        "name": "",
+        "text": ""
+    })
+
+    const handlerSubmit = async (e) => {
+        e.preventDefault()
+        console.log(data);
+        const result = await KnowledgeRepository.insertKnowledge({xa:{xa:JSON.parse(localStorage.getItem("XA"))}, data:data})
+        console.log(result);
+    }
   return (
     <Layout title={"Create From Blink Scratch"} desc={"Halaman untuk membuat word"}>
         <Suspense fallback={"Loading"}>
@@ -23,10 +36,10 @@ export default function BlinkScratch() {
                             <h1 className="text-sm">Build From Scratch</h1>
                         </div>
 
-                        <div className='my-5 space-y-5'>
+                        <form onSubmit={(e) => handlerSubmit(e)} className='my-5 space-y-5'>
                             <div>
                                 <label htmlFor='nameofscratch' className='font-bold inline-block mb-2'>Name <span className='text-red-500'>*</span></label>
-                                <input id='nameofscratch' type="text" className="w-full block bg-zinc-50 text-sm py-2 px-5 outline-none border-2 hover:bg-zinc-100 focus:bg-white focus:border-lightPrimary" placeholder='Give a name to your new data source' />
+                                <input onChange={(e) => setData({...data, name:e.target.value})} value={data.name} id='nameofscratch' type="text" className="w-full block bg-zinc-50 text-sm py-2 px-5 outline-none border-2 hover:bg-zinc-100 focus:bg-white focus:border-lightPrimary" placeholder='Give a name to your new data source' />
                             </div>
 
                             <div>
@@ -35,13 +48,13 @@ export default function BlinkScratch() {
 
                                 <div className='relative'>
                                     <span className='absolute inline-block right-2 top-2 text-opacity-75 text-xs font-light text-zinc-500'><span className='font-bold text-base'>1</span>/1000</span>
-                                    <textarea name="description" id="textareaofscratch" className='block w-full bg-zinc-50 text-sm py-2 px-2 md:px-5 outline-none border-2 hover:bg-zinc-100 focus:bg-white focus:border-lightPrimary resize-y' rows={30} >
+                                    <textarea value={data.text} onChange={(e) => setData({...data, text:e.target.value})} name="description" id="textareaofscratch" className='block w-full bg-zinc-50 text-sm py-2 px-2 md:px-5 outline-none border-2 hover:bg-zinc-100 focus:bg-white focus:border-lightPrimary resize-y' rows={30} >
                                     </textarea>
                                 </div>
                             </div>
 
-                            <button className='btn-primary'>Submit</button>
-                        </div>
+                            <button className='btn-primary' type='submit'>Submit</button>
+                        </form>
                     </div>
                     </div>
                 </div>

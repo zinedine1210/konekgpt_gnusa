@@ -7,7 +7,7 @@ class AuthRepository {
             `${baseUrl}/auth/mlogin`,
             null,
             {
-                headers: params,
+                headers:params,
                 contentType:"application/cbor",
                 responseType: "arraybuffer"
             }
@@ -44,29 +44,6 @@ class AuthRepository {
         return reponse;
     }
 
-    async getEnum(params){
-        const reponse = await Repository.get(
-            `${baseUrl}/_enum/browse/gactivity/${params.type}`,
-            {
-                headers: {
-                    xa:params.xa
-                },
-                contentType:"application/cbor",
-                responseType: "arraybuffer"
-            }
-        )
-        .then((response) => {
-            const data = cbor.decode(response.data)
-            return data
-        })
-        .catch((error) => {
-            // console.log(error);
-            let result = cbor.decode(error.response.data)
-            return result;
-        });
-        return reponse;
-    }
-
     async getStatus(params){
         const reponse = await Repository.get(
             `${baseUrl}/auth/status`,
@@ -84,28 +61,6 @@ class AuthRepository {
             console.log(error);
             let result = cbor.decode(error.response.data)
             return result;
-        });
-        return reponse;
-    }
-
-    async getFindMember(params){
-        const data = params.data
-        const reponse = await Repository.post(
-            `${baseUrl}/member/find`,
-            data,
-            {
-                headers: {
-                    xa:params.xa
-                },
-                contentType:"application/json"
-            }
-        )
-        .then((response) => {
-            return response
-        })
-        .catch((error) => {
-            // console.log(error);
-            return error.response.data
         });
         return reponse;
     }

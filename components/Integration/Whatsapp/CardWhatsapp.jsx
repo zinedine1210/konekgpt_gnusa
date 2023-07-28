@@ -1,4 +1,5 @@
 import { MyContext } from "@/context/MyProvider"
+import ChannelRepository from "@/repositories/ChannelRepository"
 import WhatsappRepository from "@/repositories/WhatsappRepository"
 import { useContext, useEffect, useState } from "react"
 import { FaPowerOff, FaTrash, FaWhatsapp } from "react-icons/fa"
@@ -10,20 +11,20 @@ export default function CardWhatsapp(props) {
 
     useEffect(() => {
         async function getStatus(){
-            const result = await WhatsappRepository.statusSession({id:props.item.id})
+            const result = await WhatsappRepository.statusSession({id:props.item.identity})
             console.log(result);
+            let active = false
             if(result.success){
                 setStatus(result.data.status)
+                active = true
             }else{
                 setStatus("disconnected")
-                if(props.item.active){
-                    const getActiveWhatsapp = JSON.parse(localStorage.getItem("whatsappList"));
-                    getActiveWhatsapp.find(res => res.id == props.item.id)['active'] = false
-                    localStorage.setItem("whatsappList", JSON.stringify(getActiveWhatsapp))
-                }
             }
+            const getActiveWhatsapp = JSON.parse(localStorage.getItem("whatsappChannel"));
+            getActiveWhatsapp.find(res => res.id == props.item.id)['active'] = active
+            localStorage.setItem("whatsappChannel", JSON.stringify(getActiveWhatsapp))
+            context.setData({...context, channelWhatsapp:getActiveWhatsapp})
         }
-
 
         getStatus()
     }, [context.modal])
@@ -41,15 +42,21 @@ export default function CardWhatsapp(props) {
                 confirmButtonText: 'Yes, delete it!'
               }).then((result) => {
                 if (result.isConfirmed) {
-                    WhatsappRepository.deleteSession({id:props.item.id}).then(res => {
+                    WhatsappRepository.deleteSession({id:props.item.identity}).then(res => {
                         console.log(res);
                         if(res.success){
-                            const getWhatsappList = JSON.parse(localStorage.getItem("whatsappList"))
+                            ChannelRepository.deleteChannel({xa:{xa:JSON.parse(localStorage.getItem("XA"))}, data:[props.item.id]}).then(dele => {
+                                console.log(dele);
+                            })
+                            
+                            // set localstorage
+                            const getWhatsappList = JSON.parse(localStorage.getItem("whatsappChannel"))
                             const deleteData = getWhatsappList.filter(res => {
                                 return res.id != props.item.id
                             })
 
-                            localStorage.setItem("whatsappList", JSON.stringify(deleteData))
+                            localStorage.setItem("whatsappChannel", JSON.stringify(deleteData))
+                            context.setData({...context, channelWhatsapp:deleteData})
 
                             Swal.fire(
                                 'Deleted!',
@@ -73,13 +80,17 @@ export default function CardWhatsapp(props) {
                 confirmButtonText: 'Yes, delete it!'
               }).then((result) => {
                 if (result.isConfirmed) {
-                    const getWhatsappList = JSON.parse(localStorage.getItem("whatsappList"))
+                    ChannelRepository.deleteChannel({xa:{xa:JSON.parse(localStorage.getItem("XA"))}, data:[props.item.id]}).then(dele => {
+                        console.log(dele);
+                    })
+                    const getWhatsappList = JSON.parse(localStorage.getItem("whatsappChannel"))
                     const deleteData = getWhatsappList.filter(res => {
                         return res.id != props.item.id
                     })
-        
-                    localStorage.setItem("whatsappList", JSON.stringify(deleteData))
-    
+
+                    localStorage.setItem("whatsappChannel", JSON.stringify(deleteData))
+                    context.setData({...context, channelWhatsapp:deleteData})
+
                     Swal.fire(
                         'Deleted!',
                         'Your session has been deleted.',
@@ -91,21 +102,17 @@ export default function CardWhatsapp(props) {
     }
 
     const handlerActive = () => {
-        const getAllWhatsapp = JSON.parse(localStorage.getItem("whatsappList"));
-        
-        // const getActiveWhatsapp = getAllWhatsapp.find(res => res.active == true)
-        // if(getActiveWhatsapp){
-        //     getAllWhatsapp.find(res => res.active == true)['active'] = false
-        // }
+        const getAllWhatsapp = JSON.parse(localStorage.getItem("whatsappChannel"));
         
         getAllWhatsapp.find(res => res.id == props.item.id)['active'] = !props.item.active
         // console.log(getAllWhatsapp);
-        localStorage.setItem("whatsappList", JSON.stringify(getAllWhatsapp))
+        localStorage.setItem("whatsappChannel", JSON.stringify(getAllWhatsapp))
+        context.setData({...context, channelWhatsapp:getAllWhatsapp})
     }
 
     const handlerCheck = () => {
         if(status == "disconnected"){
-            context.setData({...context, modal:{name:"QRWhatsapp", id:props.item.id, step:2}})
+            context.setData({...context, modal:{name:"QRWhatsapp", id:props.item.identity, step:2}})
         }else{
             handlerActive()
         }
@@ -133,8 +140,11 @@ export default function CardWhatsapp(props) {
   return (
     <div className="border-2 border-zinc-300 p-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
-        <FaWhatsapp className="text-green-500 text-2xl"/>
-        <h1 className="text-zinc-600 font-bold">{props.item.id}</h1>
+            <FaWhatsapp className="text-green-500 text-2xl"/>
+            <div>
+                <p className="text-zinc-500 tracking-wider text-xs uppercase">{props.item.name}</p>
+                <h1 className="text-zinc-600 font-bold">{props.item.identity}</h1>
+            </div>
         </div>
         <div className="flex items-center gap-4">
             <h1 className="flex items-center gap-2">
