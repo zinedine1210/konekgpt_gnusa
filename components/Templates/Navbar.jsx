@@ -1,9 +1,42 @@
 import { MyContext } from "@/context/MyProvider"
-import { useContext } from "react"
+import AuthRepository from "@/repositories/AuthRepository"
+import { useRouter } from "next/router"
+import { useContext, useEffect, useRef, useState } from "react"
 import { FaChevronLeft } from "react-icons/fa"
+import Swal from "sweetalert2"
 
 export default function Navbar() {
     const context = useContext(MyContext)
+    const dropRef = useRef(null)
+    const [open, setOpen] = useState(false)
+    const router = useRouter()
+
+    const handleOutsideClick = (event) => {
+        if (dropRef.current && !dropRef.current.contains(event.target)) {
+            setOpen(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleOutsideClick);
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, []);
+
+    const handlerLogout = async () => {
+        const result = await AuthRepository.postLogout({XA:JSON.parse(localStorage.getItem("XA"))})
+        console.log(result);
+        if(result?.type == "success"){
+            localStorage.clear()
+            Swal.fire(
+                "info",
+                "Logout"
+            )
+            router.push("/")
+        }
+    }
+
   return (
     <nav className="absolute z-50 w-full bg-lightPrimary shadow-md dark:bg-zinc-800">
         <div className="px-3 md:px-6 py-2 mx-auto">
@@ -24,11 +57,18 @@ export default function Navbar() {
                             </svg>
                         </button>
 
-                        <button type="button" className="flex items-center focus:outline-none" aria-label="toggle profile dropdown">
-                            <div className="w-8 h-8 overflow-hidden border-2 border-zinc-400 rounded-full">
-                                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" className="object-cover w-full h-full" alt="avatar"/>
+                        <div ref={dropRef} className="relative">
+                            <button type="button" onClick={() => setOpen(!open)} className="flex items-center focus:outline-none" aria-label="toggle profile dropdown">
+                                <div className="w-8 h-8 overflow-hidden border-2 border-zinc-400 rounded-full">
+                                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" className="object-cover w-full h-full" alt="avatar"/>
+                                </div>
+                            </button>
+
+                            <div className={`${open ? "visible translate-y-0 opacity-100":"opacity-0 invisible translate-y-5"} rounded-md max-h-52 overflow-y-auto shadow-md z-20 w-32 transition-all duration-300 absolute backdrop-blur-md top-full right-0 mt-1`}>
+                                <button className="py-2 px-4 w-full block text-start text-sm transition-colors duration-300 hover:bg-blue-100">Profile</button>
+                                <button onClick={() => handlerLogout()} className="py-2 px-4 w-full block text-start text-sm transition-colors duration-300 hover:bg-red-100">Logout</button>
                             </div>
-                        </button>
+                        </div>
                         {/* <button type="button" className="text-zinc-500 dark:text-zinc-200 hover:text-zinc-600 dark:hover:text-zinc-400 focus:outline-none focus:text-zinc-600 dark:focus:text-zinc-400" aria-label="toggle menu">
                             <svg x-show="!isOpen" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M4 8h16M4 16h16" />

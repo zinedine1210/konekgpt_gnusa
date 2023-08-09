@@ -15,7 +15,7 @@ export default function SelectAuth(props) {
 
     useEffect(() => {
         if(!list){
-            const data = JSON.parse(localStorage.getItem("whatsappChannel"))
+            const data = localStorage.getItem("whatsappChannel") != "undefined" ? JSON.parse(localStorage.getItem("whatsappChannel")) : null
             console.log(data);
             setList(data)
         }
@@ -38,8 +38,8 @@ export default function SelectAuth(props) {
                 list && (
                     list.map((item, key) => {
                         return (
-                            <button onClick={() => props.setAuth(item.id)} key={key} disabled={!item.active} className="flex items-center justify-between disabled:bg-red-100 py-2 px-4 w-full text-start text-sm transition-colors duration-300 hover:bg-blue-100">
-                                {item.id}
+                            <button onClick={() => props.setAuth(item.identity)} key={key} disabled={!item.active} className="flex items-center justify-between disabled:bg-red-100 py-2 px-4 w-full text-start text-sm transition-colors duration-300 hover:bg-blue-100">
+                                {item.identity}
                                 {
                                     item.active ?
                                     <BsCheckCircle className="text-green-500 font-bold"/>

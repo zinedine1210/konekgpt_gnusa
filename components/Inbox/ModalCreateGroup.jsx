@@ -116,7 +116,7 @@ export default function ModalCreateGroup() {
                                     member.length > 0 && (
                                         member.map((item, key) => {
                                             return (
-                                                <button key={key} onKeyDown={(e) => handlerDelete(e, item)} className="focus:from-red-200 focus:to-red-50 focus:text-red-500 flex items-center justify-center bg-gradient-to-tr from-blue-200 font-bold to-blue-50 text-xs py-1 px-2 rounded-full text-blue-500">{item.split("@")[0]}</button>
+                                                <button type="button" key={key} onKeyDown={(e) => handlerDelete(e, item)} className="focus:from-red-200 focus:to-red-50 focus:text-red-500 flex items-center justify-center bg-gradient-to-tr from-blue-200 font-bold to-blue-50 text-xs py-1 px-2 rounded-full text-blue-500">{item.split("@")[0]}</button>
                                             )
                                         })
                                     )

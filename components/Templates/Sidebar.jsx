@@ -8,6 +8,8 @@ import { MyContext } from "@/context/MyProvider";
 import { useRouter } from "next/router";
 import { TfiLayoutGrid2 } from "react-icons/tfi";
 import { FaTasks } from "react-icons/fa";
+import AuthRepository from "@/repositories/AuthRepository";
+import Swal from "sweetalert2";
 
 export default function Sidebar() {
     const context = useContext(MyContext)
@@ -18,13 +20,26 @@ export default function Sidebar() {
         context.setData({...context, view:2})
     }
 
+    const handlerLogout = async () => {
+        const result = await AuthRepository.postLogout({XA:JSON.parse(localStorage.getItem("XA"))})
+        console.log(result);
+        if(result?.type == "success"){
+            localStorage.clear()
+            Swal.fire(
+                "info",
+                "Logout"
+            )
+            router.push("/")
+        }
+    }
+
   return (
     <aside className={`${context.minimize ? "":`${context.view == 1 ? "fixed top-0 left-0 w-screen z-20 md:z-10 md:relative md:w-2/12":"hidden md:block md:w-2/12"}`} flex h-screen bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-zinc-900 dark:border-zinc-700`}>
         {
             context.minimize ?
                 <MinSidebar /> 
             :
-            <div className="h-screen px-5 pt-16 pb-10 overflow-y-auto bg-white border-l border-r w-full sm:w-full dark:bg-zinc-900 dark:border-zinc-700">
+            <div className="flex flex-col justify-between h-screen px-5 pt-16 pb-5 overflow-y-auto bg-white border-l border-r w-full sm:w-full dark:bg-zinc-900 dark:border-zinc-700">
                 {/* <div className="relative">
                     <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                         <svg className="w-5 h-5 text-zinc-400" viewBox="0 0 24 24" fill="none">
@@ -122,9 +137,30 @@ export default function Sidebar() {
                         </button>
                     </div>
                 </nav>
+                <div className="mt-6">
+                    {/* <div className="p-3 bg-zinc-100 rounded-lg dark:bg-zinc-800">
+                        <h2 className="text-sm font-medium text-zinc-800 dark:text-white">New feature availabel!</h2>
+
+                        <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus harum officia eligendi velit.</p>
+
+                        <img className="object-cover w-full h-32 mt-2 rounded-lg" src="https://images.unsplash.com/photo-1658953229664-e8d5ebd039ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&h=1374&q=80" alt=""/>
+                    </div> */}
+
+                    <div className="flex items-center justify-between mt-6">
+                        <a href="#" className="flex items-center gap-x-2">
+                            <img className="object-cover rounded-full h-7 w-7" src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&h=634&q=80" alt="avatar" />
+                            <span className="text-sm font-medium text-zinc-700 dark:text-zinc-200"></span>
+                        </a>
+                        
+                        <button onClick={() => handlerLogout()} className="text-zinc-500 transition-colors duration-200 rotate-180 dark:text-zinc-400 rtl:rotate-0 hover:text-blue-500 dark:hover:text-blue-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
             </div>
         }
-      
   </aside>
   )
 }

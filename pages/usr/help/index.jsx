@@ -4,8 +4,8 @@ import Layout from "@/components/Layouts/Layout";
 import { MyContext } from "@/context/MyProvider";
 import Link from "next/link";
 import { Suspense, useContext } from "react";
-import { BsChevronRight, BsQuestionCircle } from "react-icons/bs";
-import { FaQuestion } from "react-icons/fa";
+import { BsChevronRight} from "react-icons/bs";
+import { HiX } from "react-icons/hi";
 
 export default function HalamanHelp() {
     const context = useContext(MyContext)
@@ -14,11 +14,14 @@ export default function HalamanHelp() {
       <Suspense fallback={"Loading"}>
         <section className="w-full bg-zinc-100 relative h-screen">
             <div className="px-3 md:px-5 pt-16 h-full overflow-y-auto flex">
-                <div className="p-0 md:p-5">
+                <div className="p-0 md:p-5 relative">
+                    <Link href={localStorage.getItem("lastpage") ?? "/usr/help"}>
+                        <button className="absolute top-0 md:top-5 right-0 md:right-5 w-10 h-10 rounded-full hover:bg-red-100 transition-colors duration-300 flex items-center justify-center"><HiX className="text-xl"/></button>
+                    </Link>
                     <p className="text-sm font-bold text-zinc-600 uppercase dark:text-zinc-400">Hi, Zinedine</p>
-                    <p className="text-2xl text-zinc-500 font-light max-w-xl">How can we help you today?</p>
+                    <p className="text-xl md:text-2xl text-zinc-500 font-light max-w-xl">How can we help you today?</p>
                     <div className="mt-5">
-                        <Link href={"/usr/help/create"}><button className="btn-primary">Get help quickly</button></Link>
+                        <Link href={"/usr/help/create"} className="inline-block"><button className="btn-primary">Get help quickly</button></Link>
                         <div className={`mt-5 grid grid-cols-1 gap-3 ${context?.modal == "chatHelp" ? "md:grid-cols-4":"md:grid-cols-5"}`}>
                             <div className="bg-white shadow-md rounded-xl p-5">
                                 <p className="text-zinc-500 text-sm font-bold mb-3"><span className="bg-blue-100 text-blue-500 py-1 px-2 rounded-full">Knowledge</span> Id: 12173916</p>

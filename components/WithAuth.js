@@ -1,13 +1,15 @@
 import { useRouter } from 'next/router';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Loading from './Loading';
 import AuthRepository from '@/repositories/AuthRepository';
 import Swal from 'sweetalert2';
+import { MyContext } from '@/context/MyProvider';
 
 const WithAuth = (WrappedComponent) => {
   return (props) => {
     const router = useRouter()
     const [auth, setAuth] = useState(false)
+    const context = useContext(MyContext)
     const [mounted, setMounted] = useState(false)
 
     useEffect(() => {
@@ -31,7 +33,7 @@ const WithAuth = (WrappedComponent) => {
       const result = await AuthRepository.getStatus({XA:xa, param:"user"})
 
       if(result.type == "error"){
-        localStorage.removeItem("XA")
+        localStorage.clear()
         Swal.fire({
           icon:"info",
           title:"Logout",

@@ -7,7 +7,7 @@ import ChannelRepository from '@/repositories/ChannelRepository'
 
 export default function WhatsappList() {
     const context = useContext(MyContext)
-    const data = JSON.parse(localStorage.getItem("whatsappChannel"))
+    const data = localStorage.getItem("whatsappChannel") != "undefined" ? JSON.parse(localStorage.getItem("whatsappChannel")) : null
 
     const handlerCreateSession = async () => {
         context.setData({...context, modal:{name:"QRWhatsapp", id:null}})
@@ -16,15 +16,16 @@ export default function WhatsappList() {
     const getAllChannel = async () => {
         const getxa = JSON.parse(localStorage.getItem("XA"))
         const result = await ChannelRepository.getAllChannel({xa:getxa})
+        console.log("allchannel", result);
         localStorage.setItem("whatsappChannel", JSON.stringify(result.data))
         context.setData({...context, channelWhatsapp:result.data})
     }
 
     useEffect(() => {
-        if(!context.channelWhatsapp){
+        if(!data){
             getAllChannel()
         }
-    }, [context.channelWhatsapp]);
+    }, [data]);
 
   return (
     <>

@@ -2,13 +2,36 @@ import { MyContext } from "@/context/MyProvider";
 import KnowledgeRepository from "@/repositories/KnowledgeRepository";
 import { useContext } from "react";
 import { IoEyeSharp, IoTrash } from "react-icons/io5";
+import Swal from "sweetalert2";
 
 export default function CardKnowledge({item}) {
     const context = useContext(MyContext)
 
     const handlerDelete = async () => {
-        const result = await KnowledgeRepository.deleteKnowledge({xa:{xa:JSON.parse(localStorage.getItem("XA"))}, data:[item.id]})
-        console.log(result);
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then(async (result2) => {
+              if (result2.isConfirmed) {
+                const result = await KnowledgeRepository.deleteKnowledge({xa:{xa:JSON.parse(localStorage.getItem("XA"))}, data:[item.id]})
+                console.log(result);
+                if(result?.type == "success"){
+                    const deleteKnowledge = context.dataKnowledge.filter(res => res.id != item.id)
+                    context.setData({...context, dataKnowledge:deleteKnowledge})
+                }else{
+                    Swal.fire({
+                        icon:"error",
+                        title:"Something Wrong",
+                        text:"Please try again later"
+                    })
+                }
+            }})
+        
     }
 
   return (
@@ -45,11 +68,11 @@ export default function CardKnowledge({item}) {
             {item.type_training == 4 && <span className="bg-teal-100 text-teal-500 font-bold text-xs rounded-md uppercase py-1 px-3">Scratch</span>}
         </td>
         <td className="px-4 py-4 text-sm whitespace-nowrap space-x-2">
-            <button onClick={() => context.setData({...context, view:3, modal:{name:"simulationKnowledge", data:item}})} className="p-2 text-zinc-500 transition-colors duration-200 rounded-lg dark:text-zinc-300 hover:bg-zinc-100">
-                <IoEyeSharp />
-            </button>
             <button onClick={() => handlerDelete()} className="p-2 text-red-500 transition-colors duration-200 rounded-lg dark:text-red-300 hover:bg-red-100">
                 <IoTrash />
+            </button>
+            <button onClick={() => context.setData({...context, view:3, modal:{name:"simulationKnowledge", data:item}})} className="bg-blue-100 p-2 text-zinc-500 transition-colors duration-200 rounded-lg dark:text-zinc-300 hover:bg-blue-200">
+                Start Simulation
             </button>
         </td>
     </tr>

@@ -20,10 +20,12 @@ export default function CardWhatsapp(props) {
             }else{
                 setStatus("disconnected")
             }
-            const getActiveWhatsapp = JSON.parse(localStorage.getItem("whatsappChannel"));
-            getActiveWhatsapp.find(res => res.id == props.item.id)['active'] = active
-            localStorage.setItem("whatsappChannel", JSON.stringify(getActiveWhatsapp))
-            context.setData({...context, channelWhatsapp:getActiveWhatsapp})
+            const getActiveWhatsapp = localStorage.getItem("whatsappChannel") != "undefined" ? JSON.parse(localStorage.getItem("whatsappChannel")) : null;
+            if(getActiveWhatsapp){
+                getActiveWhatsapp.find(res => res.id == props.item.id)['active'] = active
+                localStorage.setItem("whatsappChannel", JSON.stringify(getActiveWhatsapp))
+                context.setData({...context, channelWhatsapp:getActiveWhatsapp})
+            }
         }
 
         getStatus()
@@ -42,27 +44,33 @@ export default function CardWhatsapp(props) {
                 confirmButtonText: 'Yes, delete it!'
               }).then((result) => {
                 if (result.isConfirmed) {
-                    WhatsappRepository.deleteSession({id:props.item.identity}).then(res => {
+                    WhatsappRepository.deleteSession({id:props.item.identity}).then(async res => {
                         console.log(res);
                         if(res.success){
-                            ChannelRepository.deleteChannel({xa:{xa:JSON.parse(localStorage.getItem("XA"))}, data:[props.item.id]}).then(dele => {
-                                console.log(dele);
-                            })
-                            
-                            // set localstorage
-                            const getWhatsappList = JSON.parse(localStorage.getItem("whatsappChannel"))
-                            const deleteData = getWhatsappList.filter(res => {
-                                return res.id != props.item.id
-                            })
-
-                            localStorage.setItem("whatsappChannel", JSON.stringify(deleteData))
-                            context.setData({...context, channelWhatsapp:deleteData})
-
-                            Swal.fire(
-                                'Deleted!',
-                                'Your session has been deleted.',
-                                'success'
-                            )
+                            const result = await ChannelRepository.deleteChannel({xa:{XA:JSON.parse(localStorage.getItem("XA"))}, data:[props.item.id]})
+                            console.log(result);
+                            if(result?.type == "success"){
+                                // set localstorage
+                                const getWhatsappList = JSON.parse(localStorage.getItem("whatsappChannel"))
+                                const deleteData = getWhatsappList.filter(res => {
+                                    return res.id != props.item.id
+                                })
+    
+                                localStorage.setItem("whatsappChannel", JSON.stringify(deleteData))
+                                context.setData({...context, channelWhatsapp:deleteData})
+    
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Your session has been deleted.',
+                                    'success'
+                                )
+                            }else{
+                                Swal.fire({
+                                    icon:"error",
+                                    title:"Something Wrong",
+                                    text:"Please try again later"
+                                })
+                            }
                         }
                     })
                 }else{
@@ -78,24 +86,31 @@ export default function CardWhatsapp(props) {
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Yes, delete it!'
-              }).then((result) => {
+              }).then(async (result) => {
                 if (result.isConfirmed) {
-                    ChannelRepository.deleteChannel({xa:{xa:JSON.parse(localStorage.getItem("XA"))}, data:[props.item.id]}).then(dele => {
-                        console.log(dele);
-                    })
-                    const getWhatsappList = JSON.parse(localStorage.getItem("whatsappChannel"))
-                    const deleteData = getWhatsappList.filter(res => {
-                        return res.id != props.item.id
-                    })
-
-                    localStorage.setItem("whatsappChannel", JSON.stringify(deleteData))
-                    context.setData({...context, channelWhatsapp:deleteData})
-
-                    Swal.fire(
-                        'Deleted!',
-                        'Your session has been deleted.',
-                        'success'
-                    )
+                    const result = await ChannelRepository.deleteChannel({xa:{XA:JSON.parse(localStorage.getItem("XA"))}, data:[props.item.id]})
+                    console.log(result);
+                    if(result?.type == "success"){
+                        const getWhatsappList = JSON.parse(localStorage.getItem("whatsappChannel"))
+                        const deleteData = getWhatsappList.filter(res => {
+                            return res.id != props.item.id
+                        })
+    
+                        localStorage.setItem("whatsappChannel", JSON.stringify(deleteData))
+                        context.setData({...context, channelWhatsapp:deleteData})
+    
+                        Swal.fire(
+                            'Deleted!',
+                            'Your session has been deleted.',
+                            'success'
+                        )
+                    }else{
+                        Swal.fire({
+                            icon:"error",
+                            title:"Something Wrong",
+                            text:"Please try again later"
+                        })
+                    }
                 }
             })
         }
@@ -148,8 +163,8 @@ export default function CardWhatsapp(props) {
         </div>
         <div className="flex items-center gap-4">
             <h1 className="flex items-center gap-2">
-                <span className={`w-2 h-2 rounded-full ${options[status] ? options[status]['warna'] : "bg-blue-500"}`}></span>
-                <p className="text-xs text-zinc-600 capitalize">{options[status] ? options[status]['name'] :"Searching"}</p>
+                <span className={`w-4 md:w-2 h-4 md:h-2 rounded-full ${options[status] ? options[status]['warna'] : "bg-blue-500"}`}></span>
+                <p className="text-xs text-zinc-600 capitalize md:block hidden">{options[status] ? options[status]['name'] :"Searching"}</p>
             </h1>
             <button type="button" onClick={() => handlerCheck()}>
                 <FaPowerOff className={`${props.item.active ? "text-green-500":"text-red-500"}`}/>

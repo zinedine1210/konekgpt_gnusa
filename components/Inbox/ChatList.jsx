@@ -5,14 +5,16 @@ import React, { useContext, useEffect, useState } from 'react'
 import WhatsappChat from './WhatsappChat'
 import Swal from 'sweetalert2'
 import WhatsappGroup from './WhatsappGroup'
+import ChannelRepository from '@/repositories/ChannelRepository'
 
 
 export default function ChatList(props) {
     const context = useContext(MyContext)
 
     useEffect(() => {
+
         if(!context.allChatList){
-            const getWhatsappList = JSON.parse(localStorage.getItem("whatsappChannel"))
+            const getWhatsappList = localStorage.getItem("whatsappChannel") != "undefined" ? JSON.parse(localStorage.getItem("whatsappChannel")) : null
             if(getWhatsappList){
                 const getActiveWhatsappList = getWhatsappList.filter(res => res.active == true)
                 if(getActiveWhatsappList.length > 0){
@@ -21,6 +23,8 @@ export default function ChatList(props) {
                     getActiveWhatsappList.forEach(async val => {
                         const result = await WhatsappRepository.getChatList({id:val.identity})
                         const groupResult = await WhatsappRepository.getGroupList({id:val.identity})
+                        console.log(`chat ${val.identity}`, result);
+                        console.log(`group chat ${val.identity}`, groupResult);
 
                         if(result.success && groupResult.success){
                             
@@ -65,12 +69,19 @@ export default function ChatList(props) {
                     context.setData({...context, allChatList:[]})
                 }
             }else{
+                getAllChannel()
                 context.setData({...context, allChatList:[]})
             }
         }
     }, [context.allChatList])
 
-    console.log(context.allChatList);
+    const getAllChannel = async () => {
+        const getxa = JSON.parse(localStorage.getItem("XA"))
+        const result = await ChannelRepository.getAllChannel({xa:getxa})
+        console.log("allchannel", result);
+        localStorage.setItem("whatsappChannel", JSON.stringify(result.data))
+        context.setData({...context, channelWhatsapp:result.data})
+    }
     
   return (
     <div className="max-h-screen overflow-auto absolute top-0 left-0 w-full pt-36">
@@ -97,11 +108,11 @@ export default function ChatList(props) {
                         )
                     }
                     return (
-                    <WhatsappChat item={item} key={key}/>
+                        <WhatsappChat item={item} key={key}/>
                     )
                 })
             :
-            <div className='px-3 text-center'>
+            <div className='px-3 py-2 text-center'>
                 <h1 className='text-red-500 uppercase text-sm py-2 font-bold'>Any chat not found</h1>
             </div>
             :

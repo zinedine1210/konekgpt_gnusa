@@ -47,11 +47,12 @@ class ChannelRepository {
     }
 
     async deleteChannel(params) {
+        const data = cbor.encode(params.data)
         const reponse = await Repository.delete(
             `${baseUrl}/gpt-konek/channel`,
-            params.data,
             {
-                headers: params.xa,
+                data:data,
+                headers:params.xa,
                 contentType:"application/cbor",
                 responseType: "arraybuffer"
             }

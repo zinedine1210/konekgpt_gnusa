@@ -47,11 +47,13 @@ return (
             <p className="text-xs font-light">Create your story from A to Z using ChatBot Visual Builder.</p>
           </button>
         </Link>
-        <button className="text-start w-full block p-3 border border-zinc-200 rounded-md hover:border-blue-500">
-          <BsFilePdfFill className="text-red-500 text-4xl mb-2"/>
-          <h1 className="text-sm font-bold">Build From PDF</h1>
-          <p className="text-xs font-light">Create your story from A to Z using ChatBot Visual Builder.</p>
-        </button>
+        <Link href={"/usr/knowledge/create/pdf"}>
+          <button className="text-start w-full block p-3 border border-zinc-200 rounded-md hover:border-blue-500">
+            <BsFilePdfFill className="text-red-500 text-4xl mb-2"/>
+            <h1 className="text-sm font-bold">Build From PDF</h1>
+            <p className="text-xs font-light">Create your story from A to Z using ChatBot Visual Builder.</p>
+          </button>
+        </Link>
       </div>
     </div>
   </div>

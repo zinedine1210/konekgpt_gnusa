@@ -35,7 +35,7 @@ export default function WhatsappChat({item}) {
         }
     }
 
-    const dataChat = item.messages[0].message.message
+    const dataChat = item?.messages?.[0]?.message?.message
     
   return (
     <button onClick={() => handlerDetailChat(item)} className="text-start w-full hover:bg-zinc-100 transition-all duration-300 border-b p-2 flex gap-2 cursor-pointer relative">
@@ -93,7 +93,7 @@ export default function WhatsappChat({item}) {
         </div>
         <p className="text-[10px] absolute top-2 right-2">{getTimeAgo(Number(item.messages[0].message.messageTimestamp * 1000))}</p>
         {
-            item.unreadCount ?
+            item?.unreadCount ?
             <span className="rounded-full bg-green-500 w-5 text-sm font-bold flex items-center justify-center h-5 absolute bottom-2 right-2 text-white ">{item.unreadCount}</span>
             :""
         }

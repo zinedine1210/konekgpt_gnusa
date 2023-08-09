@@ -3,9 +3,11 @@ import cbor from 'cbor';
 
 class KnowledgeRepository {
     async insertKnowledge(params) {
+        const data = cbor.encode(params.data)
+        console.log(data);
         const reponse = await Repository.post(
             `${baseUrl}/gpt-konek/knowledge`,
-            params.data,
+            data,
             {
                 headers: params.xa,
                 contentType:"application/cbor",
@@ -46,10 +48,11 @@ class KnowledgeRepository {
     }
 
     async deleteKnowledge(params) {
+        const data = cbor.encode(params.data)
         const reponse = await Repository.delete(
             `${baseUrl}/gpt-konek/knowledge`,
-            params.data,
             {
+                data:data,
                 headers: params.xa,
                 contentType:"application/cbor",
                 responseType: "arraybuffer"
@@ -107,9 +110,10 @@ class KnowledgeRepository {
     }
 
     async simulationKnowledge(params) {
+        const data = cbor.encode(params.data)
         const reponse = await Repository.post(
             `${baseUrl}/gpt-konek/knowledge/simulation`,
-            params.data,
+            data,
             {
                 headers: params.xa,
                 contentType:"application/cbor",

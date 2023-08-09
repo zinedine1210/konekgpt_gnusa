@@ -9,6 +9,7 @@ export function MyProvider({children}) {
         "modal":null,
         "minimize":false,
         "view":2,
+        "auth":null,
         "chatDetail":null,
         "infoChat":null,
         'allChatList':null,

@@ -6,7 +6,6 @@ import KnowledgeRepository from "@/repositories/KnowledgeRepository"
 export default function TableKnowledge() {
     const context = useContext(MyContext)
 
-
     useEffect(() => {
         if(!context.dataKnowledge){
             getKnowledge()

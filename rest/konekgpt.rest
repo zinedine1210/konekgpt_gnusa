@@ -52,7 +52,7 @@ DELETE https://konekgpt.gnusa.id/service/gpt-konek/channel HTTP/1.1
 content-type: application/cbor
 XA: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AZ251c2EuaWQiLCJwYXNzd29yZCI6IjcyZGZhYjMzNWNlODIwYjkyZWRjMmEwN2RiMmMxZGQ0Y2FjYTU2MTMifQ.ceCFGSKxjDEH2jPVmICL3SjMu1-9rgLKnBOL1mPnWaQ
 
-["fc0183e7-c7e6-4589-b7a5-c164d632b3c6"]
+["ec0b0017-fef0-4762-ba49-c20cd3fd56fd"]
 
 ### get channel
 GET https://konekgpt.gnusa.id/service/gpt-konek/channel HTTP/1.1
@@ -102,7 +102,9 @@ content-type: application/cbor
 ### delete knowledge
 DELETE https://konekgpt.gnusa.id/service/gpt-konek/knowledge HTTP/1.1
 content-type: application/cbor
-["a2fpk21pska3"]
+XA: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AZ251c2EuaWQiLCJwYXNzd29yZCI6IjcyZGZhYjMzNWNlODIwYjkyZWRjMmEwN2RiMmMxZGQ0Y2FjYTU2MTMifQ.ceCFGSKxjDEH2jPVmICL3SjMu1-9rgLKnBOL1mPnWaQ
+
+["ec0b0017-fef0-4762-ba49-c20cd3fd56fd"]
 
 ### get knowledge
 GET https://konekgpt.gnusa.id/service/gpt-konek/knowledge HTTP/1.1

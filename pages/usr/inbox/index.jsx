@@ -40,7 +40,7 @@ export default function Inbox() {
 
 
   return (
-    <Layout title="HOME" desc="HALAMAN UTAMA">
+    <Layout title="INBOX" desc="HALAMAN UTAMA">
       <Suspense fallback={"Loading"}>
         <section className="w-full bg-zinc-100 relative h-screen flex">
           {
