@@ -1,22 +1,29 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { BsPlusCircleDotted } from 'react-icons/bs'
 import CardFAQ from './CardFAQ'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { MyContext } from '@/context/MyProvider'
 
 export default function TableFAQ() {
+    const router = useRouter()
+    const context = useContext(MyContext)
+
+    const handlerRedirect = (url) => {
+        router.push(url)
+        context.setData({...context, view:3})
+    }
   return (
     <section className="">
         <div className="sm:flex sm:items-center sm:justify-between">
             <input type="search" placeholder="Search List" className="input-search w-full md:w-auto" />
 
             <div className="flex items-center mt-2 md:mt-0">
-                <Link href={"/usr/faq/create-faq"}>
-                    <button className="btn-primary">
-                        <BsPlusCircleDotted className='text-white font-bold text-lg'/>
+                <button className="btn-primary" onClick={() => handlerRedirect("/usr/qna/faq/create-faq")}>
+                    <BsPlusCircleDotted className='text-white font-bold text-lg'/>
 
-                        <span>Create New FAQ</span>
-                    </button>
-                </Link>
+                    <span>Create New FAQ</span>
+                </button>
             </div>
         </div>
 

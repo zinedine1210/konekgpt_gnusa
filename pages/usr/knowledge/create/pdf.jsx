@@ -22,30 +22,30 @@ export default function PDFKnowledge() {
     const handlerSubmit = async (e) => {
         setLoading(true)
         e.preventDefault()
-        // let obj = JSON.parse(JSON.stringify(data))
-        // const dataForm = new FormData()
-        // dataForm.append("upload", obj.upload)
-        // obj.upload = dataForm
-        // console.log(obj);
+        let obj = JSON.parse(JSON.stringify(data))
+        const dataForm = new FormData()
+        dataForm.append("upload", obj.upload)
+        dataForm.append("name", obj.name)
+        dataForm.append("type_training", obj.type_training)
 
-        // const result = await KnowledgeRepository.insertKnowledge({xa:{XA:JSON.parse(localStorage.getItem("XA"))}, data:obj})
-        // console.log(result);
-        // if(result?.type == "success"){
-        //     if(context.dataKnowledge){
-        //         context.dataKnowledge.push(result.data)
-        //     }else{
-        //         context.setData({...context, dataKnowledge:[result.data]})
-        //     }
-        //     setLoading(false)
-        //     router.push("/usr/knowledge")
-        // }else{
-        //     Swal.fire({
-        //         icon:"error",
-        //         title:"Something Wrong",
-        //         text:"Please try again later"
-        //     })
-        //     setLoading(false)
-        // }
+        const result = await KnowledgeRepository.insertKnowledgeUpload({xa:{XA:JSON.parse(localStorage.getItem("XA"))}, data:dataForm})
+        console.log(result);
+        if(result?.type == "success"){
+            if(context.dataKnowledge){
+                context.dataKnowledge.push(result.data)
+            }else{
+                context.setData({...context, dataKnowledge:[result.data]})
+            }
+            setLoading(false)
+            router.push("/usr/knowledge")
+        }else{
+            Swal.fire({
+                icon:"error",
+                title:"Something Wrong",
+                text:"Please try again later"
+            })
+            setLoading(false)
+        }
     }
 
     const handlerUploadPDF = async (e) => {

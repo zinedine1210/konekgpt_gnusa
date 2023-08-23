@@ -25,6 +25,28 @@ class KnowledgeRepository {
         return reponse;
     }
 
+    async insertKnowledgeUpload(params) {
+        // const data = cbor.encode(params.data)
+        // console.log(data);
+        const reponse = await Repository.post(
+            `${baseUrl}/gpt-konek/knowledge/upload`,
+            params.data,
+            {
+                headers: params.xa,
+                contentType:"application/json",
+            }
+        )
+        .then((response) => {
+            const data = cbor.decode(response.data)
+            return data;
+        })
+        .catch((error) => {
+            const result = cbor.decode(error.response.data)
+            return result;
+        });
+        return reponse;
+    }
+
     async updateKnowledge(params) {
         const data = cbor.encode(params.data)
         const reponse = await Repository.put(

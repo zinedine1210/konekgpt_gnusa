@@ -23,10 +23,10 @@ const WithAuth = (WrappedComponent) => {
           setMounted(true)
         }
       }else{
-        router.push("/")
         setAuth("logout")
         setMounted(true)
       }
+
     }, [auth]);
 
     const getStatus = async (xa) => {

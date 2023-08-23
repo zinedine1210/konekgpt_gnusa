@@ -1,11 +1,15 @@
-import TableFAQ from '@/components/FAQ/TableFAQ'
-import Layout from '@/components/Layouts/Layout'
+import TableFAQ from '@/components/FAQ/TableFAQ';
+import LayoutQnA from '@/components/QNA/LayoutQnA'
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React, { Suspense } from 'react'
-import { BsPlusCircleDotted } from 'react-icons/bs'
 
 export default function FAQ() {
+  const {t} = useTranslation("common")
+
+
   return (
-    <Layout title="HOME" desc="HALAMAN UTAMA">
+    <LayoutQnA>
       <Suspense fallback={"Loading"}>
         <section className="w-full bg-zinc-100 relative h-screen flex">
           <div className="w-full relative h-screen pt-16 overflow-y-auto">
@@ -21,6 +25,16 @@ export default function FAQ() {
           </div>
         </section>
       </Suspense>
-    </Layout>
+    </LayoutQnA>
   )
+}
+
+export async function getServerSideProps({ locale }) {
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+      // Will be passed to the page component as props
+    }
+  };
 }

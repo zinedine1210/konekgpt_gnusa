@@ -1,6 +1,5 @@
 import Seo from "@/components/Seo";
 import AuthRepository from "@/repositories/AuthRepository";
-import { get } from "lodash";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
@@ -14,6 +13,14 @@ export default function Login() {
     const [loading, setLoading] = useState(false)
     const [mounted, setMounted] = useState(false)
 
+    useEffect(() => {
+        const getXA = JSON.parse(localStorage.getItem("XA"))
+        if(getXA){
+            router.push("/usr")
+        }
+
+        setMounted(true)
+    }, [])
 
     const handlerHideShow = () => {
         const el = document.getElementById("addpassword")
@@ -55,6 +62,7 @@ export default function Login() {
         setLoading(false)
     }
     
+    if(mounted)
   return (
     <>
         <Seo 

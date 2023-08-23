@@ -1,20 +1,33 @@
-import CardQuestion from "@/components/FAQ/CardQuestion";
-import Layout from "@/components/Layouts/Layout";
-import Link from "next/link";
-import { Suspense } from "react";
-import { FaChevronDown, FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { IoCreate } from "react-icons/io5";
+import CardQuestion from '@/components/FAQ/CardQuestion';
+import LayoutQnA from '@/components/QNA/LayoutQnA'
+import ModalImport from '@/components/UnanswerQuestion/ModalImport';
+import { MyContext } from '@/context/MyProvider';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import React, { Suspense, useContext } from 'react'
+import { TfiImport } from 'react-icons/tfi';
 
-export default function CreateFAQ() {
+export default function UnanswerQuestion() {
+  const {t} = useTranslation("common")
+  const context = useContext(MyContext)
+
+
   return (
-    <Layout title="HOME" desc="HALAMAN UTAMA">
-      <Suspense fallback={"Loading"}>
+    <LayoutQnA>
+        <Suspense fallback={"Loading"}>
+        {
+            context.modal ?
+            context.modal == "importUnanswerQuestion" ?
+                <ModalImport />
+            :"":""
+        }
         <section className="w-full bg-zinc-100 relative h-screen flex">
           <div className="w-full relative h-screen pt-16 overflow-y-auto">
             <div className='mx-0 md:mx-2'>
               <div className='bg-white rounded-md shadow-md p-3 md:p-5'>
-                <label className="text-zinc-500 text-base md:text-xl uppercase dark:text-zinc-400 font-semibold">Frequently Asked Question Builder</label>
-                <div className="flex items-center gap-2 pt-1 pb-3">
+                <label className="text-zinc-500 text-base md:text-xl uppercase dark:text-zinc-400 font-semibold">Unanswer Question</label>
+                <p className="text-xs md:text-sm text-gray-500 font-light">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem pariatur doloribus odit doloremque voluptatibus at, eos nihil numquam aliquid in.</p>
+                {/* <div className="flex items-center gap-2 pt-1 pb-3">
                     <Link href={"/usr/faq"}>
                         <h1 className="text-sm dark:text-zinc-400 flex items-center gap-1 text-blue-500">
                             <FaChevronLeft />
@@ -22,8 +35,8 @@ export default function CreateFAQ() {
                         </h1>
                     </Link>
                     /
-                    <h1 className="text-sm">Create FAQ</h1>
-                </div>
+                    <h1 className="text-sm">Unanswer Question</h1>
+                </div> */}
 
                 <div className="sm:flex sm:items-center sm:justify-between mt-5">
                     <input type="search" placeholder="Filter by Question" className="input-search w-full md:w-auto" />
@@ -51,13 +64,24 @@ export default function CreateFAQ() {
 
           <div className="backdrop-blur-md w-full absolute bottom-0 left-0 px-5 py-2 border-t border-zinc-200 flex items-center justify-between">
             <h1 className="text-zinc-600 text-sm"><span className="font-bold text-3xl">20</span> Questions Selected</h1>
-            <button className="btn-primary">
-                <IoCreate className='text-white font-bold text-lg'/>
-                <span>Generate</span>
+            <button className="btn-primary" onClick={() => context.setData({...context, modal:"importUnanswerQuestion"})}>
+                {/* <IoCreate className='text-white font-bold text-lg'/> */}
+                <TfiImport className="text-white font-bold text-lg"/>
+                <span>Import</span>
             </button>
           </div>
         </section>
       </Suspense>
-    </Layout>
+    </LayoutQnA>
   )
+}
+
+export async function getServerSideProps({ locale }) {
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+      // Will be passed to the page component as props
+    }
+  };
 }
