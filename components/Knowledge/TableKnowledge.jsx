@@ -27,13 +27,14 @@ export default function TableKnowledge() {
             <div className="overflow-hidden">
                 {
                     context.dataKnowledge ?
+                    context.dataKnowledge.length > 0 ?
                         <table className="min-w-full divide-y divide-zinc-200 dark:divide-zinc-700">
                             <thead className="">
                                 <tr>
                                     <th scope="col" className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-zinc-500 dark:text-zinc-400">
                                         <div className="flex items-center gap-x-3">
                                             {/* <input type="checkbox" className="text-blue-500 border-zinc-300 rounded dark:bg-zinc-900 dark:ring-offset-zinc-900 dark:border-zinc-700"/> */}
-                                            <span>User Query</span>
+                                            <span>Knowledge Name</span>
                                         </div>
                                     </th>
 
@@ -63,7 +64,16 @@ export default function TableKnowledge() {
                                 
                             </tbody>
                         </table>
-                    :"Loading..."
+                    :
+                    <div className="w-full text-center p-5">
+                        <h1 className="text-red-500 text-sm uppercase font-bold">No Data Available</h1>
+                    </div>
+                    :
+                    new Array(10).fill("mantap").map((key) => {
+                        return (
+                            <div key={key} className="w-full h-10 animate-pulse bg-zinc-200 mb-1 rounded-md"></div>
+                        )
+                    })
                 }
             </div>
         </div>

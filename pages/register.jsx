@@ -9,7 +9,7 @@ export default function HalamanRegister() {
 
   if(token)
   return (
-    <section className='w-full h-screen'>
+    <section className='w-full h-screen bg-zinc-100'>
 
       <div className="container mx-auto py-2 px-2 md:px-32">
         <button className={`flex gap-1`}>
@@ -20,9 +20,9 @@ export default function HalamanRegister() {
         </button>
       </div>
 
-      <div className="w-full md:w-1/2 rounded-[40px] overflow-hidden shadow-2xl mx-auto mt-5 flex">
-        <div className="hidden w-1/2 bg-lightPrimary md:flex items-center justify-center">
-          Image here
+      <div className="bg-white w-full md:w-1/2 rounded-[40px] overflow-hidden shadow-2xl mx-auto mt-5 flex">
+        <div style={{backgroundImage:'url("/images/jumbotron2.jpg")'}} className="hidden bg-cover w-1/2 md:flex items-center justify-center">
+        
         </div>
         <div className="w-full md:w-1/2 px-5 py-14">
           <h1 className="text-2xl font-bold">Daftar <span className="text-yellow-500">Gratis!</span></h1>

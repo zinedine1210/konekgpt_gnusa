@@ -11,8 +11,10 @@ export default function ChannelType() {
 
     const handlerRedirect = (url) => {
         router.push(url)
+        localStorage.setItem("view", 3)
         context.setData({...context, view:3})
     }
+
     
   return (
     <div className={`${context.view == 2 ? "fixed top-0 left-0 w-screen h-screen z-20":"hidden md:block"} md:z-0 md:relative md:w-1/6 bg-white pt-16`}>

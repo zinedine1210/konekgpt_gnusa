@@ -13,7 +13,7 @@ export default function EditContact() {
               <div className='w-full md:w-1/4 bg-white rounded-md shadow-md p-3 md:p-5'>
                 <div className="flex items-center gap-2 pt-1 pb-3">
                     <Link href={"/usr/contacts"}>
-                        <h1 className="text-sm dark:text-zinc-400 flex items-center gap-1 text-blue-500">
+                        <h1 className="badge-blue">
                             <FaChevronLeft />
                             Back
                         </h1>

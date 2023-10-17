@@ -4,6 +4,7 @@ import { FaWhatsapp } from 'react-icons/fa'
 import ModalQRWhatsapp from './ModalQRWhatsapp'
 import CardWhatsapp from './CardWhatsapp'
 import ChannelRepository from '@/repositories/ChannelRepository'
+import Image from 'next/image'
 
 export default function WhatsappList() {
     const context = useContext(MyContext)
@@ -60,7 +61,7 @@ export default function WhatsappList() {
                     </div>
                     :
                     <div className='mx-auto w-full md:w-1/4 text-center'>
-                        <h1>Image here...</h1>
+                        <Image src={"/images/whatsapp.png"} width={512} className='w-1/2 mx-auto mb-10' height={512}/>
                         <h1>No Whatsapp Business Account Yet</h1>
                         <p className='text-zinc-500 text-sm'>Your integrated WhatsApp Business account list will appear here.</p>
                     </div>

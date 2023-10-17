@@ -11,6 +11,7 @@ export default function TableFAQ() {
 
     const handlerRedirect = (url) => {
         router.push(url)
+        localStorage.setItem("view", 3)
         context.setData({...context, view:3})
     }
   return (
@@ -19,7 +20,7 @@ export default function TableFAQ() {
             <input type="search" placeholder="Search List" className="input-search w-full md:w-auto" />
 
             <div className="flex items-center mt-2 md:mt-0">
-                <button className="btn-primary" onClick={() => handlerRedirect("/usr/qna/faq/create-faq")}>
+                <button className="btn-primary" onClick={() => handlerRedirect("/usr/qna/service/create-faq")}>
                     <BsPlusCircleDotted className='text-white font-bold text-lg'/>
 
                     <span>Create New FAQ</span>

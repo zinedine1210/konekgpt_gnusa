@@ -34,7 +34,7 @@ export default function HalamanCreate() {
                     <p className="text-2xl font-bold text-zinc-500 max-w-xl">Which feature do you need help with?</p>
                     <div className="flex items-center gap-2 pt-1 pb-3">
                         <Link href={"/usr/help"}>
-                            <h1 className="text-sm dark:text-zinc-400 flex items-center gap-1 text-blue-500">
+                            <h1 className="badge-blue">
                                 <FaChevronLeft />
                                 Back
                             </h1>

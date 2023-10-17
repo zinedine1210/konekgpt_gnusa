@@ -7,6 +7,7 @@ import SelectType from "@/components/Knowledge/SelectType";
 import TableKnowledge from "@/components/Knowledge/TableKnowledge";
 import SimulationKnowledge from "@/components/Knowledge/SimulationKnowledge";
 import { MyContext } from "@/context/MyProvider";
+import { IoRefresh } from "react-icons/io5";
 
 
 export default function Knowledge() {
@@ -29,7 +30,8 @@ export default function Knowledge() {
                         <input type="search" className="input-search w-full md:w-auto" placeholder="Search" />
 
                         <div className="md:flex items-center gap-2 mt-2 md:mt-0 space-y-2 md:space-y-0">
-                          <SelectBot />
+                          <SelectBot /> 
+                          <button className="btn-secondary" onClick={() => context.setData({...context, dataKnowledge:null})}>Refresh <IoRefresh /></button>
                           <SelectType />
                         </div>
                       </div>

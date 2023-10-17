@@ -12,6 +12,7 @@ export default function ModalQRWhatsapp(props) {
   const context = useContext(MyContext)
   const [step, setStep] = useState(props.defaultStep ?? 1)
   const [id, setId] = useState(props.defaultId)
+  const [label, setLabel] = useState(null)
   const [data, setData] = useState(null)
   const [connect, setConnect] = useState(false)
 
@@ -65,7 +66,7 @@ export default function ModalQRWhatsapp(props) {
     const getxa = JSON.parse(localStorage.getItem("XA"))
     let obj = {
       "code": 1,
-      "name":"guest",
+      "name":label,
       "identity": getID
     }
     const result = await ChannelRepository.insertChannel({xa:{XA:getxa}, data:obj})
@@ -73,9 +74,9 @@ export default function ModalQRWhatsapp(props) {
 
     const getWhatsappList = JSON.parse(localStorage.getItem("whatsappChannel"))
     if(getWhatsappList){
-      const getDetailWhatsappList = getWhatsappList.find(res => res.identity == id)
+      const getDetailWhatsappList = getWhatsappList.find(res => res.data.identity == id)
       if(getDetailWhatsappList){
-        getWhatsappList.find(res => res.identity == id)['active'] = true
+        getWhatsappList.find(res => res.data.identity == id)['active'] = true
       }else{
         getWhatsappList.push(result.data)
       }
@@ -114,20 +115,20 @@ export default function ModalQRWhatsapp(props) {
       {
         connect ?
           <div id="wifi-loader">
-              <svg class="circle-outer" viewBox="0 0 86 86">
-                  <circle class="back" cx="43" cy="43" r="40"></circle>
-                  <circle class="front" cx="43" cy="43" r="40"></circle>
-                  <circle class="new" cx="43" cy="43" r="40"></circle>
+              <svg className="circle-outer" viewBox="0 0 86 86">
+                  <circle className="back" cx="43" cy="43" r="40"></circle>
+                  <circle className="front" cx="43" cy="43" r="40"></circle>
+                  <circle className="new" cx="43" cy="43" r="40"></circle>
               </svg>
-              <svg class="circle-middle" viewBox="0 0 60 60">
-                  <circle class="back" cx="30" cy="30" r="27"></circle>
-                  <circle class="front" cx="30" cy="30" r="27"></circle>
+              <svg className="circle-middle" viewBox="0 0 60 60">
+                  <circle className="back" cx="30" cy="30" r="27"></circle>
+                  <circle className="front" cx="30" cy="30" r="27"></circle>
               </svg>
-              <svg class="circle-inner" viewBox="0 0 34 34">
-                  <circle class="back" cx="17" cy="17" r="14"></circle>
-                  <circle class="front" cx="17" cy="17" r="14"></circle>
+              <svg className="circle-inner" viewBox="0 0 34 34">
+                  <circle className="back" cx="17" cy="17" r="14"></circle>
+                  <circle className="front" cx="17" cy="17" r="14"></circle>
               </svg>
-              <div class="text" data-text="Connecting"></div>
+              <div className="text" data-text="Connecting"></div>
           </div>
         :
         <div className="bg-white w-full md:w-1/4 mx-auto rounded-md p-5">
@@ -160,7 +161,7 @@ export default function ModalQRWhatsapp(props) {
                 }
               </div>
             :
-            <CreateSession setStep={value => setStep(value)} setId={value => setId(value)}/>
+            <CreateSession setStep={value => setStep(value)} setId={value => setId(value)} setLabel={value => setLabel(value)}/>
           }
         </div>
       }
@@ -170,7 +171,8 @@ export default function ModalQRWhatsapp(props) {
 
 
 function CreateSession(props){
-  const [data, setData] = useState(null)
+  const [data, setData] = useState("")
+  const [label, setLabel] = useState("")
   const [dial, setDial] = useState(null)
   const [open, setOpen] = useState(false)
   const [keyword, setKeyword] = useState("")
@@ -201,6 +203,7 @@ function CreateSession(props){
       const result = choose.dial_code.split("+")[1] + data
       props.setId(result)
       props.setStep(2)
+      props.setLabel(label == "" ? "No Name":label)
     }
   }
 
@@ -216,36 +219,39 @@ function CreateSession(props){
 
   return (
     <form>
-      <div className='w-full relative my-5'>
-        <div ref={dropRef} className='absolute block top-1/2 -translate-y-1/2 pl-3 text-sm text-zinc-500 font-bold'>
-          <input type="text" placeholder='+---' className='outline-none inline-block bg-inherit w-12' value={choose.dial_code} onChange={(e) => handlerSearch(e.target.value)} onFocus={() => setOpen(true)} />
-          <div className={`${open ? "":"hidden"} bg-white shadow-md top-full absolute left-0 w-fit max-h-80 overflow-auto mt-2 z-20`}>
-            {
-              dial ?
-              dial.filter(res => {
-                if(res?.dial_code != null){
-                  if(keyword != ""){
-                    if(res.dial_code.includes(keyword)){
+      <div className='my-5 space-y-3'>
+        <input type="text" required className='input-search w-full' placeholder='Name / Label' onChange={(e) => setLabel(e.target.value)} value={label} />
+        <div className='w-full relative'>
+          <div ref={dropRef} className='absolute block top-1/2 -translate-y-1/2 pl-3 text-sm text-zinc-500 font-bold'>
+            <input type="text" placeholder='+---' className='outline-none inline-block bg-inherit w-12' value={choose.dial_code} onChange={(e) => handlerSearch(e.target.value)} onFocus={() => setOpen(true)} />
+            <div className={`${open ? "":"hidden"} bg-white shadow-md top-full absolute left-0 w-fit max-h-80 overflow-auto mt-2 z-20`}>
+              {
+                dial ?
+                dial.filter(res => {
+                  if(res?.dial_code != null){
+                    if(keyword != ""){
+                      if(res.dial_code.includes(keyword)){
+                        return res
+                      }
+                    }else{
                       return res
                     }
-                  }else{
-                    return res
                   }
-                }
-              }).map((item, key) => {
-                return (
-                  <button type='button' onClick={() => handlerChoose(item)} key={key} className='w-full py-2 px-4 hover:bg-blue-100 text-start'>
-                    <h1 className='font-bold text-black'>{item.name}</h1>
-                    <p className='text-zinc-500 text-sm font-normal'>{item.dial_code}</p>
-                  </button>
-                )
-              })
-              :""
-            }
+                }).map((item, key) => {
+                  return (
+                    <button type='button' onClick={() => handlerChoose(item)} key={key} className='w-full py-2 px-4 hover:bg-blue-100 text-start'>
+                      <h1 className='font-bold text-black'>{item.name}</h1>
+                      <p className='text-zinc-500 text-sm font-normal'>{item.dial_code}</p>
+                    </button>
+                  )
+                })
+                :""
+              }
+            </div>
           </div>
-        </div>
 
-        <input type="number" onChange={e => setData(e.target.value)} maxLength={12} className='bg-zinc-50 text-sm py-2 pl-16 pr-5 outline-none border-2 hover:bg-zinc-100 focus:bg-white focus:border-lightPrimary w-full' placeholder='Type in 89508...' />
+          <input type="number" onChange={e => setData(e.target.value)} value={data} maxLength={12} className='bg-zinc-50 text-sm py-2 pl-16 pr-5 outline-none border-2 hover:bg-zinc-100 focus:bg-white focus:border-lightPrimary w-full' placeholder='Type in 89508...' />
+        </div>
       </div>
 
       <button className='btn-primary' onClick={() => handlerCreateSession()}>Create Session</button>

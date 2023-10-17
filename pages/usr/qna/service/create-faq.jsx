@@ -17,10 +17,10 @@ export default function CreateFAQ() {
           <div className="w-full relative h-screen pt-16 overflow-y-auto">
             <div className='mx-0 md:mx-2'>
               <div className='bg-white rounded-md shadow-md p-3 md:p-5'>
-                <label className="text-zinc-500 text-base md:text-xl uppercase dark:text-zinc-400 font-semibold">Frequently Asked Question Builder</label>
+                <label className="text-base md:text-xl dark:text-zinc-400 font-semibold">Frequently Asked Question Builder</label>
                 <div className="flex items-center gap-2 pt-1 pb-3">
                     <Link href={"/usr/qna/faq"}>
-                        <h1 className="text-sm dark:text-zinc-400 flex items-center gap-1 text-blue-500">
+                        <h1 className="badge-blue">
                             <FaChevronLeft />
                             Back
                         </h1>

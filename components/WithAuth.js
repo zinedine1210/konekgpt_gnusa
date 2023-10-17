@@ -9,8 +9,9 @@ const WithAuth = (WrappedComponent) => {
   return (props) => {
     const router = useRouter()
     const [auth, setAuth] = useState(false)
-    const context = useContext(MyContext)
+    // const context = useContext(MyContext)
     const [mounted, setMounted] = useState(false)
+    // console.log(context);
 
     useEffect(() => {
       // cek kondisi
@@ -23,16 +24,17 @@ const WithAuth = (WrappedComponent) => {
           setMounted(true)
         }
       }else{
+        localStorage.clear()
         setAuth("logout")
         setMounted(true)
+        router.push("/")
       }
-
     }, [auth]);
 
     const getStatus = async (xa) => {
       const result = await AuthRepository.getStatus({XA:xa, param:"user"})
-
-      if(result.type == "error"){
+      console.log(result);
+      if(result.status == -1 && result.message == "Token Expired"){
         localStorage.clear()
         Swal.fire({
           icon:"info",
@@ -41,12 +43,14 @@ const WithAuth = (WrappedComponent) => {
           timer:1200
         })
         setAuth("logout")
-      }else if(result.type == "failed"){
+        localStorage.clear()
+      }else if(result.status == -1){
         Swal.fire({
           icon:"warning",
           title:"Maintenance"
         })
         router.push("/")
+        localStorage.clear()
         setAuth("failed")
       }else{
         setAuth(result)
@@ -55,7 +59,7 @@ const WithAuth = (WrappedComponent) => {
     }
 
 
-    if(mounted){
+  if(mounted){
       return (
         <WrappedComponent profileData={auth} {...props} />
       );

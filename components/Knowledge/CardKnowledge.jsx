@@ -1,6 +1,8 @@
 import { MyContext } from "@/context/MyProvider";
 import KnowledgeRepository from "@/repositories/KnowledgeRepository";
+import Link from "next/link";
 import { useContext } from "react";
+import { BsPencilFill } from "react-icons/bs";
 import { IoEyeSharp, IoTrash } from "react-icons/io5";
 import Swal from "sweetalert2";
 
@@ -32,6 +34,12 @@ export default function CardKnowledge({item}) {
                 }
             }})
         
+    }
+
+    let typeTraining = {
+        1 : {name:"upload-file"},
+        2 : {name:"website"},
+        4 : {name:"scratch"}
     }
 
   return (
@@ -70,6 +78,14 @@ export default function CardKnowledge({item}) {
         <td className="px-4 py-4 text-sm whitespace-nowrap space-x-2">
             <button onClick={() => handlerDelete()} className="p-2 text-red-500 transition-colors duration-200 rounded-lg dark:text-red-300 hover:bg-red-100">
                 <IoTrash />
+            </button>
+            <Link href={`/usr/knowledge/update/${typeTraining[item.type_training].name}?id=${item.id}`} shallow>
+                <button className="p-2 text-green-500 transition-colors duration-200 rounded-lg dark:text-green-300 hover:bg-green-100">
+                    <BsPencilFill />
+                </button>
+            </Link>
+            <button onClick={() => alert("No function available")} className="bg-yellow-100 p-2 text-zinc-500 transition-colors duration-200 rounded-lg dark:text-zinc-300 hover:bg-yellow-200">
+                Training
             </button>
             <button onClick={() => context.setData({...context, view:3, modal:{name:"simulationKnowledge", data:item}})} className="bg-blue-100 p-2 text-zinc-500 transition-colors duration-200 rounded-lg dark:text-zinc-300 hover:bg-blue-200">
                 Start Simulation

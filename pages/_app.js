@@ -1,7 +1,8 @@
 import { ThemeProvider } from 'next-themes'
 import '@/styles/globals.css'
-import '@/styles/loading.css'
-import '@/styles/loading2.css'
+// import '@/styles/loading.css'
+// import '@/styles/loading2.css'
+// import '@/styles/loading3.css'
 
 // import "../build.css"
 import {appWithTranslation} from "next-i18next"

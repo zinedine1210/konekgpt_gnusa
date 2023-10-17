@@ -10,6 +10,7 @@ export default function BroadcastType() {
 
     const handlerRedirect = (url) => {
         router.push(url)
+        localStorage.setItem("view", 3)
         context.setData({...context, view:3})
     }
     

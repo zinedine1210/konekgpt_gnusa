@@ -8,7 +8,7 @@ export function MyProvider({children}) {
         "dataDocumentation":null,
         "modal":null,
         "minimize":false,
-        "view":2,
+        "view":null,
         "auth":null,
         "chatDetail":null,
         "infoChat":null,
@@ -17,7 +17,8 @@ export function MyProvider({children}) {
         "AllContact":[],
         "detailContact":null,
         "channelWhatsapp":null,
-        "dataKnowledge":null
+        "dataKnowledge":null,
+        "menus": null
     })
 
     return (

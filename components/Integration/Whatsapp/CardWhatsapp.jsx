@@ -157,8 +157,8 @@ export default function CardWhatsapp(props) {
         <div className="flex items-center gap-2">
             <FaWhatsapp className="text-green-500 text-2xl"/>
             <div>
-                <p className="text-zinc-500 tracking-wider text-xs uppercase">{props.item.name}</p>
-                <h1 className="text-zinc-600 font-bold">{props.item.identity}</h1>
+                <p className="text-zinc-500 tracking-wider text-xs uppercase">{props.item?.name}</p>
+                <h1 className="text-zinc-600 font-bold">{props.item?.identity}</h1>
             </div>
         </div>
         <div className="flex items-center gap-4">

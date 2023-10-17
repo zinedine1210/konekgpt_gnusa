@@ -24,15 +24,15 @@ export default function ModalSingleContact() {
           <form className="w-full relative mt-5 space-y-2">
             <div>
               <label htmlFor='namecontact' className='inline-block mb-1 text-sm'>Full Name <span className='text-red-500'>*</span></label>
-              <input id='namecontact' type="text" className="w-full block bg-zinc-50 text-sm py-2 px-5 outline-none border-2 hover:bg-zinc-100 focus:bg-white focus:border-lightPrimary" placeholder='Give a name to your new contact' />
+              <input id='namecontact' type="text" className="input-search w-full" placeholder='Give a name to your new contact' />
             </div>
             <div>
               <label htmlFor='phonecontact' className='inline-block mb-1 text-sm'>Phone Number <span className='text-red-500'>*</span></label>
-              <input id='phonecontact' type="text" className="w-full block bg-zinc-50 text-sm py-2 px-5 outline-none border-2 hover:bg-zinc-100 focus:bg-white focus:border-lightPrimary" placeholder='' />
+              <input id='phonecontact' type="text" className="input-search w-full" placeholder='' />
             </div>
             <div>
               <label htmlFor='emailcontact' className='inline-block mb-1 text-sm'>Email Address <span className='text-red-500'>*</span></label>
-              <input id='emailcontact' type="email" className="w-full block bg-zinc-50 text-sm py-2 px-5 outline-none border-2 hover:bg-zinc-100 focus:bg-white focus:border-lightPrimary" placeholder='' />
+              <input id='emailcontact' type="email" className="input-search w-full" placeholder='' />
             </div>
             <div>
               <label htmlFor='channelcontact' className='inline-block mb-1 text-sm'>Select Channel <span className='text-red-500'>*</span></label>

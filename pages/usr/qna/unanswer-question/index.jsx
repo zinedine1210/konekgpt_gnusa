@@ -25,11 +25,11 @@ export default function UnanswerQuestion() {
           <div className="w-full relative h-screen pt-16 overflow-y-auto">
             <div className='mx-0 md:mx-2'>
               <div className='bg-white rounded-md shadow-md p-3 md:p-5'>
-                <label className="text-zinc-500 text-base md:text-xl uppercase dark:text-zinc-400 font-semibold">Unanswer Question</label>
+                <label className="text-base md:text-xl dark:text-zinc-400 font-semibold">Unanswer Question</label>
                 <p className="text-xs md:text-sm text-gray-500 font-light">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem pariatur doloribus odit doloremque voluptatibus at, eos nihil numquam aliquid in.</p>
                 {/* <div className="flex items-center gap-2 pt-1 pb-3">
                     <Link href={"/usr/faq"}>
-                        <h1 className="text-sm dark:text-zinc-400 flex items-center gap-1 text-blue-500">
+                        <h1 className="badge-blue">
                             <FaChevronLeft />
                             Back
                         </h1>
