@@ -10,7 +10,7 @@ export default function TableFAQ() {
     const context = useContext(MyContext)
 
     const handlerRedirect = (url) => {
-        router.push(url)
+        router.push(url, { scroll:false, swallow:true })
         localStorage.setItem("view", 3)
         context.setData({...context, view:3})
     }
@@ -20,7 +20,7 @@ export default function TableFAQ() {
             <input type="search" placeholder="Search List" className="input-search w-full md:w-auto" />
 
             <div className="flex items-center mt-2 md:mt-0">
-                <button className="btn-primary" onClick={() => handlerRedirect("/usr/qna/service/create-faq")}>
+                <button className="btn-primary" onClick={() => handlerRedirect("/usr/qna/service/create-faq?m=clm_qna_service")}>
                     <BsPlusCircleDotted className='text-white font-bold text-lg'/>
 
                     <span>Create New FAQ</span>
@@ -65,7 +65,7 @@ export default function TableFAQ() {
                             </thead>
                             <tbody className="bg-white divide-y divide-zinc-200 dark:divide-zinc-700 dark:bg-zinc-900">
                                 {
-                                    new Array(5).fill("mantap").map((item, key) => {
+                                    new Array(20).fill("mantap").map((item, key) => {
                                         return <CardFAQ />
                                     })
                                 }

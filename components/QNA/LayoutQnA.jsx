@@ -23,8 +23,8 @@ export default function LayoutQnA({children}) {
   return (
     <Layout title="QNA" desc="HALAMAN UTAMA">
       <Suspense fallback={"Loading"}>
-        <section className="w-full bg-zinc-100 relative h-screen flex">
-          <div className={`${context.view == 2 ? "fixed top-0 left-0 w-screen h-screen z-20":"hidden md:block"} md:z-0 md:relative md:w-1/6 bg-white pt-16`}>
+        <section className="w-full bg-zinc-100 relative h-screen">
+          {/* <div className={`${context.view == 2 ? "fixed top-0 left-0 w-screen h-screen z-20":"hidden md:block"} md:z-0 md:relative md:w-1/6 bg-white pt-16`}>
             <label className="px-3 text-xs text-zinc-500 uppercase dark:text-zinc-400">Question & Answer</label>
 
             <div className="space-y-2 mt-2">
@@ -41,9 +41,9 @@ export default function LayoutQnA({children}) {
                     <h1>Unanswer Question</h1>
                 </button>
             </div>
-          </div>
+          </div> */}
 
-          <div className="w-full md:w-5/6 border bg-white relative h-screen overflow-y-auto">
+          <div className="w-full border bg-white relative h-screen overflow-y-auto">
             {children}
           </div>
         </section>

@@ -39,7 +39,11 @@ export default function Navbar() {
 
 
     const handlerRedirect = () => {
-        const resView = Number(context.view) - 1
+        if(localStorage.getItem("view") == 1){
+            return false
+        }
+
+        const resView = Number(localStorage.getItem("view")) - 1
         console.log("change view to", localStorage.getItem("view"));
         localStorage.setItem("view", resView)
         context.setData({...context, view:resView})
@@ -52,7 +56,7 @@ export default function Navbar() {
                 <div className="flex items-center justify-between w-full">
                     <button onClick={() => handlerRedirect()} className={`flex gap-1`}>
                         <div className="flex items-center gap-2">
-                            {context.view > 1 ? <FaChevronLeft className="text-xl text-gray-500 md:hidden"/>:""}
+                            {localStorage.getItem("view") > 1 ? <FaChevronLeft className="text-xl text-gray-500 md:hidden"/>:""}
                             <span className="font-extrabold text-white text-3xl md:text-4xl block">Konek</span>
                         </div>
                         <p className="self-end text-xs font-extrabold uppercase mb-1 text-white">Gpt</p>

@@ -66,3 +66,12 @@ export function getTimeAgo(timestamp) {
     return `${years} tahun yang lalu`;
   }
 }
+
+export function getIdMenu(list, id){
+  let result = null
+  list.forEach(parent => {
+    result = parent.menus.find(res => res.id == id)
+  });
+
+  return result
+}

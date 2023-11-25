@@ -8,6 +8,7 @@ import { MyContext } from '@/context/MyProvider';
 const WithAuth = (WrappedComponent) => {
   return (props) => {
     const router = useRouter()
+    const [status, setStatus] = useState("")
     const [auth, setAuth] = useState(false)
     // const context = useContext(MyContext)
     const [mounted, setMounted] = useState(false)
@@ -19,6 +20,7 @@ const WithAuth = (WrappedComponent) => {
       
       if(getxa){
         if(!auth){
+          setStatus("we're getting your account, hold on...")
           getStatus(getxa)
         }else{
           setMounted(true)
@@ -56,6 +58,7 @@ const WithAuth = (WrappedComponent) => {
         setAuth(result)
       }
       setMounted(true)
+      setStatus("Berhasil login")
     }
 
 
@@ -64,7 +67,7 @@ const WithAuth = (WrappedComponent) => {
         <WrappedComponent profileData={auth} {...props} />
       );
     }else{
-      return <Loading />
+      return <Loading status={status}/>
     }
   };
 };

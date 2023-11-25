@@ -2,7 +2,7 @@ import { MyContext } from "@/context/MyProvider";
 import { useContext, useEffect, useRef, useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
 
-export default function SelectBot() {
+export default function SelectBot({ setName }) {
     const dropRef = useRef(null)
     const [data, setData] = useState(null)
     const [open, setOpen] = useState(false)
@@ -24,6 +24,7 @@ export default function SelectBot() {
 
 
     const handlerChoose = (key) => {
+        setName(context.dataKnowledge[key])
         setData(context.dataKnowledge[key])
     }
 

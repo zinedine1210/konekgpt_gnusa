@@ -18,7 +18,9 @@ export function MyProvider({children}) {
         "detailContact":null,
         "channelWhatsapp":null,
         "dataKnowledge":null,
-        "menus": null
+        "menus": null,
+        "structured":null,
+        "dataFilesKnowledge":null
     })
 
     return (

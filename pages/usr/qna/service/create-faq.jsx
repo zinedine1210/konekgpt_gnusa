@@ -19,7 +19,7 @@ export default function CreateFAQ() {
               <div className='bg-white rounded-md shadow-md p-3 md:p-5'>
                 <label className="text-base md:text-xl dark:text-zinc-400 font-semibold">Frequently Asked Question Builder</label>
                 <div className="flex items-center gap-2 pt-1 pb-3">
-                    <Link href={"/usr/qna/faq"}>
+                    <Link href={"/usr/qna/service?m=clm_qna_service"}>
                         <h1 className="badge-blue">
                             <FaChevronLeft />
                             Back

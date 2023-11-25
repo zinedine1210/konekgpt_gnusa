@@ -21,7 +21,7 @@ export default function Login() {
     useEffect(() => {
         const getXA = JSON.parse(localStorage.getItem("XA"))
         if(getXA){
-            router.push("/usr")
+            router.push("/usr?m=clm_dashboard")
         }
 
         const lastLoginData = JSON.parse(localStorage.getItem("lastLogin"))
@@ -69,7 +69,7 @@ export default function Login() {
                 }
             }
 
-            router.push("/usr")
+            router.push("/usr?m=clm_dashboard")
         }else{
             Swal.fire({
                 icon:"error",

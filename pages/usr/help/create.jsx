@@ -33,7 +33,7 @@ export default function HalamanCreate() {
                 <div className="p-0 md:p-5">
                     <p className="text-2xl font-bold text-zinc-500 max-w-xl">Which feature do you need help with?</p>
                     <div className="flex items-center gap-2 pt-1 pb-3">
-                        <Link href={"/usr/help"}>
+                        <Link href={"/usr/help?m=clm_help"}>
                             <h1 className="badge-blue">
                                 <FaChevronLeft />
                                 Back

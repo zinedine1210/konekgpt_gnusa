@@ -1,5 +1,5 @@
 import TableFAQ from '@/components/FAQ/TableFAQ';
-import LayoutQnA from '@/components/QNA/LayoutQnA'
+import Layout from '@/components/Layouts/Layout';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React, { Suspense } from 'react'
@@ -9,7 +9,7 @@ export default function FAQ() {
 
 
   return (
-    <LayoutQnA>
+    <Layout title={"Halaman QNA"}>
       <Suspense fallback={"Loading"}>
         <section className="w-full bg-zinc-100 relative h-screen flex">
           <div className="w-full relative h-screen pt-16 overflow-y-auto">
@@ -25,7 +25,7 @@ export default function FAQ() {
           </div>
         </section>
       </Suspense>
-    </LayoutQnA>
+    </Layout>
   )
 }
 

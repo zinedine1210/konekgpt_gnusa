@@ -30,7 +30,7 @@ export default function SimulationKnowledge() {
     }
 
   return (
-    <div className="fixed top-0 left-0 z-50 md:block w-full md:w-[500px] h-screen md:h-[840px] md:border-8 border-black md:z-0 md:rounded-[20px] bg-white dark:bg-dark dark:border-black mx-auto outline outline-blue-300 shadow-2xl pb-16 md:relative overflow-hidden">
+    <div className="fixed top-0 left-0 z-50 md:block w-full md:w-[300px] h-screen md:h-[640px] md:border-8 border-black md:z-0 md:rounded-[20px] bg-white dark:bg-dark dark:border-black mx-auto outline outline-blue-300 shadow-2xl pb-16 md:relative overflow-hidden">
         <div className="w-full py-2 flex items-center justify-between bg-blue-100 px-2">
             <div>
                 <h1 className="text-sm">{context.modal.data.name}</h1>

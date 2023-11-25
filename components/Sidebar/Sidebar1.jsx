@@ -7,26 +7,17 @@ import AuthRepository from "@/repositories/AuthRepository";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { icon_menus } from "@/utils/icon_menu";
+import { getIdMenu } from "@/utils/script";
 
-export default function Sidebar() {
+export default function Sidebar1({ menus }) {
     const context = useContext(MyContext)
     const router = useRouter()
 
-    const handlerRedirect = async (link) => {
-        router.push(link)
+    const handlerRedirect = async (link, id) => {
         localStorage.setItem("view", 2)
         context.setData({...context, view:2})
+        router.push(`${link}?m=${id}`)
     }
-
-    useEffect(() => {
-        if(!context.menus){
-            axios.get("/client_menu.json").then(res => {
-                console.log(res);
-                // console.log("ngambil data lagi");
-                context.setData({...context, menus:res.data})
-            })
-        }
-    }, [context.menus])
 
     const handlerLogout = async () => {
         const result = await AuthRepository.postLogout({XA:JSON.parse(localStorage.getItem("XA"))})
@@ -46,8 +37,10 @@ export default function Sidebar() {
         context.setData({...context, minimize:true})
     }
     
+    const getAddOns = JSON.parse(localStorage.getItem("eventAddOns"))
+    
   return (
-    <aside className={`border  border-red-400 ${context.minimize ? "":`${context.view == 1 ? "fixed top-0 left-0 w-screen z-20 md:z-10 md:relative md:w-2/12":"hidden md:block md:w-2/12"}`} flex h-screen bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-zinc-900 dark:border-zinc-700`}>
+    <aside className={`${context.minimize ? "":`${context.view == 1 ? "fixed top-0 left-0 w-screen z-20 md:z-10 md:relative md:w-64":"hidden md:block md:w-64"}`} flex h-screen bg-white rtl:border-r-0 rtl:border-l dark:bg-zinc-900 dark:border-zinc-700`}>
         {
             context.minimize ?
                 <MinSidebar /> 
@@ -81,8 +74,11 @@ export default function Sidebar() {
                                     </div>
                                     {
                                         flagParent.menus.filter(res => res.parent == "").map((menu, key2) => {
+                                            const getThisMenu = router.query?.m ? router.query.m.includes(menu.id) : getIdMenu(context.menus, menu.id)
+
+                                            if(menu.show)
                                             return (
-                                                <button key={key2} onClick={() => handlerRedirect(menu.route)} className={`${router.asPath == menu.route ? "bg-blue-100":"hover:bg-zinc-100 dark:hover:bg-zinc-800 dark:hover:text-zinc-200 hover:text-zinc-700"} w-full flex items-center px-3 py-2 text-zinc-600 transition-colors duration-300 transform rounded-lg dark:text-zinc-200`}>
+                                                <button key={key2} onClick={() => handlerRedirect(menu.route, menu.id)} className={`${getThisMenu &&  "bg-blue-100 dark:bg-dark dark:hover:bg-zinc-800 dark:hover:text-zinc-200"} hover:bg-zinc-100 text-sm w-full flex items-center px-3 py-2 text-zinc-600 transition-colors duration-300 transform rounded-lg dark:text-zinc-200`}>
                                                     {
                                                         icon_menus[menu.id]
                                                     }
@@ -94,28 +90,25 @@ export default function Sidebar() {
                                 </div>
                             )
                         })
-                        :"Kosong"
-                        :"Loading"
+                        :
+                        <div>
+                            <h1 className="text-sm font-bold">Menu not found for you</h1>
+                            <p className="text-xs font-light">Request to superadmin give you permission</p>
+                        </div>
+                        :
+                        <div className="space-y-3">
+                            <div className="rounded-md shadow-md bg-zinc-200 animate-pulse w-1/2 h-7 mb-10"></div>
+                            {
+                                new Array(14).fill("menu").map((item) => {
+                                    return (
+                                        <div className="rounded-md shadow-md bg-zinc-200 animate-pulse w-full h-6">
+
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
                     }
-
-                    <div className="space-y-3 ">
-                        <label className="px-3 text-xs text-zinc-500 uppercase dark:text-zinc-400">Customization</label>
-                        <button onClick={() => handlerRedirect("/usr/themes")} className={`${router.asPath == "/usr/themes" ? "bg-blue-100":"hover:bg-zinc-100 dark:hover:bg-zinc-800 dark:hover:text-zinc-200 hover:text-zinc-700"} w-full flex items-center px-3 py-2 text-zinc-600 transition-colors duration-300 transform rounded-lg dark:text-zinc-200`}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402M6.75 21A3.75 3.75 0 013 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 003.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008z" />
-                            </svg>
-
-                            <span className="mx-2 text-sm font-medium">Themes</span>
-                        </button>
-                        <button onClick={() => handlerRedirect("/usr/settings")} className={`${router.asPath == "/usr/settings" ? "bg-blue-100":"hover:bg-zinc-100 dark:hover:bg-zinc-800 dark:hover:text-zinc-200 hover:text-zinc-700"} w-full flex items-center px-3 py-2 text-zinc-600 transition-colors duration-300 transform rounded-lg dark:text-zinc-200`}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 011.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 01-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.397.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 01-.12-1.45l.527-.737c.25-.35.273-.806.108-1.204-.165-.397-.505-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.107-1.204l-.527-.738a1.125 1.125 0 01.12-1.45l.773-.773a1.125 1.125 0 011.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894z" />
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                            </svg>
-
-                            <span className="mx-2 text-sm font-medium">Settings</span>
-                        </button>
-                    </div>
                 </nav>
                 <div className="mt-6">
                     {/* <div className="p-3 bg-zinc-100 rounded-lg dark:bg-zinc-800">

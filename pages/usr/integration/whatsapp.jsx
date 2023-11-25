@@ -8,8 +8,8 @@ import TelegramList from "@/components/Integration/Telegram/TelegramList";
 import WhatsappList from "@/components/Integration/Whatsapp/WhatsappList";
 
 
-export default function Channel({type}) {
-  console.log(type);
+export default function WhatsappOfficial() {
+  // console.log(type);
   const {t} = useTranslation("common")
   const [data, setData] = useState(null)
 
@@ -20,26 +20,14 @@ export default function Channel({type}) {
   return (
     <Layout title="HOME" desc="HALAMAN UTAMA">
       <Suspense fallback={"Loading"}>
-        <section className="w-full bg-zinc-100 relative h-screen flex">
-          <ChannelType />
-          <div className="w-full md:w-5/6 border bg-white relative h-screen pt-16 overflow-y-auto">
-            <div className="flex items-center gap-2 pt-1 pb-3 px-3">
-              <h1 className="text-xs text-zinc-500 uppercase dark:text-zinc-400">Integration</h1>
-              <FaChevronRight className="text-zinc-500 text-xs"/>
-              <h1 className="text-xs font-bold uppercase">{type}</h1>
-            </div>
-            {
-              type == "telegram" ?
-                <TelegramList />
-              :""
-            }
-            {
-              type == "whatsapp" ?
-                <WhatsappList />
-              :""
-            }
+        <div className="w-full bg-white h-screen pt-16 overflow-y-auto">
+          <div className="flex items-center gap-2 pt-1 pb-3 px-3">
+            <h1 className="text-xs text-zinc-500 uppercase dark:text-zinc-400">Integration</h1>
+            <FaChevronRight className="text-zinc-500 text-xs"/>
+            <h1 className="text-xs font-bold uppercase">Whatsapp</h1>
           </div>
-        </section>
+          <WhatsappList />
+        </div>
       </Suspense>
     </Layout>
   )
@@ -53,7 +41,6 @@ export async function getServerSideProps({ locale, query }) {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),
       // Will be passed to the page component as props
-      type:query.name
     },
   };
 }

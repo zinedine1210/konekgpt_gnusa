@@ -109,7 +109,7 @@
         "route": "/usr/qna/service",
         "name": "Service",
         "flag": "Question & Answer",
-        "show": true
+        "show": false
       },
       {
         "description": "",
@@ -121,7 +121,7 @@
         "route": "/usr/qna/unanswered-question",
         "name": "Unanswered Questions",
         "flag": "Question & Answer",
-        "show": true
+        "show": false
       },
       {
         "description": "",

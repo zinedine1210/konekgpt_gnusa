@@ -2,8 +2,10 @@ import { useContext, useEffect, useState } from "react"
 import Seo from "../Seo"
 import HelpButton from "../Templates/HelpButton"
 import Navbar from "../Templates/Navbar"
-import Sidebar from "../Sidebar/Sidebar"
+import Sidebar from "../Sidebar/Sidebar1"
 import { MyContext } from "@/context/MyProvider"
+import SubMenu from "../Sidebar/SubMenu"
+import LayoutSidebar from "../Sidebar/LayoutSidebar"
 
 export default function Layout({children, title, desc, image}) {
   const context = useContext(MyContext)
@@ -35,13 +37,17 @@ export default function Layout({children, title, desc, image}) {
         image={image ? image:null}
       />
 
-      <section className="max-h-screen w-full">
-        <Navbar />
-        <div className="w-full flex">
+      <section style={{backgroundImage:"url('/images/bodyMain.jpg')"}} className="bg-center bg-cover w-screen flex items-center justify-center h-screen">
+        <content className="w-full h-full max-h-[1080px] max-w-[1920px] overflow-hidden relative md:rounded-2xl shadow-md">
+          <Navbar />
           <HelpButton />
-          <Sidebar />
-          {children}
-        </div>
+          <div className="overflow-x-hidden relative flex">
+            <LayoutSidebar />
+            <section className="relative bg-zinc-100 w-full overflow-y-auto h-screen max-h-[1080px] max-w-[1920px]">
+              {children}
+            </section>
+          </div>
+        </content>
       </section>
     </>
   )

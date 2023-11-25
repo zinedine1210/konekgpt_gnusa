@@ -84,9 +84,6 @@ export default function CardKnowledge({item}) {
                     <BsPencilFill />
                 </button>
             </Link>
-            <button onClick={() => alert("No function available")} className="bg-yellow-100 p-2 text-zinc-500 transition-colors duration-200 rounded-lg dark:text-zinc-300 hover:bg-yellow-200">
-                Training
-            </button>
             <button onClick={() => context.setData({...context, view:3, modal:{name:"simulationKnowledge", data:item}})} className="bg-blue-100 p-2 text-zinc-500 transition-colors duration-200 rounded-lg dark:text-zinc-300 hover:bg-blue-200">
                 Start Simulation
             </button>

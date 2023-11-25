@@ -153,3 +153,8 @@ content-type: application/cbor
 #     "hp":"081321",
 #     "username":"nama"
 # }
+
+### GET LIST FILES KNOWLEDGE
+GET https://konekgpt.gnusa.id/service/gpt-konek/knowledge/list-files HTTP/1.1
+content-type: application/cbor
+XA: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AZ251c2EuaWQiLCJwYXNzd29yZCI6IjcyZGZhYjMzNWNlODIwYjkyZWRjMmEwN2RiMmMxZGQ0Y2FjYTU2MTMifQ.ceCFGSKxjDEH2jPVmICL3SjMu1-9rgLKnBOL1mPnWaQ
