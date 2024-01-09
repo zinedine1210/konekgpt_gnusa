@@ -26,7 +26,7 @@ export default function AddOns() {
   }, [])
 
   const getDataStructured = async () => {
-    const result = await axios.get("/structure.json")
+    const result = await axios.get("/structure2.json")
     console.log(result);
     localStorage.setItem("structuredData", JSON.stringify(result.data))
     context.setData({...context, structured:result.data})

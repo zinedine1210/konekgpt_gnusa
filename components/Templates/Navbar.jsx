@@ -27,7 +27,7 @@ export default function Navbar() {
     const handlerLogout = async () => {
         const result = await AuthRepository.postLogout({XA:JSON.parse(localStorage.getItem("XA"))})
         console.log(result);
-        if(result?.status == 0){
+        if(result?.status == 0 || result?.status == -1){
             localStorage.clear()
             Swal.fire(
                 "info",
@@ -36,7 +36,6 @@ export default function Navbar() {
             router.push("/")
         }
     }
-
 
     const handlerRedirect = () => {
         if(localStorage.getItem("view") == 1){
@@ -50,7 +49,7 @@ export default function Navbar() {
     }
 
   return (
-    <nav className="absolute z-50 w-full bg-lightPrimary shadow-md dark:bg-zinc-800">
+    <nav className="absolute z-50 w-full bg-lightPrimary shadow-md dark:bg-darkPrimary">
         <div className="px-3 md:px-6 py-2 mx-auto">
             <div className="lg:flex lg:items-center lg:justify-between">
                 <div className="flex items-center justify-between w-full">
@@ -81,15 +80,6 @@ export default function Navbar() {
                                 <button onClick={() => handlerLogout()} className="py-2 px-4 w-full block text-start text-sm transition-colors duration-300 hover:bg-red-100">Logout</button>
                             </div>
                         </div>
-                        {/* <button type="button" className="text-zinc-500 dark:text-zinc-200 hover:text-zinc-600 dark:hover:text-zinc-400 focus:outline-none focus:text-zinc-600 dark:focus:text-zinc-400" aria-label="toggle menu">
-                            <svg x-show="!isOpen" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M4 8h16M4 16h16" />
-                            </svg>
-                    
-                            <svg x-show="isOpen" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button> */}
                     </div>
                 </div>
             </div>

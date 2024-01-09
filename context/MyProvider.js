@@ -22,11 +22,28 @@ export function MyProvider({children}) {
         "structured":null,
         "dataFilesKnowledge":null
     })
+    
+    const addContext = (key, value) => {
+        setData(prev => ({
+            ...prev,
+            [key]: value
+        }))
+    }
+
+    const removeContext = (key) => {
+        setData((prev) => {
+            const updateContext = {...prev}
+            delete updateContext[key]
+            return updateContext
+        })
+    }
 
     return (
         <MyContext.Provider value={{ 
             ...data,
-            setData
+            setData,
+            addContext,
+            removeContext
         }}>
             {children}
         </MyContext.Provider>

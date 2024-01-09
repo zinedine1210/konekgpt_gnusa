@@ -7,7 +7,7 @@ import React, { Suspense, useContext, useEffect, useState } from 'react'
 import { FaChevronLeft } from 'react-icons/fa'
 import Swal from 'sweetalert2'
 
-export default function UpdateScratch() {
+export default function UpdateUploadFile() {
     const context = useContext(MyContext)
     const router = useRouter()
     const { id } = router.query
@@ -54,7 +54,7 @@ export default function UpdateScratch() {
                 title:"Knowledge updated successfully",
                 text:"ID: "+data.id
             })
-            router.push("/usr/knowledge")
+            router.push("/usr/knowledge/training?m=clm_knowledge_training")
             setLoading(false)
         }else{
             Swal.fire({
@@ -68,7 +68,7 @@ export default function UpdateScratch() {
     }
 
   return (
-    <Layout title={"Update From Scratch"} desc={"Halaman untuk update knowledge"}>
+    <Layout title={"Update Knowledge"} desc={"Halaman untuk update knowledge"}>
         <Suspense fallback={"Loading"}>
             <section className="w-full bg-zinc-100 relative h-screen flex">
                 <div className="w-full relative h-screen pt-16 overflow-y-auto">
@@ -76,10 +76,10 @@ export default function UpdateScratch() {
                         {
                             data ?
                                 <div className='w-full md:w-1/2 bg-white rounded-md shadow-md p-3 md:p-5'>
-                                    <label className="text-base md:text-xl dark:text-zinc-400 font-semibold">Update Information Scratch-Knowledge</label>
+                                    <label className="text-base md:text-xl dark:text-zinc-400 font-semibold">Update Information Training Knowledge</label>
                                     <p className='text-zinc-600 text-sm'>ID: {data.id}</p>
                                     <div className="flex items-center gap-2 pt-1 pb-3">
-                                        <Link href={"/usr/knowledge"} shallow scroll={false}>
+                                        <Link href={"/usr/knowledge/training?m=clm_knowledge_training"}>
                                             <h1 className="badge-blue">
                                                 <FaChevronLeft />
                                                 Back

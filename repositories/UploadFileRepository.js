@@ -1,4 +1,4 @@
-import Repository, { baseUrl } from './Repository';
+import Repository, { baseUrl } from './Repositorycopy';
 import cbor from 'cbor';
 
 class UploadFileRepository {
@@ -72,7 +72,7 @@ class UploadFileRepository {
     async getFile(params){
         const reponse = await Repository.get(
             `${baseUrl}/dms/rdb/browsebykey/${params.table}/${params.refKey}?mode=1&presigned=${params.size}`,
-            { 
+            {
                 headers: {
                     XA:params.XA
                 },

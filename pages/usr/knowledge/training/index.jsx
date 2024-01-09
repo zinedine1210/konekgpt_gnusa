@@ -20,7 +20,7 @@ export default function HalamanTraining() {
           <p className="text-sm text-zinc-500 font-light">Your AI understands many topics, but you can add specific knowledge about your company or products to supplement it.</p>
 
           <div className="flex gap-5">
-            <div className={`my-5 w-full ${context.modal ? context.modal.name == "simulationKnowledge" ? "md:w-auto":"md:w-full":""}`}>
+            <div className={`my-5 w-full ${context.modal ? context.modal.name == "simulationKnowledge" ? "xl:w-auto":"md:w-full":""}`}>
               <h1 className="text-sm font-bold text-zinc-600 mb-3">All Stories Your Bot</h1>
               <div className="md:flex items-center justify-between">
                 <input type="search" className="input-search w-full md:w-auto" placeholder="Search" />

@@ -1,6 +1,6 @@
 import { MyContext } from '@/context/MyProvider'
 import ChannelRepository from '@/repositories/ChannelRepository'
-import { baseDomain } from '@/repositories/Repository'
+import { baseDomain } from '@/repositories/Repositorycopy'
 import WhatsappRepository from '@/repositories/WhatsappRepository'
 import axios from 'axios'
 import React, { useContext, useEffect, useRef, useState } from 'react'
@@ -181,7 +181,6 @@ function CreateSession(props){
 
   useEffect(() => {
     axios.get("/dial.json").then(res => {
-      console.log(res);
       setDial(res.data)
     })
 

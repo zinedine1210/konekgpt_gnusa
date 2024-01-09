@@ -30,19 +30,19 @@ export default function HalamanRegister() {
 
           <form className="space-y-3 mt-5">
             <div>
-              <label htmlFor="name_company" className="mb-1 inline-block text-sm">Nama Perusahaan <span className="text-red-500">*</span></label>
+              <label htmlhtmlFor="name_company" className="mb-1 inline-block text-sm">Nama Perusahaan <span className="text-red-500">*</span></label>
               <input type="text" className="input-search w-full" id="name_company" placeholder="Masukan nama perusahaan Anda"/>
             </div>
             <div>
-              <label htmlFor="email" className="mb-1 inline-block text-sm">Email <span className="text-red-500">*</span></label>
+              <label htmlhtmlFor="email" className="mb-1 inline-block text-sm">Email <span className="text-red-500">*</span></label>
               <input type="text" className="input-search w-full" id="email" placeholder="example@gmail.com"/>
             </div>
             <div>
-              <label htmlFor="phone" className="mb-1 inline-block text-sm">Nomor Telepon <span className="text-red-500">*</span></label>
+              <label htmlhtmlFor="phone" className="mb-1 inline-block text-sm">Nomor Telepon <span className="text-red-500">*</span></label>
               <input type="text" className="input-search w-full" id="phone" placeholder="Contoh: 089508...."/>
             </div>
             <div>
-              <label htmlFor="identitas_partner" className="mb-1 inline-block text-sm">Identitas Partner</label>
+              <label htmlhtmlFor="identitas_partner" className="mb-1 inline-block text-sm">Identitas Partner</label>
               <input type="text" className="input-search w-full" id="identitas_partner" disabled placeholder="Contoh: 089508...." value={token}/>
             </div>
             

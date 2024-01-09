@@ -1,15 +1,39 @@
-import Repository, { baseUrl } from './Repository';
+import axios from 'axios';
 import cbor from 'cbor';
+import { baseUrl, customHeaders } from './Repository';
 
 class AuthRepository {
-    async postLogin(params) {
-        const reponse = await Repository.post(
-            `${baseUrl}/auth/mlogin`,
+    constructor() {
+        this.axiosInstance = axios.create({
+            baseUrl,
+            headers: customHeaders
+        });
+    }
+    // async postRegister(params) {
+    //     const data = cbor.encode(params)
+    //     const reponse = await this.axiosInstance.post(
+    //         `${baseUrl}/auth/register`,
+    //         data
+    //     )
+    //     .then((response) => {
+    //         // console.log(cbor.decode(reponse.data));
+    //         const data = cbor.decode(response.data)
+    //         return data;
+    //     })
+    //     .catch((error) => {
+    //         return error;
+    //     });
+    //     return reponse;
+    // }
+
+    async postLogin(params, abortSignal) {
+        return await this.axiosInstance.post(
+            `${baseUrl}/auth/login`,
             null,
             {
-                headers:params,
-                contentType:"application/cbor",
-                responseType: "arraybuffer"
+                headers: params,
+                responseType: "arraybuffer",
+                signal: abortSignal
             }
         )
         .then((response) => {
@@ -17,14 +41,16 @@ class AuthRepository {
             return data;
         })
         .catch((error) => {
-            const result = cbor.decode(error.response.data)
+            if(error.hasOwnProperty("code") && error.code == "ERR_CANCELED"){
+                return {"status": -1, "data": "Timeout" }
+            }
+            let result = cbor.decode(error.response.data)
             return result;
         });
-        return reponse;
     }
 
     async postLogout(params) {
-        const reponse = await Repository.post(
+        const reponse = await this.axiosInstance.post(
             `${baseUrl}/auth/logout`,
             null,
             {
@@ -33,32 +59,36 @@ class AuthRepository {
             }
         )
         .then((response) => {
-            const data = cbor.decode(response.data)
-            return data
+            console.log('success logout')
+            const res = cbor.decode(response.data)
+            return res
         })
         .catch((error) => {
-            console.log(error);
             let result = cbor.decode(error.response.data)
             return result;
         });
         return reponse;
     }
 
-    async getStatus(params){
-        const reponse = await Repository.get(
+    async getStatus(params, abortSignal) {
+        const reponse = await this.axiosInstance.get(
             `${baseUrl}/auth/status`,
-            {
-                headers: params,
-                contentType:"application/cbor",
-                responseType: "arraybuffer"
+            { 
+                headers: params, 
+                responseType: "arraybuffer",
+                signal: abortSignal
             }
         )
         .then((response) => {
-            const data = cbor.decode(response.data)
-            return data
+            let result = cbor.decode(response.data)
+            return result;
         })
         .catch((error) => {
-            console.log(error);
+            console.log(error)
+            console.log("atas error aborted")
+            if(error.hasOwnProperty("code") && error.code == "ERR_CANCELED"){
+                return {"status": -1, "data": "Timeout" }
+            }
             let result = cbor.decode(error.response.data)
             return result;
         });

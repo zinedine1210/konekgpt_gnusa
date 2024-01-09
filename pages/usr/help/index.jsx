@@ -15,7 +15,7 @@ export default function HalamanHelp() {
         <section className="w-full bg-zinc-100 relative h-screen">
             <div className="px-3 md:px-5 pt-16 h-full overflow-y-auto flex">
                 <div className="p-0 md:p-5 relative">
-                    <Link href={localStorage.getItem("lastpage") ?? "/usr/help?m=clm_help"}>
+                    <Link href={"/usr/help?m=clm_help"}>
                         <button className="absolute top-0 md:top-5 right-0 md:right-5 w-10 h-10 rounded-full hover:bg-red-100 transition-colors duration-300 flex items-center justify-center"><HiX className="text-xl"/></button>
                     </Link>
                     <p className="text-sm font-bold text-zinc-600 uppercase dark:text-zinc-400">Hi, Zinedine</p>

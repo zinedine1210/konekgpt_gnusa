@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import { G } from "@/globals/global.min.js"
 
 export default function Login() {
     const [step, setStep] = useState(1)
@@ -15,18 +16,41 @@ export default function Login() {
     const [remember, setRemember] = useState(false)
     const [loading, setLoading] = useState(false)
     const [lastLogin, setLastLogin] = useState(null)
-    const [mounted, setMounted] = useState(false)
 
-    
+    const getStatus = async (xa) => {
+        const result = await AuthRepository.getStatus({XA:xa, param:"user"})
+        if(result?.status == -1 && result?.message == "Token Expired"){
+            localStorage.clear()
+            Swal.fire({
+                icon:"info",
+                title:"Logout",
+                text:"Your session has expired",
+                timer:1200
+            })
+            localStorage.setItem("auth", JSON.stringify({ status:"logout" }))
+        }else if(result?.status == -1){
+            Swal.fire({
+                icon:"warning",
+                title:"Maintenance"
+            })
+            localStorage.clear()
+            localStorage.setItem("auth", JSON.stringify({ status:"maintenance" }))
+        }else{
+            router.push("/usr?m=clm_dashboard")
+            localStorage.setItem("auth", JSON.stringify({ status:"authentication", data:result }))
+        }
+    }
+
     useEffect(() => {
         const getXA = JSON.parse(localStorage.getItem("XA"))
         if(getXA){
-            router.push("/usr?m=clm_dashboard")
+            getStatus(getXA)
+        }else{
+            localStorage.clear()
         }
 
         const lastLoginData = JSON.parse(localStorage.getItem("lastLogin"))
         setLastLogin(lastLoginData)
-        setMounted(true)
     }, [])
 
     const handlerHideShow = () => {
@@ -39,6 +63,43 @@ export default function Login() {
         setHide(hide ? false:true)
     }
 
+
+    async function tryLogin(payload){
+        try {
+            let timeoutId;
+            const timoutInterval = 60000;
+            let abortSignal = AbortSignal.timeout(timoutInterval)
+            const requestPromise = AuthRepository.postLogin({ "uspw": JSON.stringify(payload) }, abortSignal)
+            const timeoutPromise = new Promise((resolve, reject) => {
+            timeoutId = setTimeout(() => {
+                reject({ "status": -1, "data": "Timeout" });
+            }, timoutInterval);
+            });
+            const responseData = await Promise.race([requestPromise, timeoutPromise]);
+
+            clearTimeout(timeoutId);
+            if (responseData.status === -1 && responseData.data === "Timeout") {
+            throw new Error("Timeout");
+            }
+            
+            if (responseData.token) {
+                localStorage.setItem("XA", JSON.stringify(responseData.token));
+                router.push("/usr?m=clm_dashboard")
+            } else {
+                Swal.fire({
+                    icon:"error",
+                    text:"Wrong Credentials"
+                })
+            }
+        } catch (error) {
+            console.log(error)
+            console.log("atas error retry")
+            await new Promise(resolve => setTimeout(resolve, 5000));
+            return tryLogin(payload)
+        }
+    }
+
+
     const handlerSubmit = async e => {
         e.preventDefault()
         setLoading(true)
@@ -50,36 +111,22 @@ export default function Login() {
             return false
         }
 
-        let payload = {
+        let uus = G().enc(JSON.stringify({
             'user': email,
             'pass': pass
+        }), 2, 6)
+    
+        const pwd = G().rndStr(uus.length, 1, 6).substring(0, uus.length).replace(/\W/g, "")
+
+        let payload = {
+            'us': uus,
+            'pass': pwd
         }
 
-        const result = await AuthRepository.postLogin({"uspw":JSON.stringify(payload)})
-        console.log(result);
-        if(result?.token){
-            localStorage.setItem("XA", JSON.stringify(result.token))
-
-            if(remember){
-                if(lastLogin && lastLogin.length > 0){
-                    lastLogin.push(payload)
-                    localStorage.setItem("lastLogin", JSON.stringify(lastLogin))
-                }else{
-                    localStorage.setItem("lastLogin", JSON.stringify([payload]))
-                }
-            }
-
-            router.push("/usr?m=clm_dashboard")
-        }else{
-            Swal.fire({
-                icon:"error",
-                title:"Account not found"
-            })
-        }
+        await tryLogin(payload)
         setLoading(false)
     }
-    
-    if(mounted)
+
   return (
     <>
         <Seo 
@@ -116,7 +163,7 @@ export default function Login() {
                             </div>
                             <div className={`${step == 2? "translate-x-0 opacity-100":"translate-x-20 sr-only opacity-0"} transition-all`}>
                                 <div className="flex items-center justify-between">
-                                    <label htmlFor="password" className="block text-sm text-zinc-800 dark:text-zinc-200">Password</label>
+                                    <label htmlhtmlFor="password" className="block text-sm text-zinc-800 dark:text-zinc-200">Password</label>
                                     <a href="#" className="text-xs text-zinc-600 dark:text-zinc-400 hover:underline">Forget Password?</a>
                                 </div>
 
@@ -159,9 +206,9 @@ export default function Login() {
                                 </a>
                             </div>
 
-                            <div class="flex items-center mt-6">
-                                <input id="link-checkbox" onChange={(e) => setRemember(e.target.checked)} checked={remember} type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                                <label for="link-checkbox" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember Me</label>
+                            <div className="flex items-center mt-6">
+                                <input id="link-checkbox" onChange={(e) => setRemember(e.target.checked)} checked={remember} type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                                <label htmlFor="link-checkbox" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember Me</label>
                             </div>
 
 

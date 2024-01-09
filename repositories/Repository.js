@@ -1,12 +1,30 @@
 import axios from 'axios';
 export const baseDomain = 'https://konekgpt.gnusa.id'; // API for products (PRODUCTION MODE)
-// const baseDomainAPI = 'https://psychotest-client.gnusa.id/psychotest-service'; // API for product (PRODUCTION MODE)
-const baseDomainAPI = 'https://konekgpt.gnusa.id/service'; // API for product (DEVELOPMENT MODE)
-// export const baseWhatsappUrl = 'http://120.29.228.83:17114'
-export const baseWhatsappUrl = 'https://wa.gnscenter.com'
-// const baseDomainAPI = 'http://localhost:8080/psychotest-service'; // API for product (DEVELOPMENT MODE 2)
-export const WebsiteTitle =  'Gnusa Activity'
-export const hostName = typeof window === 'object' ? `http://${window.location.hostname}`:"";
+export const WebsiteTitle =  'Konek GPT'
+
+// tentukan protokol dan hostname berdasarkan lingkungan
+let protocol = ''; //http
+let host = ''; //localhost
+let port = '';
+let finalHostname = ''; //host website
+let baseDomainAPI = '' //endpoint API
+
+if (typeof window === 'object') {
+  // Jika dijalankan di lingkungan browser
+  protocol = window.location.protocol;
+  port = window.location.port
+  host = window.location.hostname;
+  finalHostname = `${protocol}//${host}:${port}`
+//   baseDomainAPI = `${protocol}//${host}:${port}`
+  baseDomainAPI = "https://konekgpt.gnusa.id/service"
+} else {
+    port = process.env.PORT
+    protocol = process.env.PROTOCOL
+    host = process.env.HOST
+    finalHostname = `${protocol}://${host}:${port}`
+    // baseDomainAPI = `${protocol}://${host}:${port}`
+    baseDomainAPI = "https://konekgpt.gnusa.id/service"
+}
 
 export const customHeaders = {
     Accept: 'application/json',

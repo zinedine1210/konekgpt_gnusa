@@ -1,4 +1,4 @@
-import Repository, { baseWhatsappUrl } from './Repository';
+import Repository, { baseWhatsappUrl } from './Repositorycopy';
 import cbor from 'cbor';
 
 class WhatsappRepository {
@@ -221,7 +221,7 @@ class WhatsappRepository {
         const data = new URLSearchParams(params.data).toString();
         // const data = JSON.stringify(params.data)
         const reponse = await Repository.post(
-            `${baseWhatsappUrl}/chats/checkNumber?id=${params.id}`,
+            `${baseWhatsappUrl}/chats/checkNumber?id=${params.data.instance_key}`,
             data,
             {
                 contentType:"application/json"

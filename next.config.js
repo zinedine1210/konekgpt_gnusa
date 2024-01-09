@@ -17,7 +17,7 @@ const nextConfig = {
   env:{
     customKey:"my-value"
   },
-  reactStrictMode: true,
+  reactStrictMode: false,
   swcMinify:true,
   compress:true,
   trailingSlash:false,

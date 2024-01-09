@@ -1,7 +1,7 @@
 import { BsCheckCircle, BsGear, BsInbox, BsPalette, BsPlugin, BsWhatsapp } from "react-icons/bs";
 import { FaChalkboardTeacher, FaHammer, FaInstagram, FaTasks } from "react-icons/fa";
 import { HiOutlinePuzzle, HiOutlineUsers, HiQuestionMarkCircle } from "react-icons/hi";
-import { IoAttachOutline, IoDocumentAttachOutline } from "react-icons/io5";
+import { IoAttachOutline, IoDocumentAttachOutline, IoLogoWhatsapp } from "react-icons/io5";
 import { TfiLayoutGrid2 } from "react-icons/tfi"
 
 
@@ -27,5 +27,6 @@ export const icon_menus = {
     'clm_knowledge_attachment' : <IoDocumentAttachOutline className="w-5 h-5"/>,
     // 'clm_knowledge_testing' : <FaInstagram />
     'clm_qna_service' : <FaHammer className="text-zinc-500"/>,
-    'clm_qna_unanswered-question' : <HiQuestionMarkCircle className="w-4 h-4 text-zinc-500"/>
+    'clm_qna_unanswered-question' : <HiQuestionMarkCircle className="w-4 h-4 text-zinc-500"/>,
+    'clm_check_number': <IoLogoWhatsapp className="w-4 h-4 text-zinc-500"/>
 }

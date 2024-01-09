@@ -19,7 +19,7 @@ export default function Dashboard() {
   return (
     <Layout title="HOME" desc="HALAMAN UTAMA">
       <Suspense fallback={"Loading"}>
-        <section className="w-full bg-zinc-100 relative h-screen flex">
+        <section className="w-full bg-zinc-100 dark:bg-dark relative h-screen flex">
           <div className="w-full relative pt-16 px-2">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
               <div

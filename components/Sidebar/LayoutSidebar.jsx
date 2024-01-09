@@ -19,7 +19,8 @@ export default function LayoutSidebar() {
         // console.log(getLocalMenu);
         context.setData({...context, menus:getLocalMenu})
       }else{
-        axios.get("/client_menu_v2.json").then(res => {
+        console.log("masa gada cok")
+        axios.get("/client_menu.json").then(res => {
           console.log("get client menu json =>", res.data);
           localStorage.setItem("client_menus", JSON.stringify(res.data))
           context.setData({...context, menus:res.data})

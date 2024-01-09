@@ -67,19 +67,19 @@ export default function BlankScratch() {
 
                         <form onSubmit={(e) => handlerSubmit(e)} className='my-5 space-y-4'>
                             <div>
-                                <label htmlFor='nameofscratch' className='font-bold inline-block mb-2 text-sm'>Name <span className='text-red-500'>*</span></label>
+                                <label htmlhtmlFor='nameofscratch' className='font-bold inline-block mb-2 text-sm'>Name <span className='text-red-500'>*</span></label>
                                 <input onChange={(e) => setData({...data, name:e.target.value})} value={data.name} id='nameofscratch' type="text" className="input-search w-full" placeholder='Give a name to your new data source' />
                             </div>
                             <div>
-                                <label htmlFor='code' className='font-bold inline-block mb-2 text-sm'>Code <span className='text-red-500'>*</span></label>
+                                <label htmlhtmlFor='code' className='font-bold inline-block mb-2 text-sm'>Code <span className='text-red-500'>*</span></label>
                                 <input onChange={(e) => setData({...data, code:e.target.value})} value={data.code} id='code' type="text" className="input-search w-full" placeholder='Give a code name of data' />
                             </div>
                             <div>
-                                <label htmlFor='description' className='font-bold inline-block mb-2 text-sm'>Description <span className='text-red-500'>*</span></label>
+                                <label htmlhtmlFor='description' className='font-bold inline-block mb-2 text-sm'>Description <span className='text-red-500'>*</span></label>
                                 <input onChange={(e) => setData({...data, description:e.target.value})} value={data.description} id='description' type="text" className="input-search w-full" placeholder='Description' />
                             </div>
                             <div>
-                                <label htmlFor="textareaofscratch" className='font-bold inline-block'>The content you want to add</label>
+                                <label htmlhtmlFor="textareaofscratch" className='font-bold inline-block'>The content you want to add</label>
                                 <p className='text-zinc-500 font-light text-sm mb-2'>This text will be added to the knowledge of your Chatbot. Carefully add relevant content.</p>
 
                                 <div className='relative'>

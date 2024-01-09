@@ -9,15 +9,46 @@ import {appWithTranslation} from "next-i18next"
 import { useEffect, useState } from 'react'
 import { MyProvider } from '@/context/MyProvider'
 import WithAuth from '@/components/WithAuth'
+import { useRouter } from 'next/router'
+import nProgress from 'nprogress'
+import "nprogress/nprogress.css"
+
 
 function MyApp({ Component, pageProps }) {
   const [mounted, setMounted] = useState(false)
+  const [isPageChanging, setIsPageChanging] = useState(false);
+  const [routeNow, setRouteNow] = useState("");
+  const router = useRouter()
 
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    const handleStart = (url) => {
 
-  if(!mounted) return null
+      console.log(`Loading: ${url}`);
+      setRouteNow(router.asPath)
+      
+      if (url !== router.asPath) {
+        setIsPageChanging(true);
+      }
+
+      nProgress.configure({ easing: 'ease', speed:500, showSpinner:true });
+      nProgress.start()
+    }
+
+    const handleStop = () => {
+      nProgress.done()
+      setIsPageChanging(false);
+    }
+    
+    router.events.on('routeChangeStart', handleStart)
+    router.events.on('routeChangeComplete', handleStop)
+    router.events.on('routeChangeError', handleStop)
+
+    return () => {
+      router.events.off('routeChangeStart', handleStart)
+      router.events.off('routeChangeComplete', handleStop)
+      router.events.off('routeChangeError', handleStop)
+    }
+  }, [router])
 
   return (
     <>
@@ -30,4 +61,4 @@ function MyApp({ Component, pageProps }) {
   )
 }
 
-export default appWithTranslation(WithAuth(MyApp))
+export default appWithTranslation(MyApp)

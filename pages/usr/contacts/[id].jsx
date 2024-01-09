@@ -51,15 +51,15 @@ export default function EditContact() {
 
                     <div className="space-y-2 mt-3">
                       <div>
-                          <label htmlFor='fullnamecontact' className='font-bold inline-block mb-1 text-sm'>Full Name <span className='text-red-500'>*</span></label>
+                          <label htmlhtmlFor='fullnamecontact' className='font-bold inline-block mb-1 text-sm'>Full Name <span className='text-red-500'>*</span></label>
                           <input id='fullnamecontact' type="text" className="w-full block bg-zinc-50 text-sm py-2 px-2 outline-none border-2 hover:bg-zinc-100 focus:bg-white focus:border-lightPrimary" placeholder='' />
                       </div>
                       <div>
-                          <label htmlFor='phonecontact' className='font-bold inline-block mb-1 text-sm'>Phone Number <span className='text-red-500'>*</span></label>
+                          <label htmlhtmlFor='phonecontact' className='font-bold inline-block mb-1 text-sm'>Phone Number <span className='text-red-500'>*</span></label>
                           <input id='phonecontact' type="text" className="w-full block bg-zinc-50 text-sm py-2 px-2 outline-none border-2 hover:bg-zinc-100 focus:bg-white focus:border-lightPrimary" placeholder='' />
                       </div>
                       <div>
-                          <label htmlFor='emailcontact' className='font-bold inline-block mb-1 text-sm'>Email Address <span className='text-red-500'>*</span></label>
+                          <label htmlhtmlFor='emailcontact' className='font-bold inline-block mb-1 text-sm'>Email Address <span className='text-red-500'>*</span></label>
                           <input id='emailcontact' type="text" className="w-full block bg-zinc-50 text-sm py-2 px-2 outline-none border-2 hover:bg-zinc-100 focus:bg-white focus:border-lightPrimary" placeholder='' />
                       </div>
                     </div>

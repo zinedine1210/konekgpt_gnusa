@@ -109,7 +109,7 @@
         "route": "/usr/qna/service",
         "name": "Service",
         "flag": "Question & Answer",
-        "show": true
+        "show": false
       },
       {
         "description": "",
@@ -121,7 +121,7 @@
         "route": "/usr/qna/unanswered-question",
         "name": "Unanswered Questions",
         "flag": "Question & Answer",
-        "show": true
+        "show": false
       },
       {
         "description": "",
@@ -170,6 +170,18 @@
         "name": "Usage Reports",
         "flag": "content",
         "show": true
+      },
+      {
+        "description": "",
+        "feature": "",
+        "icon": "",
+        "parent": "",
+        "sortnumber": 90,
+        "id": "clm_check_number",
+        "route": "/usr/check-number",
+        "name": "Check Number",
+        "flag": "content",
+        "show": false
       }
     ]
   },

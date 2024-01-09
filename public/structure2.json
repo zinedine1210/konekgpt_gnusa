@@ -46,6 +46,21 @@
       "recDate": "2023-08-10T17:01:23+07:00",
       "modBy": null,
       "modDate": null
+    },
+    {
+      "id": 4,
+      "code": "Check Number",
+      "description": "service to enable user to check someone whatsapp number",
+      "prompt": "default prompt",
+      "properties": [
+        {
+          "params": "check-number"
+        }
+      ],
+      "recBy": "userId",
+      "recDate": "2023-08-10T17:01:23+07:00",
+      "modBy": null,
+      "modDate": null
     }
   ],
   "client": {

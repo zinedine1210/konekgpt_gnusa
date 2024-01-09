@@ -23,19 +23,19 @@ export default function ModalSingleContact() {
           </div>
           <form className="w-full relative mt-5 space-y-2">
             <div>
-              <label htmlFor='namecontact' className='inline-block mb-1 text-sm'>Full Name <span className='text-red-500'>*</span></label>
+              <label htmlhtmlFor='namecontact' className='inline-block mb-1 text-sm'>Full Name <span className='text-red-500'>*</span></label>
               <input id='namecontact' type="text" className="input-search w-full" placeholder='Give a name to your new contact' />
             </div>
             <div>
-              <label htmlFor='phonecontact' className='inline-block mb-1 text-sm'>Phone Number <span className='text-red-500'>*</span></label>
+              <label htmlhtmlFor='phonecontact' className='inline-block mb-1 text-sm'>Phone Number <span className='text-red-500'>*</span></label>
               <input id='phonecontact' type="text" className="input-search w-full" placeholder='' />
             </div>
             <div>
-              <label htmlFor='emailcontact' className='inline-block mb-1 text-sm'>Email Address <span className='text-red-500'>*</span></label>
+              <label htmlhtmlFor='emailcontact' className='inline-block mb-1 text-sm'>Email Address <span className='text-red-500'>*</span></label>
               <input id='emailcontact' type="email" className="input-search w-full" placeholder='' />
             </div>
             <div>
-              <label htmlFor='channelcontact' className='inline-block mb-1 text-sm'>Select Channel <span className='text-red-500'>*</span></label>
+              <label htmlhtmlFor='channelcontact' className='inline-block mb-1 text-sm'>Select Channel <span className='text-red-500'>*</span></label>
               <InputSelect options={options} defaultValue={"whatsapp"} handlerChange={value => console.log(value)}/>
             </div>
             <div className="flex items-center gap-2 pt-5">

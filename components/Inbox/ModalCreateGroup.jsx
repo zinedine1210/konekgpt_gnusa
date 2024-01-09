@@ -101,7 +101,7 @@ export default function ModalCreateGroup() {
             </div>
             <form onSubmit={(e) => handlerSubmit(e)} className="w-full relative mt-5 space-y-4">
                 <div className="">
-                    <label htmlFor="groupname" className="text-sm text-zinc-600 mb-1 inline-block">Group Name</label>
+                    <label htmlhtmlFor="groupname" className="text-sm text-zinc-600 mb-1 inline-block">Group Name</label>
                     <input type="text" className="input-search w-full" placeholder="Group Name" onChange={(e) => setName(e.target.value)} value={name} />
                 </div>
                 <div>

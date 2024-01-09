@@ -15,6 +15,19 @@ export default function HalamanAttachment() {
   const [collect, setCollect] = useState([])
   const context = useContext(MyContext)
 
+  const handlerSelectAll = () => {
+    if(context.dataFilesKnowledge.length === collect.length){
+        setCollect([])
+    }else{
+        let all = []
+        context.dataFilesKnowledge.forEach(file => {
+            all.push(file.id)
+        });
+
+        setCollect(all)
+    }
+  }
+
   return (
     <Layout title={"Attachments Knowledge"} desc={"Halaman untuk menambahkan atau upload file yang diperlukan"}>
       <section className="pt-16">
@@ -37,7 +50,7 @@ export default function HalamanAttachment() {
                     </span>
                   </div>
                   <button className="btn-secondary" onClick={() => context.setData({...context, dataFilesKnowledge:null})}>Refresh <IoRefresh /></button>
-                  <button className="btn-secondary">
+                  <button className="btn-secondary" onClick={() => handlerSelectAll()}>
                       Select all
                   </button>
                   <SelectType />

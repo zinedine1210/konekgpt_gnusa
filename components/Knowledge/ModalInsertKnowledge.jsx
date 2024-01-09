@@ -39,6 +39,7 @@ export default function ModalInsertKnowledge() {
             }else{
                 context.setData({...context, dataKnowledge:[result.data]})
             }
+            context.setData({...context, modal:null})
             setLoading(false)
             router.push("/usr/knowledge/training?m=clm_knowledge_training", { scroll:false })
         }else{
@@ -66,15 +67,15 @@ export default function ModalInsertKnowledge() {
             <form onSubmit={e => handlerSubmit(e)} className='my-5 space-y-4'>
                 <h1 className="bg-blue-100 text-blue-500 text-sm py-2 px-5 rounded-md inline-block"><span className="font-bold">{context.modal.files.length}</span> Files Selected</h1>
                 <div>
-                    <label htmlFor='namewebsite' className='font-bold inline-block mb-2 text-sm'>Name <span className='text-red-500'>*</span></label>
+                    <label htmlhtmlFor='namewebsite' className='font-bold inline-block mb-2 text-sm'>Name <span className='text-red-500'>*</span></label>
                     <input onChange={(e) => setData({...data, name:e.target.value})} value={data.name} id='namewebsite' type="text" className="input-search w-full" placeholder='Give a name to your new data source' />
                 </div>
                 <div>
-                    <label htmlFor='code' className='font-bold inline-block mb-2 text-sm'>Code <span className='text-red-500'>*</span></label>
+                    <label htmlhtmlFor='code' className='font-bold inline-block mb-2 text-sm'>Code <span className='text-red-500'>*</span></label>
                     <input onChange={(e) => setData({...data, code:e.target.value})} value={data.code} id='code' type="text" className="input-search w-full" placeholder='Give a code name of data' />
                 </div>
                 <div>
-                    <label htmlFor='description' className='font-bold inline-block mb-2 text-sm'>Description <span className='text-red-500'>*</span></label>
+                    <label htmlhtmlFor='description' className='font-bold inline-block mb-2 text-sm'>Description <span className='text-red-500'>*</span></label>
                     <input onChange={(e) => setData({...data, description:e.target.value})} value={data.description} id='description' type="text" className="input-search w-full" placeholder='Description' />
                 </div>
                 

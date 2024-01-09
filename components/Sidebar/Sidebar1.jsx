@@ -40,12 +40,12 @@ export default function Sidebar1({ menus }) {
     const getAddOns = JSON.parse(localStorage.getItem("eventAddOns"))
     
   return (
-    <aside className={`${context.minimize ? "":`${context.view == 1 ? "fixed top-0 left-0 w-screen z-20 md:z-10 md:relative md:w-64":"hidden md:block md:w-64"}`} flex h-screen bg-white rtl:border-r-0 rtl:border-l dark:bg-zinc-900 dark:border-zinc-700`}>
+    <aside className={`${context.minimize ? "":`${context.view == 1 ? "fixed top-0 left-0 w-screen z-20 md:z-10 md:relative md:w-64":"hidden md:block md:w-64"}`} flex h-screen bg-white rtl:border-r-0 rtl:border-l dark:bg-dark dark:border-zinc-700`}>
         {
             context.minimize ?
                 <MinSidebar /> 
             :
-            <div className="flex flex-col justify-between h-screen px-5 pt-16 pb-5 overflow-y-auto bg-white border-l border-r w-full sm:w-full dark:bg-zinc-900 dark:border-zinc-700">
+            <div className="flex flex-col justify-between h-screen px-5 pt-16 pb-5 overflow-y-auto bg-white border-l border-r w-full sm:w-full dark:bg-dark dark:border-darkSecondary">
                 {/* <div className="relative">
                     <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                         <svg className="w-5 h-5 text-zinc-400" viewBox="0 0 24 24" fill="none">

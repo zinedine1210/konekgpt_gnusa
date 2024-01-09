@@ -47,7 +47,7 @@ export default function CardKnowledge({item}) {
         <td className="px-4 py-4 text-sm font-medium text-zinc-700 whitespace-nowrap">
             <div className="inline-flex items-center gap-x-3">
                 <div className="flex items-center gap-x-2">
-                    <label for="Toggle2" className="inline-flex items-center space-x-4 cursor-pointer dark:text-gray-100">
+                    <label htmlFor="Toggle2" className="inline-flex items-center space-x-4 cursor-pointer dark:text-gray-100">
                         {/* <span>This</span> */}
                         <span className="relative">
                             <input id="Toggle2" type="checkbox" className="hidden peer" />
@@ -69,7 +69,8 @@ export default function CardKnowledge({item}) {
                 Active
             </div>
         </td>
-        <td className="px-4 py-4 text-sm text-zinc-500 dark:text-zinc-300 whitespace-nowrap">Jan 4, 2022</td>
+        {/* <td className="px-4 py-4 text-sm text-zinc-500 dark:text-zinc-300 whitespace-nowrap">{moment(new Date(stuff._cd.epoch_time * 1000  )).local().format("DD MMMM YYYY, HH:mm")}</td> */}
+        <td className="px-4 py-4 text-sm text-zinc-500 dark:text-zinc-300 whitespace-nowrap">Jan 2022</td>
         <td className="px-4 py-4 text-sm text-zinc-500 dark:text-zinc-300 whitespace-nowrap">
             {item.type_training == 1 && <span className="bg-lime-100 text-lime-500 font-bold text-xs rounded-md uppercase py-1 px-3">Upload</span>}
             {item.type_training == 2 && <span className="bg-indigo-100 text-indigo-500 font-bold text-xs rounded-md uppercase py-1 px-3">Url</span>}
@@ -79,7 +80,7 @@ export default function CardKnowledge({item}) {
             <button onClick={() => handlerDelete()} className="p-2 text-red-500 transition-colors duration-200 rounded-lg dark:text-red-300 hover:bg-red-100">
                 <IoTrash />
             </button>
-            <Link href={`/usr/knowledge/update/${typeTraining[item.type_training].name}?id=${item.id}`} shallow>
+            <Link href={`/usr/knowledge/training/update/${typeTraining[item.type_training].name}?m=clm_knowledge_training&id=${item.id}`} shallow>
                 <button className="p-2 text-green-500 transition-colors duration-200 rounded-lg dark:text-green-300 hover:bg-green-100">
                     <BsPencilFill />
                 </button>
