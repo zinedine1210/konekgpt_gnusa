@@ -11,6 +11,7 @@ import PageChange from "./PageChange"
 import AuthRepository from "@/repositories/AuthRepository"
 import Swal from "sweetalert2"
 import Loading from "../Loading"
+import ScreenReader from "../ScreenReader"
 
 export default function Layout({children, title, desc, image}) {
   const context = useContext(MyContext)
@@ -123,7 +124,7 @@ export default function Layout({children, title, desc, image}) {
           description={desc}
           image={image ? image:null}
         />
-
+        <ScreenReader />
         {
           mounted && JSON.parse(localStorage.getItem("auth"))?.status == "authentication"?
             <section style={{backgroundImage:"url('/images/bodyMain.jpg')"}} className="bg-center bg-cover w-screen flex items-center justify-center h-screen">

@@ -2,7 +2,7 @@ import { FaTelegram } from "react-icons/fa"
 
 export default function ContactInbox() {
   return (
-    <div className="w-full bg-zinc-100 dark:bg-dark relative h-screen p-10">
+    <div className="w-full bg-zinc-100 dark:bg-dark relative h-screen p-2 md:p-10">
         <h1 className="text-xl font-bold">Contact</h1>
         <p className="font-light text-sm">Contact you save</p>
 
