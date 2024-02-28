@@ -1,0 +1,116 @@
+{
+  "services": [
+    {
+      "id": 1,
+      "code": "QnA Builder",
+      "description": "service description",
+      "prompt": "default prompt",
+      "properties": [
+        {
+          "key": "value",
+          "hardcode": true,
+          "params": "qna-builder"
+        }
+      ],
+      "recBy": "userId",
+      "recDate": "2023-08-10T17:01:23+07:00",
+      "modBy": null,
+      "modDate": null
+    },
+    {
+      "id": 2,
+      "code": "Registrasi Event",
+      "description": "service description",
+      "prompt": "default prompt",
+      "properties": [
+        {
+          "params": "registrasi-event"
+        }
+      ],
+      "recBy": "userId",
+      "recDate": "2023-08-10T17:01:23+07:00",
+      "modBy": null,
+      "modDate": null
+    },
+    {
+      "id": 3,
+      "code": "Registrasi Appointment",
+      "description": "service description",
+      "prompt": "default prompt",
+      "properties": [
+        {
+          "params": "registrasi-appointment"
+        }
+      ],
+      "recBy": "userId",
+      "recDate": "2023-08-10T17:01:23+07:00",
+      "modBy": null,
+      "modDate": null
+    },
+    {
+      "id": 4,
+      "code": "Check Number",
+      "description": "service to enable user to check someone whatsapp number",
+      "prompt": "default prompt",
+      "properties": [
+        {
+          "params": "check-number"
+        }
+      ],
+      "recBy": "userId",
+      "recDate": "2023-08-10T17:01:23+07:00",
+      "modBy": null,
+      "modDate": null
+    }
+  ],
+  "client": {
+    "id": "clientId",
+    "name": "Client name",
+    "legalName": "client legal name",
+    "address": "client address",
+    "phone": "62816112233",
+    "email": "client@xyz.com",
+    "npwp": "xxx.xxx.xxx",
+    "waNumber": ["62816112233", "6281122334455"],
+    "status": "active",
+    "recBy": "userId",
+    "recDate": "2023-08-10T17:01:23+07:00",
+    "modBy": null,
+    "modDate": null
+  },
+  "client.status": ["active", "suspended", "deleted"],
+  "client_data": {
+    "id": "dataId",
+    "clientId": "clientId",
+    "code": "codeNameOfData",
+    "description": "description of trained data",
+    "version": "2023.08.10",
+    "files": [
+      {
+        "originalFile": "filepath",
+        "originalFileSize": 12345
+      }
+    ],
+    "trainedData": "filepath",
+    "trainedDataSize": 123456,
+    "trainedDate": "023-08-10T17:21:53+07:00",
+    "cost": 21980,
+    "recBy": "userId",
+    "recDate": "2023-08-10T17:01:23+07:00",
+    "modBy": null,
+    "modDate": null
+  },
+  "client_service": {
+    "id": "dataId",
+    "clientId": "clientId",
+    "serviceId": "serviceId",
+    "status": "active",
+    "prompt": "prompt",
+    "properties": [{}],
+    "recBy": "userId",
+    "recDate": "2023-08-10T17:01:23+07:00",
+    "modBy": null,
+    "modDate": null
+  },
+  "client_service.status": ["active", "inactive"]
+}
