@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { FaChevronDown, FaTelegramPlane } from "react-icons/fa";
 
-export default function CardQuestion() {
+export default function CardQuestion({ item }) {
     const dropRef = useRef(null)
     const [open, setOpen] = useState(false)
 

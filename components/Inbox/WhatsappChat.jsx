@@ -29,8 +29,8 @@ export default function WhatsappChat({item}) {
         }else{
             Swal.fire({
                 icon:"error",
-                title:"Something Wrong",
-                text:"Please try again later"
+                title:"Can't load messages",
+                text:"Something went wrong, please try again later"
             })
         }
     }

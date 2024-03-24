@@ -101,7 +101,7 @@ export default function TrainingInbox({ params }) {
         </div>
 
         {
-          context.view == 2 && (
+          context.view > 1 && (
             <>
               {
                 active == 1 && (
