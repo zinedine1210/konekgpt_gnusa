@@ -2,7 +2,7 @@ import { MyContext } from "@/context/MyProvider";
 import KnowledgeRepository from "@/repositories/KnowledgeRepository";
 import Link from "next/link";
 import { useContext } from "react";
-import { BsPencilFill } from "react-icons/bs";
+import { BsChatQuote, BsChatQuoteFill, BsInbox, BsInboxFill, BsPencilFill } from "react-icons/bs";
 import { IoEyeSharp, IoTrash } from "react-icons/io5";
 import Swal from "sweetalert2";
 
@@ -85,8 +85,13 @@ export default function CardKnowledge({item}) {
                     <BsPencilFill />
                 </button>
             </Link>
-            <button onClick={() => context.setData({...context, view:3, modal:{name:"simulationKnowledge", data:item}})} className="bg-blue-100 p-2 text-zinc-500 transition-colors duration-200 rounded-lg dark:text-zinc-300 hover:bg-blue-200">
-                Start Simulation
+            <Link href={`/usr/inbox/${item.id}?m=clm_inbox`} target="_blank" shallow>
+                <button className="p-2 text-purple-500 transition-colors duration-200 rounded-lg dark:text-purple-300 hover:bg-purple-100">
+                    <BsInboxFill className="text-base"/>
+                </button>
+            </Link>
+            <button onClick={() => context.setData({...context, view:3, modal:{name:"simulationKnowledge", data:item}})} className="p-2 text-indigo-500 transition-colors duration-200 rounded-lg dark:text-indigo-300 hover:bg-indigo-100">
+                <BsChatQuoteFill className="text-base"/>
             </button>
         </td>
     </tr>

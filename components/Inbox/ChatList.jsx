@@ -47,7 +47,6 @@ export default function ChatList(props) {
                             }).map(obj => ({...obj, type:"group"}))
 
                             allWhatsappData = _.concat(value, groupValue)
-
                             allWhatsappData = _.sortBy(allWhatsappData, [o => {
                                 return Number(o?.messages?.[0]?.message?.messageTimestamp)
                             }]).reverse().map(obj => ({...obj, parentId:val.identity}))
@@ -58,9 +57,9 @@ export default function ChatList(props) {
                                 title:`Authentication to ${val.identity} disconnected`,
                                 text:"Please reconnect it by scanning the qr code on the menu integration - whatsapp"
                             })
-                            
                             const getWhatsappList = JSON.parse(localStorage.getItem("whatsappChannel"))
-                            getWhatsappList.find(res => res.id == val.identity)['active'] = false
+                            console.log("getwhatsapplist", getWhatsappList)
+                            getWhatsappList.find(res => res.identity == val.identity)['active'] = false
                             localStorage.setItem("whatsappChannel", JSON.stringify(getWhatsappList))
                         }
                         context.setData({...context, allChatList:allWhatsappData, allContact:getKontak})
@@ -84,7 +83,7 @@ export default function ChatList(props) {
     }
     
   return (
-    <div className="max-h-screen overflow-auto absolute top-0 left-0 w-full pt-36">
+    <div className="max-h-screen overflow-auto absolute top-0 left-0 w-full pt-36 dark:bg-darkPrimary">
         
         {
             context.allChatList ?

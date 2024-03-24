@@ -13,7 +13,7 @@ export default function ChatHelp() {
 
     if(context.modal && context.modal == "chatHelp")
   return (
-    <div className="fixed top-0 left-0 z-50 md:block w-full md:w-[500px] h-screen md:h-[840px] md:border-8 border-black md:z-0 md:rounded-[50px] bg-white dark:bg-dark dark:border-black px-2 mx-auto outline outline-blue-300 shadow-2xl pb-16 md:relative">
+    <div className="fixed top-0 left-0 z-50 xl:block w-full xl:w-[500px] h-screen xl:h-[840px] xl:border-8 border-black xl:z-0 xl:rounded-[50px] bg-white dark:bg-dark dark:border-black px-2 mx-auto outline outline-blue-300 shadow-2xl pb-16 xl:relative">
         <button className="text-center text-sm text-red-500 w-full py-1" onClick={() => context.setData({...context, modal:null, view:2})}>Tutup Simulasi</button>
         <div className="h-full overflow-y-hidden hover:overflow-y-auto">
             <div className="space-y-2 w-full mx-auto">

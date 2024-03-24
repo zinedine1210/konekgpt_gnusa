@@ -39,7 +39,7 @@ export default function WhatsappChat({item}) {
     
   return (
     <button onClick={() => handlerDetailChat(item)} className="text-start w-full hover:bg-zinc-100 transition-all duration-300 border-b p-2 flex gap-2 cursor-pointer relative">
-        <span className="bg-zinc-200 w-8 h-8 rounded-full flex items-center justify-center">
+        <span className="bg-zinc-200 dark:bg-dark w-8 h-8 rounded-full flex items-center justify-center">
             <FaWhatsapp className='text-green-500 font-bold text-xl'/>
         </span>
         <div>
@@ -47,12 +47,12 @@ export default function WhatsappChat({item}) {
             <p className='text-xs text-blue-500 font-bold mb-1'>Auth from +{item.parentId}</p>
             {
                 dataChat?.conversation ?
-                <p className="text-sm text-zinc-600">{dataChat.conversation.length > 35 ? dataChat.conversation.substring(0, 35) + "..." :dataChat.conversation}</p>
+                <p className="text-sm text-zinc-600 dark:text-zinc-300">{dataChat.conversation.length > 35 ? dataChat.conversation.substring(0, 35) + "..." :dataChat.conversation}</p>
                 :""
             }
             {
                 dataChat?.videoMessage ?
-                <p className='text-sm text-zinc-600 flex items-center gap-1'>
+                <p className='text-sm text-zinc-600 dark:text-zinc-300 flex items-center gap-1'>
                     <HiVideoCamera className='text-zinc-400'/>
                     {dataChat?.videoMessage?.caption ? dataChat.videoMessage.caption.length > 33 ? dataChat.videoMessage.caption.substring(0, 33)+"..." : dataChat.videoMessage.caption :"Photo"}
                 </p>
@@ -60,15 +60,15 @@ export default function WhatsappChat({item}) {
             }
             {
                 dataChat?.imageMessage ?
-                <p className='text-sm text-zinc-600 flex items-center gap-1'>
-                    <FaImage className='text-zinc-600'/>
+                <p className='text-sm text-zinc-600 dark:text-zinc-300 flex items-center gap-1'>
+                    <FaImage className='text-zinc-600 dark:text-zinc-300'/>
                     {dataChat?.imageMessage?.caption ? dataChat.imageMessage.caption.length > 33 ? dataChat.imageMessage.caption.substring(0, 33)+"..." : dataChat.imageMessage.caption :"Photo"}
                 </p>
                 :""
             }
             {
                 dataChat?.documentMessage ?
-                <p className='text-sm text-zinc-600 flex items-center gap-1'>
+                <p className='text-sm text-zinc-600 dark:text-zinc-300 flex items-center gap-1'>
                     <IoDocument className='text-zinc-400'/>
                     {dataChat?.documentMessage?.title ? dataChat.documentMessage.title.length > 33 ? dataChat.documentMessage.title.substring(0, 33)+"..." : dataChat.documentMessage.title :"Photo"}
                 </p>
@@ -76,8 +76,8 @@ export default function WhatsappChat({item}) {
             }
             {
                 dataChat?.extendedTextMessage ?
-                <p className='text-sm text-zinc-600 flex items-center gap-1'>
-                    <BsReply className='text-zinc-400'/>
+                <p className='text-sm text-zinc-600 dark:text-zinc-300 flex items-center gap-1'>
+                    <BsReply className='text-zinc-400 dark:text-zinc-300'/>
                     {dataChat?.extendedTextMessage?.text ? dataChat.extendedTextMessage.text.length > 33 ? dataChat.extendedTextMessage.text.substring(0, 33)+"..." : dataChat.extendedTextMessage.text :"Extended Text"}
                 </p>
                 :""

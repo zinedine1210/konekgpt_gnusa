@@ -13,12 +13,12 @@ export default function CardChatFromMe({dataChat, index}){
             <div className="w-fit backdrop-blur-2xl pt-1.5 pb-6 px-1.5 shadow-md rounded-md max-w-xl min-w-[80px] ml-auto relative">
                 {
                     dataChat.data.message?.conversation ?
-                    <h1 className="text-xs md:text-sm">{dataChat.data.message.conversation}</h1>
+                    <h1 className="text-xs xl:text-sm">{dataChat.data.message.conversation}</h1>
                     :""
                 }
                 {
                     dataChat.data.message?.extendedTextMessage ?
-                    <h1 className="text-xs md:text-sm">{dataChat.data.message.extendedTextMessage.text}</h1>
+                    <h1 className="text-xs xl:text-sm">{dataChat.data.message.extendedTextMessage.text}</h1>
                     :""
                 }
                 {
@@ -32,7 +32,7 @@ export default function CardChatFromMe({dataChat, index}){
                     dataChat.data.message?.imageMessage ? 
                     <div className='min-w-[300px] max-w-sm'>
                         <img src={dataChat.file_url} alt="" className='mb-2' />
-                        <h1 className="text-xs md:text-sm">{dataChat.data.message.imageMessage?.caption}</h1>
+                        <h1 className="text-xs xl:text-sm">{dataChat.data.message.imageMessage?.caption}</h1>
                     </div>
                     :""
                 }
@@ -49,7 +49,7 @@ export default function CardChatFromMe({dataChat, index}){
                             {/* <source src="path/to/video.webm" type="video/webm"/> */}
                             {/* asjkajs */}
                         </video>
-                        <h1 className="text-xs md:text-sm">{dataChat.data.message.videoMessage?.caption}</h1>
+                        <h1 className="text-xs xl:text-sm">{dataChat.data.message.videoMessage?.caption}</h1>
                     </div>
                     :""
                 }
@@ -61,7 +61,7 @@ export default function CardChatFromMe({dataChat, index}){
                                 {dataChat.data.message.documentMessage?.mimetype.split("/")[1]}
                             </div>
                             <div>
-                                <h1 className="text-xs md:text-sm">{dataChat.data.message.documentMessage?.title}</h1>
+                                <h1 className="text-xs xl:text-sm">{dataChat.data.message.documentMessage?.title}</h1>
                                 <p className='text-zinc-500 text-sm'>{dataChat.data.message.documentMessage?.pageCount} Halaman</p>
                             </div>
                         </div>
@@ -75,7 +75,7 @@ export default function CardChatFromMe({dataChat, index}){
                     dataChat.data.message?.templateMessage ? 
                     <div className='min-w-[300px] max-w-sm'>
                         <img src={dataChat.file_url} alt={""} className='mb-2' />
-                        <h1 className="text-xs md:text-sm">{dataChat.data.message.templateMessage.hydratedTemplate.imageMessage?.caption}</h1>
+                        <h1 className="text-xs xl:text-sm">{dataChat.data.message.templateMessage.hydratedTemplate.imageMessage?.caption}</h1>
                     </div>
                     :""
                 }

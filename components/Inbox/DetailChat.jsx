@@ -57,7 +57,7 @@ export default function DetailChat() {
     }
 
   return (
-    <div className={`w-full ${context.detailContact ? "md:w-1/2":"md:w-3/4"} bg-zinc-100 relative h-screen pt-16 pb-20 md:pb-20`}>
+    <div className={`w-full ${context.detailContact ? "xl:w-1/2":"xl:w-3/4"} bg-zinc-100 dark:bg-dark relative h-screen pt-16 pb-20 xl:pb-20`}>
         <>  
             {
                 context.modal && (
@@ -80,7 +80,7 @@ export default function DetailChat() {
                     </>
                 )
             }
-            <div className='absolute top-0 left-0 w-full px-5 py-2 backdrop-blur-lg z-20 pt-16 border-b shadow-md flex items-center justify-between'>
+            <div className='absolute top-0 left-0 w-full px-5 pb-2 backdrop-blur-lg z-20 pt-3 border-b shadow-md flex items-center justify-between'>
                 <div className='cursor-pointer flex items-center gap-2' onClick={() => context.setData({...context, detailContact:{type:context.infoChat?.type ?? "personal", data:context.infoChat}})}>
                     <div className='flex items-center justify-center w-10 h-10 rounded-full text-white bg-zinc-500 uppercase font-bold'>
                         {
@@ -168,13 +168,12 @@ function SessionChat(){
     return (
         <>
             <div className="h-full overflow-y-auto pt-14 pb-1 relative" ref={containerRef}>
-                <div className={`${context.detailContact ? "md:w-4/5":"md:w-2/3"} space-y-1 w-full px-2 md:px-0 mx-auto`}>
+                <div className={`${context.detailContact ? "xl:w-4/5":"xl:w-2/3"} space-y-1 w-full px-2 xl:px-0 mx-auto`}>
                     {
                         context.chatDetail.map((item, key) => {
 
                             if(item.data.key.fromMe)
                             return <CardChatFromMe key={key} index={key} dataChat={item}/>
-
                             return <CardChatUser key={key} index={key} dataChat={item}/>
                         })
                     }
@@ -185,7 +184,7 @@ function SessionChat(){
             </button> */}
 
             
-            <div className={`${context.detailContact ? "md:w-4/5":"md:w-2/3"} absolute right-1/2 translate-x-1/2 w-full px-2 md:px-0 md:bottom-2 bottom-2 rounded-xl`}>
+            <div className={`${context.detailContact ? "xl:w-4/5":"xl:w-2/3"} absolute right-1/2 translate-x-1/2 w-full px-2 xl:px-0 xl:bottom-2 bottom-2 rounded-xl`}>
                 {
                     context.infoChat.type == "group" ? 
                     <EditorGroup ScrollOnTop={() => ScrollOnTop()}/>

@@ -17,7 +17,7 @@ export default function ChannelType() {
 
     
   return (
-    <div className={`${context.view == 2 ? "fixed top-0 left-0 w-screen h-screen z-20":"hidden md:block"} md:z-0 md:relative md:w-1/6 bg-white pt-16`}>
+    <div className={`${context.view == 2 ? "fixed top-0 left-0 w-screen h-screen z-20":"hidden xl:block"} xl:z-0 xl:relative xl:w-1/6 bg-white pt-16`}>
         <label className="px-3 text-xs text-zinc-500 uppercase dark:text-zinc-400">CHANNEL INTEGRATION</label>
 
         <div className="space-y-2 mt-2">

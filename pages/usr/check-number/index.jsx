@@ -105,7 +105,7 @@ export default function HalamanCheckNumber() {
   return (
     <Layout title={"Check Number"}>
       <Suspense fallback={"Loading"}>
-        <div className="px-5 md:px-10 pt-20">
+        <div className="px-5 xl:px-10 pt-20">
           <label className="text-sm font-bold text-zinc-600 uppercase dark:text-zinc-400">Check User Number</label>
           <p className="text-sm text-zinc-500 font-light">You can check the number whether you have whatsapp or not.</p>
           <form onSubmit={e => handlerSubmit(e)} className='bg-white mt-5 rounded-md shadow-md p-5'>
@@ -157,7 +157,7 @@ export default function HalamanCheckNumber() {
 
           <div className='mt-5'>
             <h1 className='font-semibold'>Your history</h1>
-            <div className='grid grid-cols-5 mt-5'>
+            <div className='grid grid-cols-4 xl:grid-cols-5 mt-5'>
               {
                 context?.historyCheckNumber && context?.historyCheckNumber.length > 0 ? context.historyCheckNumber.map((item, key) => {
                   return (

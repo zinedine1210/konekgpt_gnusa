@@ -11,10 +11,10 @@ export default function FAQ() {
   return (
     <Layout title={"Halaman QNA"}>
       <Suspense fallback={"Loading"}>
-        <section className="w-full bg-zinc-100 relative h-screen flex">
+        <section className="w-full bg-zinc-100 dark:bg-dark relative h-screen flex">
           <div className="w-full relative h-screen pt-16 overflow-y-auto">
-            <div className='mx-0 md:mx-2'>
-              <div className='bg-white rounded-md shadow-md p-3 md:p-5'>
+            <div className='mx-0 xl:mx-2'>
+              <div className='bg-white dark:bg-darkPrimary rounded-md shadow-md p-3 xl:p-5'>
                 <label className="text-zinc-500 text-sm uppercase dark:text-zinc-400">frequently asked questions</label>
 
                 <div className='my-5'>

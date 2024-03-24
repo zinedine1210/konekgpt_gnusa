@@ -40,12 +40,12 @@ export default function Sidebar1({ menus }) {
     const getAddOns = JSON.parse(localStorage.getItem("eventAddOns"))
     
   return (
-    <aside className={`${context.minimize ? "":`${context.view == 1 ? "fixed top-0 left-0 w-screen z-20 md:z-10 md:relative md:w-64":"hidden md:block md:w-64"}`} flex h-screen bg-white rtl:border-r-0 rtl:border-l dark:bg-dark dark:border-zinc-700`}>
+    <aside className={`${context.minimize ? "":`${context.view == 1 ? "fixed top-0 left-0 w-screen z-20 xl:z-10 xl:relative xl:w-64":"hidden xl:block xl:w-64"}`} flex h-screen bg-white rtl:border-r-0 rtl:border-l dark:bg-red-500 dark:border-zinc-700`}>
         {
             context.minimize ?
                 <MinSidebar /> 
             :
-            <div className="flex flex-col justify-between h-screen px-5 pt-16 pb-5 overflow-y-auto bg-white border-l border-r w-full sm:w-full dark:bg-dark dark:border-darkSecondary">
+            <div className="flex flex-col justify-between h-screen px-5 pt-16 pb-5 overflow-y-auto bg-white border-l border-r w-full dark:bg-darkPrimary dark:border-dark">
                 {/* <div className="relative">
                     <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                         <svg className="w-5 h-5 text-zinc-400" viewBox="0 0 24 24" fill="none">
@@ -61,12 +61,12 @@ export default function Sidebar1({ menus }) {
                         context.menus.length > 0 ?
                         context.menus.map((flagParent, key) => {
                             return (
-                                <div className="space-y-1 " key={key}>
+                                <div className="space-y-1" key={key}>
                                     <div className="flex items-center justify-between pt-1 pb-2 px-3">
                                         <label className="text-xs text-zinc-500 uppercase dark:text-zinc-400">{flagParent.parentFlag}</label>
                                         {
                                             key == 0 && (
-                                                <button className="hidden md:block" onClick={() => handlerMinimize()}>
+                                                <button className="hidden xl:block" onClick={() => handlerMinimize()}>
                                                     <BsArrowLeft />
                                                 </button>
                                             )
@@ -78,7 +78,7 @@ export default function Sidebar1({ menus }) {
 
                                             if(menu.show)
                                             return (
-                                                <button key={key2} onClick={() => handlerRedirect(menu.route, menu.id)} className={`${getThisMenu &&  "bg-blue-100 dark:bg-dark dark:hover:bg-zinc-800 dark:hover:text-zinc-200"} hover:bg-zinc-100 text-sm w-full flex items-center px-3 py-2 text-zinc-600 transition-colors duration-300 transform rounded-lg dark:text-zinc-200`}>
+                                                <button key={key2} onClick={() => handlerRedirect(menu.route, menu.id)} className={`${getThisMenu &&  "bg-blue-100 dark:bg-darkSecondary dark:hover:text-zinc-200"} hover:bg-zinc-100 dark:hover:bg-darkSecondary text-sm w-full flex items-center px-3 py-2 text-zinc-600 transition-colors duration-300 transform rounded-lg dark:text-zinc-200`}>
                                                     {
                                                         icon_menus[menu.id]
                                                     }

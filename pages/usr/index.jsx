@@ -5,6 +5,9 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Suspense, useContext, useEffect, useState } from "react";
 import {FaChevronLeft, FaInstagram, FaTelegramPlane, FaTwitter, FaWhatsapp} from "react-icons/fa"
 import {HiOutlineArrowSmRight} from "react-icons/hi"
+import DonatChart from "@/components/Dashboard/DonatChart";
+import BasicBar from "@/components/Dashboard/BasicBar";
+import StackedADP from "@/components/Dashboard/StackedADP";
 
 
 export default function Dashboard() {
@@ -19,11 +22,11 @@ export default function Dashboard() {
   return (
     <Layout title="HOME" desc="HALAMAN UTAMA">
       <Suspense fallback={"Loading"}>
-        <section className="w-full bg-zinc-100 dark:bg-dark relative h-screen flex">
+        <section className="w-full bg-zinc-100 dark:bg-dark relative flex">
           <div className="w-full relative pt-16 px-2">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
+            <div className="grid grid-cols-1 xl:grid-cols-4 gap-5">
               <div
-                className="bg-no-repeat relative bg-cover bg-center p-4 rounded-[6px]"
+                className="bg-no-repeat relative bg-cover bg-center p-4 rounded-[6px] h-full"
                 style={{
                   backgroundImage: `url(/images/widget-bg-1.png)`,
                 }}
@@ -39,6 +42,16 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
+
+            <div className="xl:flex gap-5 mt-5">
+              <div className="w-full xl:w-2/5 space-y-5">
+                <DonatChart judul={"Chart"}/>
+                <BasicBar />
+              </div>
+              <StackedADP judul="Chart"/>
+            </div>
+
+
           </div>
         </section>
       </Suspense>

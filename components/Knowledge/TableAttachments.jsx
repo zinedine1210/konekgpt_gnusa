@@ -58,7 +58,7 @@ export default function TableAttachments({collect, setCollect}) {
         <div className="flex flex-col">
             <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6">
                 {/* <button onClick={() => console.log(collect)}>abskahsk</button> */}
-                <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                <div className="inline-block min-w-full py-2 align-middle xl:px-6 lg:px-8">
                     <div className="overflow-hidden">
                         {
                             context.dataFilesKnowledge ?
@@ -135,7 +135,7 @@ export default function TableAttachments({collect, setCollect}) {
                 </span>
             </a>
 
-            <div className="items-center hidden md:flex gap-x-3">
+            <div className="items-center hidden xl:flex gap-x-3">
                 <a href="#" className="px-2 py-1 text-sm text-blue-500 rounded-md dark:bg-zinc-800 bg-blue-100/60">1</a>
                 <a href="#" className="px-2 py-1 text-sm text-zinc-500 rounded-md dark:hover:bg-zinc-800 dark:text-zinc-300 hover:bg-zinc-100">2</a>
                 <a href="#" className="px-2 py-1 text-sm text-zinc-500 rounded-md dark:hover:bg-zinc-800 dark:text-zinc-300 hover:bg-zinc-100">3</a>

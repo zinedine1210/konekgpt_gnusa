@@ -57,8 +57,8 @@ export default function HalamanCheckNumberAddOns() {
 
   return (
     <Layout title="Check Number">
-        <section className='pt-16 px-2 md:px-5'>
-            <div className='bg-white w-full md:w-1/2 rounded-md shadow-md p-3 md:p-10'>
+        <section className='pt-16 px-2 xl:px-5'>
+            <div className='bg-white w-full xl:w-1/2 rounded-md shadow-md p-3 xl:p-10'>
                 <h1 className='font-bold uppercase text-xl'>Check Number</h1>
                 <div className='mt-5'>
                 <p className='text-base text-zinc-500'>{event.description} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non repudiandae recusandae soluta. Itaque porro explicabo ipsam error sequi, possimus assumenda dolorum exercitationem libero iure beatae veniam? Tempore quisquam eveniet cum aperiam numquam culpa. Commodi voluptatem ipsum atque, quo voluptate nihil. Praesentium delectus nisi alias laborum itaque placeat hic reprehenderit, illum in amet at cupiditate ut ad! Ad adipisci aspernatur, harum eum sequi doloremque ab officia facere incidunt illum unde. Debitis, est quia architecto quas possimus quaerat nostrum eius eaque laboriosam vitae expedita ratione vero velit incidunt illo? Natus atque recusandae dicta id vero. Ex magni laborum harum, vitae sit aliquid?</p>

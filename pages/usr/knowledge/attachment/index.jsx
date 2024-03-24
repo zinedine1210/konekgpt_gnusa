@@ -30,16 +30,16 @@ export default function HalamanAttachment() {
 
   return (
     <Layout title={"Attachments Knowledge"} desc={"Halaman untuk menambahkan atau upload file yang diperlukan"}>
-      <section className="pt-16">
-        <div className='mx-0 md:mx-2'>
-          <div className='p-3 md:p-5'>
+      <section className="pt-16 bg-zinc-100 dark:bg-dark h-full">
+        <div className='mx-0 xl:mx-2'>
+          <div className='p-3 xl:p-5'>
             <label className="text-sm font-bold text-zinc-600 uppercase dark:text-zinc-400">Attachments</label>
             <p className="text-sm text-zinc-500 font-light">Input your file business here to create knowledge</p>
 
             <div className="sm:flex sm:items-center sm:justify-between mt-5">
-                <input type="search" placeholder="Filter by Name / Description" className="input-search w-full md:w-auto" />
+                <input type="search" placeholder="Filter by Name / Description" className="input-search w-full xl:w-auto" />
 
-                <div className="md:flex space-y-2 md:space-y-0 items-center justify-between gap-2 mt-2 md:mt-0">
+                <div className="xl:flex space-y-2 xl:space-y-0 items-center justify-between gap-2 mt-2 xl:mt-0">
                   <div className="group relative">
                     <div className="transition-opacity z-20 duration-300 invisible group-hover:visible opacity-0 group-hover:opacity-100 group-hover:block absolute w-72 shadow-md p-5 bg-white rounded-md top-full right-0">
                       <h1 className="text-sm font-bold">Usage Information</h1>

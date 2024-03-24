@@ -82,6 +82,7 @@ class ChannelRepository {
             return data;
         })
         .catch((error) => {
+            console.log(error.response)
             const result = cbor.decode(error.response.data)
             return result;
         });

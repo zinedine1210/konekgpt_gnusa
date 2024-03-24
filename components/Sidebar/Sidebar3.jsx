@@ -55,7 +55,7 @@ export default function Sidebar3() {
     }
     
   return (
-    <aside className={`border  border-red-400 ${context.minimize ? "":`${context.view == 1 ? "fixed top-0 left-0 w-screen z-20 md:z-10 md:relative md:w-2/12":"hidden md:block md:w-2/12"}`} flex h-screen bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-zinc-900 dark:border-zinc-700`}>
+    <aside className={`border  border-red-400 ${context.minimize ? "":`${context.view == 1 ? "fixed top-0 left-0 w-screen z-20 xl:z-10 xl:relative xl:w-2/12":"hidden xl:block xl:w-2/12"}`} flex h-screen bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-zinc-900 dark:border-zinc-700`}>
         {
             context.minimize ?
                 <MinSidebar /> 
@@ -81,7 +81,7 @@ export default function Sidebar3() {
                                         <label className="text-xs text-zinc-500 uppercase dark:text-zinc-400">{flagParent.parentFlag}</label>
                                         {
                                             key == 0 && (
-                                                <button className="hidden md:block" onClick={() => handlerMinimize()}>
+                                                <button className="hidden xl:block" onClick={() => handlerMinimize()}>
                                                     <BsArrowLeft />
                                                 </button>
                                             )

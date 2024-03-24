@@ -19,7 +19,7 @@ export default function CardKnowledgeHelp({item}) {
         {
             open && (
                 <div className="fixed w-full h-screen bg-black backdrop-blur-md bg-opacity-40 overflow-y-auto left-0 top-0 z-50 flex items-center justify-center">
-                    <div className="bg-white w-full md:w-2/5 mx-auto rounded-md p-5">
+                    <div className="bg-white w-full xl:w-2/5 mx-auto rounded-md p-5">
                         <div className="flex items-center justify-between">
                             <div>
                                 <h1 className="font-bold">Help Knowledge Feature</h1>

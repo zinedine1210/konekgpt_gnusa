@@ -70,13 +70,11 @@ export default function ModalQRWhatsapp(props) {
       "identity": getID
     }
     const result = await ChannelRepository.insertChannel({xa:{XA:getxa}, data:obj})
-    console.log(result);
-
     const getWhatsappList = JSON.parse(localStorage.getItem("whatsappChannel"))
     if(getWhatsappList){
-      const getDetailWhatsappList = getWhatsappList.find(res => res.data.identity == id)
+      const getDetailWhatsappList = getWhatsappList.find(res => res.identity == id)
       if(getDetailWhatsappList){
-        getWhatsappList.find(res => res.data.identity == id)['active'] = true
+        getWhatsappList.find(res => res.identity == id)['active'] = true
       }else{
         getWhatsappList.push(result.data)
       }
@@ -131,7 +129,7 @@ export default function ModalQRWhatsapp(props) {
               <div className="text" data-text="Connecting"></div>
           </div>
         :
-        <div className="bg-white w-full md:w-1/4 mx-auto rounded-md p-5">
+        <div className="bg-white dark:bg-darkPrimary w-full xl:w-1/4 mx-auto rounded-md p-5">
           <div className="flex items-center justify-between">
             <h1 className="font-bold">Whatsapp Integration</h1>
             <button onClick={() => handlerClose()}>
@@ -218,9 +216,9 @@ function CreateSession(props){
 
   return (
     <form>
-      <div className='my-5 space-y-3'>
+      <div className='my-5 space-y-3 dark:bg-darkPrimary'>
         <input type="text" required className='input-search w-full' placeholder='Name / Label' onChange={(e) => setLabel(e.target.value)} value={label} />
-        <div className='w-full relative'>
+        <div className='w-full relative '>
           <div ref={dropRef} className='absolute block top-1/2 -translate-y-1/2 pl-3 text-sm text-zinc-500 font-bold'>
             <input type="text" placeholder='+---' className='outline-none inline-block bg-inherit w-12' value={choose.dial_code} onChange={(e) => handlerSearch(e.target.value)} onFocus={() => setOpen(true)} />
             <div className={`${open ? "":"hidden"} bg-white shadow-md top-full absolute left-0 w-fit max-h-80 overflow-auto mt-2 z-20`}>
@@ -249,7 +247,7 @@ function CreateSession(props){
             </div>
           </div>
 
-          <input type="number" onChange={e => setData(e.target.value)} value={data} maxLength={12} className='bg-zinc-50 text-sm py-2 pl-16 pr-5 outline-none border-2 hover:bg-zinc-100 focus:bg-white focus:border-lightPrimary w-full' placeholder='Type in 89508...' />
+          <input type="number" onChange={e => setData(e.target.value)} value={data} maxLength={12} className='bg-zinc-50 dark:bg-black text-sm py-2 pl-16 pr-5 outline-none border-2 hover:bg-zinc-100 focus:bg-white focus:border-lightPrimary w-full' placeholder='Type in 89508...' />
         </div>
       </div>
 

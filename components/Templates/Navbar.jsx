@@ -49,14 +49,15 @@ export default function Navbar() {
     }
 
   return (
-    <nav className="absolute z-50 w-full bg-lightPrimary shadow-md dark:bg-darkPrimary">
-        <div className="px-3 md:px-6 py-2 mx-auto">
+    <nav className="absolute z-50 w-full bg-lightPrimary shadow-md dark:shadow-darkSecondary dark:bg-darkPrimary">
+        <div className="px-3 xl:px-6 py-2 mx-auto">
             <div className="lg:flex lg:items-center lg:justify-between">
                 <div className="flex items-center justify-between w-full">
                     <button onClick={() => handlerRedirect()} className={`flex gap-1`}>
+                        {/* <img src="/images/logo.png" alt="" className="w-5"/> */}
                         <div className="flex items-center gap-2">
-                            {localStorage.getItem("view") > 1 ? <FaChevronLeft className="text-xl text-gray-500 md:hidden"/>:""}
-                            <span className="font-extrabold text-white text-3xl md:text-4xl block">Konek</span>
+                            {localStorage.getItem("view") > 1 ? <FaChevronLeft className="text-xl text-gray-500 xl:hidden"/>:""}
+                            <span className="font-extrabold text-white text-3xl xl:text-4xl block">Konek</span>
                         </div>
                         <p className="self-end text-xs font-extrabold uppercase mb-1 text-white">Gpt</p>
                     </button>

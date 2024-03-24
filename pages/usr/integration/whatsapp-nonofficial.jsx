@@ -21,7 +21,7 @@ export default function WhatsappNonOfficial() {
   return (
     <Layout title="HOME" desc="HALAMAN UTAMA">
       <Suspense fallback={"Loading"}>
-        <div className="w-full bg-white h-screen pt-16 overflow-y-auto">
+        <div className="w-full bg-white dark:bg-dark h-screen pt-16 overflow-y-auto">
           <div className="flex items-center gap-2 pt-1 pb-3 px-3">
             <h1 className="text-xs text-zinc-500 uppercase dark:text-zinc-400">Integration</h1>
             <FaChevronRight className="text-zinc-500 text-xs"/>

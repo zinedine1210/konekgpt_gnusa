@@ -137,10 +137,10 @@ export default function UploadFileKnowledge() {
     <Layout title={"Create From PDF"} desc={"Halaman untuk membuat word"}>
         <Suspense fallback={"Loading"}>
             <section className="w-full bg-zinc-100 relative h-screen flex">
-                <div className="w-full md:w-3/4 relative h-screen pt-16 overflow-y-auto">
-                    <div className='mx-0 md:mx-2'>
-                    <div className='bg-white rounded-md shadow-md p-3 md:p-5'>
-                        <label className="text-base md:text-xl dark:text-zinc-400 font-semibold">Upload File</label>
+                <div className="w-full xl:w-3/4 relative h-screen pt-16 overflow-y-auto">
+                    <div className='mx-0 xl:mx-2'>
+                    <div className='bg-white rounded-md shadow-md p-3 xl:p-5'>
+                        <label className="text-base xl:text-xl dark:text-zinc-400 font-semibold">Upload File</label>
                         {/* <button onClick={() => console.log(data)}>Click me</button> */}
                         <p className='text-sm font-light text-zinc-500'>Upload your file business first here to train the knowledge AI</p>
                         <div className="flex items-center gap-2 pt-1 pb-3 mt-3">
@@ -164,8 +164,8 @@ export default function UploadFileKnowledge() {
                                                 <HiDocument className='w-5 h-5'/>
                                             </div>
                                             <div>
-                                                <h1 className='text-sm md:text-base text-zinc-600'>{data.upload.length} {data.upload.length > 1 ? "Files":"File"} Selected</h1>
-                                                {/* <p className='text-zinc-500 text-xs md:text-sm'>{file.size} Byte</p> */}
+                                                <h1 className='text-sm xl:text-base text-zinc-600'>{data.upload.length} {data.upload.length > 1 ? "Files":"File"} Selected</h1>
+                                                {/* <p className='text-zinc-500 text-xs xl:text-sm'>{file.size} Byte</p> */}
                                             </div>
                                         </div>
                                         <button type='button' onClick={() => setData({...data, upload:null})} className='w-10 h-10 rounded-md hover:bg-red-100 flex items-center justify-center transition-colors duration-300'>

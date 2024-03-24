@@ -11,6 +11,7 @@ import PageChange from "./PageChange"
 import AuthRepository from "@/repositories/AuthRepository"
 import Swal from "sweetalert2"
 import Loading from "../Loading"
+import ScreenReader from "../ScreenReader"
 
 export default function Layout({children, title, desc, image}) {
   const context = useContext(MyContext)
@@ -123,16 +124,16 @@ export default function Layout({children, title, desc, image}) {
           description={desc}
           image={image ? image:null}
         />
-
+        <ScreenReader />
         {
           mounted && JSON.parse(localStorage.getItem("auth"))?.status == "authentication"?
             <section style={{backgroundImage:"url('/images/bodyMain.jpg')"}} className="bg-center bg-cover w-screen flex items-center justify-center h-screen">
-              <content className="w-full h-full max-h-[1080px] max-w-[1920px] overflow-hidden relative md:rounded-2xl shadow-md">
+              <content className="w-full h-full max-h-[1080px] max-w-[1920px] overflow-hidden relative xl:rounded-2xl shadow-md">
                 <Navbar />
                 <HelpButton />
-                <div className="overflow-x-hidden relative flex">
+                <div className="overflow-x-hidden relative flex ">
                   <LayoutSidebar />
-                  <section className="relative w-full overflow-y-auto h-screen max-h-[1080px] max-w-[1920px] bg-zinc-100">
+                  <section className="relative w-full overflow-y-auto h-screen max-h-[1080px] max-w-[1920px] bg-zinc-100 dark:bg-dark">
                     {isPageChanging ? <PageChange />:children}
                   </section>
                 </div>

@@ -37,12 +37,12 @@ export default function WhatsappNonOfficialList() {
         :""
         :""
     }
-        <div className='bg-green-100 w-full p-5 flex items-center justify-between'>
+        <div className='bg-green-100 dark:bg-darkPrimary w-full p-5 flex items-center justify-between'>
                 <div className='flex gap-2 items-center'>
                     <FaWhatsapp className='text-zinc-500 text-6xl'/>
                     <div>
                         <h1 className='text-xl font-bold'>Whatsapp Non Official</h1>
-                        <p className='text-zinc-600 mt-2'>Whatsapp by Gnusa Package Development</p>
+                        <p className='text-zinc-600 dark:text-zinc-400 mt-2'>Whatsapp by Gnusa Package Development</p>
                     </div>
                 </div>
             <button className='btn-primary' onClick={() => handlerCreateSession()}>
@@ -55,7 +55,7 @@ export default function WhatsappNonOfficialList() {
                 {
                     data ?
                     data.length > 0 ?
-                    <div className='w-full md:w-1/2 space-y-2 px-5'>
+                    <div className='w-full xl:w-1/2 space-y-2 px-5'>
                         {
                             data.map((item, key) => {
                                 return <CardWhatsapp key={key} item={item} />
@@ -63,7 +63,7 @@ export default function WhatsappNonOfficialList() {
                         }
                     </div>
                     :
-                    <div className='mx-auto w-full md:w-1/4 text-center'>
+                    <div className='mx-auto w-full xl:w-1/4 text-center'>
                         <Image src={"/images/whatsapp.png"} width={512} className='w-1/2 mx-auto mb-10' height={512}/>
                         <h1>No Whatsapp Business Account Yet</h1>
                         <p className='text-zinc-500 text-sm'>Your integrated WhatsApp Business account list will appear here.</p>
@@ -73,7 +73,7 @@ export default function WhatsappNonOfficialList() {
                         {
                             new Array(10).fill("mantap").map((item, key) => {
                                 return (
-                                    <div className='w-full md:w-1/2 h-16 bg-zinc-300 animate-pulse' key={key}>
+                                    <div className='w-full xl:w-1/2 h-16 bg-zinc-300 animate-pulse' key={key}>
                                 </div>
                                 )
                             })

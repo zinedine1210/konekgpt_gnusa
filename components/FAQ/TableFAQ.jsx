@@ -17,9 +17,9 @@ export default function TableFAQ() {
   return (
     <section className="">
         <div className="sm:flex sm:items-center sm:justify-between">
-            <input type="search" placeholder="Search List" className="input-search w-full md:w-auto" />
+            <input type="search" placeholder="Search List" className="input-search w-full xl:w-auto" />
 
-            <div className="flex items-center mt-2 md:mt-0">
+            <div className="flex items-center mt-2 xl:mt-0">
                 <button className="btn-primary" onClick={() => handlerRedirect("/usr/qna/service/create-faq?m=clm_qna_service")}>
                     <BsPlusCircleDotted className='text-white font-bold text-lg'/>
 
@@ -30,8 +30,8 @@ export default function TableFAQ() {
 
         <div className="flex flex-col mt-6">
             <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-                    <div className="overflow-hidden border border-zinc-200 dark:border-zinc-700 md:rounded-lg">
+                <div className="inline-block min-w-full py-2 align-middle xl:px-6 lg:px-8">
+                    <div className="overflow-hidden border border-zinc-200 dark:border-zinc-700 xl:rounded-lg">
                         <table className="min-w-full divide-y divide-zinc-200 dark:divide-zinc-700">
                             <thead className="bg-zinc-50 dark:bg-zinc-800">
                                 <tr>
@@ -87,7 +87,7 @@ export default function TableFAQ() {
                 </span>
             </a>
 
-            <div className="items-center hidden md:flex gap-x-3">
+            <div className="items-center hidden xl:flex gap-x-3">
                 <a href="#" className="px-2 py-1 text-sm text-blue-500 rounded-md dark:bg-zinc-800 bg-blue-100/60">1</a>
                 <a href="#" className="px-2 py-1 text-sm text-zinc-500 rounded-md dark:hover:bg-zinc-800 dark:text-zinc-300 hover:bg-zinc-100">2</a>
                 <a href="#" className="px-2 py-1 text-sm text-zinc-500 rounded-md dark:hover:bg-zinc-800 dark:text-zinc-300 hover:bg-zinc-100">3</a>

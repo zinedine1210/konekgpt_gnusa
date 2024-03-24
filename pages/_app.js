@@ -52,11 +52,11 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
-      {/* <ThemeProvider enableSystem={true} attribute="class"> */}
+      <ThemeProvider defaultTheme='light' enableSystem={false} attribute="class">
         <MyProvider>
           <Component {...pageProps} />
         </MyProvider>
-      {/* </ThemeProvider> */}
+      </ThemeProvider>
     </>
   )
 }

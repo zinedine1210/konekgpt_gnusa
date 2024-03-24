@@ -158,3 +158,83 @@ content-type: application/cbor
 GET https://konekgpt.gnusa.id/service/gpt-konek/knowledge/list-files HTTP/1.1
 content-type: application/cbor
 XA: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AZ251c2EuaWQiLCJwYXNzd29yZCI6IjcyZGZhYjMzNWNlODIwYjkyZWRjMmEwN2RiMmMxZGQ0Y2FjYTU2MTMifQ.ceCFGSKxjDEH2jPVmICL3SjMu1-9rgLKnBOL1mPnWaQ
+
+
+### GET INBOX BY ID KNOWLEDGE
+# https://konekgpt.gnusa.id/service/gpt-konek/inbox/:knowldegeId
+GET https://konekgpt.gnusa.id/service/gpt-konek/inbox/53ea7d36-f1fc-4307-8356-05dfd02cfbf8 HTTP/1.1
+content-type: application/cbor
+XA: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AZ251c2EuaWQiLCJwYXNzd29yZCI6IjcyZGZhYjMzNWNlODIwYjkyZWRjMmEwN2RiMmMxZGQ0Y2FjYTU2MTMifQ.ceCFGSKxjDEH2jPVmICL3SjMu1-9rgLKnBOL1mPnWaQ
+[
+{
+    "n": "msg",
+    "tf": 0,
+    "ti":[{
+        "o": "str"
+    }],
+    "notes": "pesan berupa text"
+},
+{
+    "n": "channel_identity",
+    "tf": 0,
+    "ti":[{
+        "o": "str"
+    }],
+    "notes": "diambil dari table channel field identity"
+},
+{
+    "n": "channel_name",
+    "tf": 0,
+    "ti":[{
+        "o": "str"
+    }],
+    "notes": "diambil dari table channel field name"
+},
+{
+    "n": "channel_code",
+    "tf": 0,
+    "ti":[{
+        "o": "str"
+    }],
+    "notes": "diambil dari table channel field code"
+},
+{
+    "n": "knowledge_id",
+    "tf": 0,
+    "ti":[{
+        "o": "str"
+    }],
+    "notes": "diambil dari table channel field knowledge_id"
+},
+{
+    "n": "user_id",
+    "tf": 0,
+    "ti":[{
+        "o": "str"
+    }],
+    "notes": "jika yang bertanya berarti valuenya identitas penanya seperti nmr hp, jika menjawab berarti valuenya bot"
+},
+{
+    "n": "user_name",
+    "tf": 0,
+    "ti":[{
+        "o": "str"
+    }],
+    "notes": "jika yang bertanya berarti valuenya identitas penanya seperti nama, jika menjawab berarti valuenya bot"
+},
+{
+    "n": "owner_id",
+    "tf": 0,
+    "ti":[{
+        "o": "str"
+    }],
+    "notes": "diambil dari tabel knowledge, owner dari knowledge tersebut, field user_id"
+},
+{
+    "n": "status",
+    "tf": 0,
+    "ti":[{
+        "o": "int"
+    }],
+    "notes": "jika status 0, maka pertanyaan belum di respons bot, jika 1 pertanyaan dapat dijawab, jika 2 pertanyaan tidak dapat dijawab"
+}]

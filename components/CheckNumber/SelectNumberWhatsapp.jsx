@@ -7,7 +7,6 @@ export default function SelectNumberWhatsapp({ setNumber }) {
     const dropRef = useRef(null)
     const [data, setData] = useState(null)
     const [open, setOpen] = useState(false)
-
     const context = useContext(MyContext)
 
     const handleOutsideClick = (event) => {
@@ -25,7 +24,6 @@ export default function SelectNumberWhatsapp({ setNumber }) {
 
 
     const handlerChoose = (key) => {
-        // setNumber(prev => [...prev, context.channelWhatsapp[key]])
         setNumber(prev => {
             prev[0] = context.channelWhatsapp[key]
             return [prev]

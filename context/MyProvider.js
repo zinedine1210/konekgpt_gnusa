@@ -20,7 +20,8 @@ export function MyProvider({children}) {
         "dataKnowledge":null,
         "menus": null,
         "structured":null,
-        "dataFilesKnowledge":null
+        "dataFilesKnowledge":null,
+        "integrationData": null
     })
     
     const addContext = (key, value) => {

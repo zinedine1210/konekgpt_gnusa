@@ -38,7 +38,7 @@ export default function MinSidebar() {
     }
 
   return (
-    <div className={`hidden md:flex flex-col items-center w-14 h-screen pt-16 pb-10 bg-white dark:bg-zinc-900 dark:border-zinc-700 border-r`}>
+    <div className={`hidden xl:flex flex-col items-center w-14 h-screen pt-16 pb-10 bg-white dark:bg-zinc-900 dark:border-zinc-700 border-r`}>
         <nav className="flex flex-col items-center flex-1 space-y-3">
             <button onClick={() => handlerCloseMinimize()} className="p-1.5 inline-block text-zinc-500 focus:outline-nones transition-colors duration-200 rounded-lg dark:text-zinc-400 dark:hover:bg-zinc-800 hover:bg-zinc-100">
                 <BsArrowRight className="w-5 h-5"/>

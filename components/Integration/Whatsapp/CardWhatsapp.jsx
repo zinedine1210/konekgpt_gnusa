@@ -157,14 +157,14 @@ export default function CardWhatsapp(props) {
         <div className="flex items-center gap-2">
             <FaWhatsapp className="text-green-500 text-2xl"/>
             <div>
-                <p className="text-zinc-500 tracking-wider text-xs uppercase">{props.item?.name}</p>
-                <h1 className="text-zinc-600 font-bold">{props.item?.identity}</h1>
+                <p className="dark:text-zinc-300 text-zinc-500 tracking-wider text-xs uppercase">{props.item?.name}</p>
+                <h1 className="dark:text-zinc-300 text-zinc-600 font-bold">{props.item?.identity}</h1>
             </div>
         </div>
         <div className="flex items-center gap-4">
             <h1 className="flex items-center gap-2">
-                <span className={`w-4 md:w-2 h-4 md:h-2 rounded-full ${options[status] ? options[status]['warna'] : "bg-blue-500"}`}></span>
-                <p className="text-xs text-zinc-600 capitalize md:block hidden">{options[status] ? options[status]['name'] :"Searching"}</p>
+                <span className={`w-4 xl:w-2 h-4 xl:h-2 rounded-full ${options[status] ? options[status]['warna'] : "bg-blue-500"}`}></span>
+                <p className="text-xs dark:text-zinc-300 text-zinc-600 capitalize xl:block hidden">{options[status] ? options[status]['name'] :"Searching"}</p>
             </h1>
             <button type="button" onClick={() => handlerCheck()}>
                 <FaPowerOff className={`${props.item.active ? "text-green-500":"text-red-500"}`}/>

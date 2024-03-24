@@ -50,7 +50,7 @@ export default function ModalSendDocument() {
     if(context.modal.name == "modalsenddocument")
     return (
         <div className="absolute w-full h-screen bg-black backdrop-blur-sm bg-opacity-40 overflow-y-auto left-0 top-0 z-30 flex items-center justify-center">
-            <div className="bg-white w-full md:w-1/2 mx-auto rounded-md p-5">
+            <div className="bg-white w-full xl:w-1/2 mx-auto rounded-md p-5">
                 <div className="flex items-center justify-between">
                     <h1 className="font-bold">Send Document</h1>
                     <button onClick={() => context.setData({...context, modal:null})}>

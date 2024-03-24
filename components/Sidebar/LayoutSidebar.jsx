@@ -14,12 +14,10 @@ export default function LayoutSidebar() {
   useEffect(() => {
     if(!context.menus){
       const getLocalMenu = JSON.parse(localStorage.getItem("client_menus"))
-      
       if(getLocalMenu){
         // console.log(getLocalMenu);
         context.setData({...context, menus:getLocalMenu})
       }else{
-        console.log("masa gada cok")
         axios.get("/client_menu.json").then(res => {
           console.log("get client menu json =>", res.data);
           localStorage.setItem("client_menus", JSON.stringify(res.data))
