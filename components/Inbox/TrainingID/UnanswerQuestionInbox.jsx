@@ -35,7 +35,7 @@ export default function UnanswerQuestionInbox() {
                         {
                             new Array(30).fill("coba").map((item, key) => {
                                 return (
-                                    <CardQuestion />
+                                    <CardQuestion key={key}/>
                                 )
                             })
                         }
