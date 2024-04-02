@@ -174,6 +174,47 @@ class KnowledgeRepository {
         });
         return reponse;
     }
+
+    async getChatByKnowledge(params) {
+        const reponse = await Repository.get(
+            `${baseUrl}/gpt-konek/inbox/${params.id}`,
+            {
+                headers: params,
+                contentType:"application/cbor",
+                responseType: "arraybuffer"
+            }
+        )
+        .then((response) => {
+            const data = cbor.decode(response.data)
+            return data;
+        })
+        .catch((error) => {
+            const result = cbor.decode(error.response.data)
+            return result;
+        });
+        return reponse;
+    }
+
+    async selectKnowledgeForChannel(params) {
+        const reponse = await Repository.post(
+            `${baseUrl}/gpt-konek/channel/select-knowledge`,
+            params.data,
+            {
+                headers: params.xa,
+                contentType:"application/cbor",
+                responseType: "arraybuffer"
+            }
+        )
+        .then((response) => {
+            const data = cbor.decode(response.data)
+            return data;
+        })
+        .catch((error) => {
+            const result = cbor.decode(error.response.data)
+            return result;
+        });
+        return reponse;
+    }
 }
 
 export default new KnowledgeRepository();

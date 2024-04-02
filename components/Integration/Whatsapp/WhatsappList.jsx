@@ -48,11 +48,11 @@ export default function WhatsappList() {
             </button>
         </div>
 
-        <div className='py-10'>
-
-                {
-                    data ?
-                    data.length > 0 ?
+        <div className='py-10 w-full relative'>
+            {
+                data ?
+                data.length > 0 ?
+                <>
                     <div className='w-full xl:w-1/2 space-y-2 px-5'>
                         {
                             data.map((item, key) => {
@@ -60,24 +60,26 @@ export default function WhatsappList() {
                             })
                         }
                     </div>
-                    :
-                    <div className='mx-auto w-full xl:w-1/4 text-center'>
-                        <Image src={"/images/whatsapp.png"} width={512} className='w-1/2 mx-auto mb-10' height={512}/>
-                        <h1>No Whatsapp Business Account Yet</h1>
-                        <p className='text-zinc-500 text-sm'>Your integrated WhatsApp Business account list will appear here.</p>
-                    </div>
-                    :
-                    <div className='space-y-2 px-5'>
-                        {
-                            new Array(10).fill("mantap").map((item, key) => {
-                                return (
-                                    <div className='w-full xl:w-1/2 h-16 bg-zinc-300 animate-pulse' key={key}>
-                                </div>
-                                )
-                            })
-                        }
-                    </div>
-                }
+                </>
+                
+                :
+                <div className='mx-auto w-full xl:w-1/4 text-center'>
+                    <Image src={"/images/whatsapp.png"} width={512} className='w-1/2 mx-auto mb-10' height={512}/>
+                    <h1>No Whatsapp Business Account Yet</h1>
+                    <p className='text-zinc-500 text-sm'>Your integrated WhatsApp Business account list will appear here.</p>
+                </div>
+                :
+                <div className='space-y-2 px-5'>
+                    {
+                        new Array(10).fill("mantap").map((item, key) => {
+                            return (
+                                <div className='w-full xl:w-1/2 h-16 bg-zinc-300 animate-pulse' key={key}>
+                            </div>
+                            )
+                        })
+                    }
+                </div>
+            }
         </div>
     </>
   )

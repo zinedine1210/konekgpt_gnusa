@@ -4,12 +4,12 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useContext, useEffect, useRef, useState } from "react";
 import ChatList from "@/components/Inbox/ChatList";
 import DetailChat from "@/components/Inbox/DetailChat";
-import { FaChalkboard, FaEllipsisV, FaUser } from "react-icons/fa";
+import { FaEllipsisV, FaUser } from "react-icons/fa";
 import ModalCreateGroup from "@/components/Inbox/ModalCreateGroup";
 import InfoPersonal from "@/components/Inbox/InfoPersonal";
 import InfoGroup from "@/components/Inbox/InfoGroup";
 import Seo from "@/components/Seo";
-import { IoAttach, IoCard, IoInformationCircle } from "react-icons/io5";
+import { IoInformationCircle } from "react-icons/io5";
 import Link from "next/link";
 import { BsChatFill, BsChevronLeft, BsFillPatchQuestionFill } from "react-icons/bs";
 import { HiQuestionMarkCircle } from "react-icons/hi";
@@ -52,10 +52,8 @@ export default function TrainingInbox({ params }) {
   const getKnowledge = async () => {
     const getxa = JSON.parse(localStorage.getItem("XA"))
     const result = await KnowledgeRepository.getAllKnowledge({xa:getxa})
-    console.log(result);
     if(result?.data){
       const findOne = result.data.find(res => res.id == trainingId)
-      console.log(findOne)
       context.setData({...context, dataKnowledge:result.data})
       setData({...data, information:findOne})
     }

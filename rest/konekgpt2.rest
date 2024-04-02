@@ -238,3 +238,15 @@ XA: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AZ251c2EuaWQiLCJwYXN
     }],
     "notes": "jika status 0, maka pertanyaan belum di respons bot, jika 1 pertanyaan dapat dijawab, jika 2 pertanyaan tidak dapat dijawab"
 }]
+
+
+### select knowledge for channel
+POST https://konekgpt.gnusa.id/service/gpt-konek/channel/select-knowledge HTTP/1.1
+content-type: application/cbor
+XA: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiemlkYW5lQGdudXNhLmlkIiwicGFzc3dvcmQiOiI3MmRmYWIzMzVjZTgyMGI5MmVkYzJhMDdkYjJjMWRkNGNhY2E1NjEzIn0.-NrC6YA6QnU7FV6BIzW2qq_AZueqrYkye5n3e-clr5U
+
+{
+    "knowledge_id": "xxx", //diambil dari knowledge id
+    "knowledge_name":"tes", //diambil dari knowledge id
+    "channel_id": "xxx" //id dari channel
+}

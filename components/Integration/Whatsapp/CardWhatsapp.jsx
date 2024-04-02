@@ -1,18 +1,28 @@
 import { MyContext } from "@/context/MyProvider"
 import ChannelRepository from "@/repositories/ChannelRepository"
+import KnowledgeRepository from "@/repositories/KnowledgeRepository"
 import WhatsappRepository from "@/repositories/WhatsappRepository"
-import { useContext, useEffect, useState } from "react"
-import { FaPowerOff, FaTrash, FaWhatsapp } from "react-icons/fa"
+import Link from "next/link"
+import { useContext, useEffect, useRef, useState } from "react"
+import { FaEye, FaPowerOff, FaTrash, FaWhatsapp } from "react-icons/fa"
 import Swal from "sweetalert2"
 
 export default function CardWhatsapp(props) {
     const [status, setStatus] = useState(null)
     const context = useContext(MyContext)
+    const dropRef = useRef(null)
+    const [open, setOpen] = useState(false)
+
+    const handleOutsideClick = (event) => {
+        if (dropRef.current && !dropRef.current.contains(event.target)) {
+            setOpen(false);
+        }
+    };
 
     useEffect(() => {
         async function getStatus(){
+            // get status apakah nomer tersebut terautentikasi atau tidak
             const result = await WhatsappRepository.statusSession({id:props.item.identity})
-            console.log(result);
             let active = false
             if(result.success){
                 setStatus(result.data.status)
@@ -29,7 +39,15 @@ export default function CardWhatsapp(props) {
         }
 
         getStatus()
+
     }, [context.modal])
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleOutsideClick);
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, [])
 
     const handlerDeleteSession = () => {
         console.log(status);
@@ -153,26 +171,134 @@ export default function CardWhatsapp(props) {
     }
 
   return (
-    <div className="border-2 border-zinc-300 p-4 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-            <FaWhatsapp className="text-green-500 text-2xl"/>
-            <div>
-                <p className="dark:text-zinc-300 text-zinc-500 tracking-wider text-xs uppercase">{props.item?.name}</p>
-                <h1 className="dark:text-zinc-300 text-zinc-600 font-bold">{props.item?.identity}</h1>
+    <div ref={dropRef}>
+        <div className="border-2 border-zinc-300 p-4 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+                <FaWhatsapp className="text-green-500 text-2xl"/>
+                <div>
+                    <p className="dark:text-zinc-300 text-zinc-500 tracking-wider text-xs uppercase">{props.item?.name}</p>
+                    <h1 className="dark:text-zinc-300 text-zinc-600 font-bold">{props.item?.identity}</h1>
+                </div>
+            </div>
+            <div className="flex items-center gap-4">
+                <h1 className="flex items-center gap-2">
+                    <span className={`w-4 xl:w-2 h-4 xl:h-2 rounded-full ${options[status] ? options[status]['warna'] : "bg-blue-500"}`}></span>
+                    <p className="text-xs dark:text-zinc-300 text-zinc-600 capitalize xl:block hidden">{options[status] ? options[status]['name'] :"Searching"}</p>
+                </h1>
+                <button type="button" onClick={() => handlerCheck()}>
+                    <FaPowerOff className={`${props.item.active ? "text-green-500":"text-red-500"}`}/>
+                </button>
+                <button title="Delete Session" onClick={() => handlerDeleteSession()}>
+                    <FaTrash className="text-red-500"/>
+                </button>
+                <button title="Information Session" onClick={() => setOpen(!open)} className="btn-primary">
+                    <FaEye className="text-white"/>
+                    Connect
+                </button>
             </div>
         </div>
-        <div className="flex items-center gap-4">
-            <h1 className="flex items-center gap-2">
-                <span className={`w-4 xl:w-2 h-4 xl:h-2 rounded-full ${options[status] ? options[status]['warna'] : "bg-blue-500"}`}></span>
-                <p className="text-xs dark:text-zinc-300 text-zinc-600 capitalize xl:block hidden">{options[status] ? options[status]['name'] :"Searching"}</p>
-            </h1>
-            <button type="button" onClick={() => handlerCheck()}>
-                <FaPowerOff className={`${props.item.active ? "text-green-500":"text-red-500"}`}/>
-            </button>
-            <button title="Delete Session">
-                <FaTrash className="text-red-500" onClick={() => handlerDeleteSession()}/>
-            </button>
-        </div>
+
+        {
+            open && <InformationKnowledge item={props.item}/>
+        }
     </div>
   )
+}
+
+
+function InformationKnowledge({ item }){
+    const context = useContext(MyContext)
+    const [data, setData] = useState(null)
+    const [loading, setLoading] = useState(false)
+
+    const handleConnect = async () => {
+        setLoading(true)
+        const dataKnowledgeTraining = context.dataKnowledge;
+        if(dataKnowledgeTraining && data){
+            setData(dataKnowledgeTraining)
+        }else{
+            await getKnowledge()
+        }
+        setLoading(false)
+    }
+
+    const getKnowledge = async () => {
+        const getxa = JSON.parse(localStorage.getItem("XA"))
+        const result = await KnowledgeRepository.getAllKnowledge({xa:getxa})
+        if(result?.data){
+            context.setData({...context, dataKnowledge:result.data})
+            setData(result.data)
+        }else{
+            alert("Something went wrong, Please try again later")
+        }
+    }
+
+    const handleSelectKnowledge = async (itemKnowledge) => {
+        let obj = {
+            "knowledge_id": itemKnowledge.id, //diambil dari knowledge id
+            "knowledge_name": itemKnowledge.id, //diambil dari knowledge id
+            "channel_id": item.identity //id dari channel
+        }
+        const getXa = JSON.parse(localStorage.getItem("XA"))
+        const result = await KnowledgeRepository.selectKnowledgeForChannel({
+            data: obj,
+            xa: {
+                xa: getXa
+            }
+        })
+        console.log(result, obj)
+    }
+
+    return (
+        <div className="w-full xl:w-1/2 border-l absolute right-2 bg-white p-5 top-5">
+            <h1 className="font-bold text-xl flex items-center gap-5">Information Of Knowledge <span className="badge-blue">{item.identity}</span></h1>
+            {
+                item?.knowledge_id ?
+                "Information"
+                :
+                <div>
+                    <p className="text-sm mb-5">You have not added a training knowledge base from the (training -{">"} knowledge) menu</p>
+                    {
+                        data ?
+                        <>
+                            <h1 className="font-bold mb-2">Choose your knowledge for the channel</h1>
+                            <div className="grid grid-cols-1 gap-2">
+                                {
+                                    data.map((item, i) => {
+                                        return (
+                                            <div key={i} className="bg-zinc-100 rounded-md w-full py-3 px-5 relative">
+                                                <h1 className="font-bold">{item.name}</h1>
+                                                <p className="text-sm font-light">Description : <span className="font-bold">{item.description}</span></p>
+                                                <p className="text-sm font-light">Code : <span className="font-bold">{item.code}</span></p>
+                                                <p className="text-sm font-bold text-blue-500">Files :</p>
+                                                <div className="border rounded-md border-zinc-300 p-2">
+                                                    {
+                                                        item?._files.map((file, i2) => {
+                                                            return (
+                                                                <div key={i2} className="flex items-center justify-between">
+                                                                    <h1 className="text-sm">{file}</h1>
+                                                                    <Link href={""}>
+                                                                        <button className="text-sm text-blue-500 font-semibold">View</button>
+                                                                    </Link>
+                                                                </div>
+
+                                                            )
+                                                        })
+                                                    }
+                                                </div>
+
+                                                <button onClick={() => handleSelectKnowledge(item)} className="absolute top-2 right-2 btn-secondary">Insert</button>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+                        </>
+                        :
+                        <button className="btn-primary mt-5" disabled={loading} onClick={() => handleConnect()}>{!loading ? "Connect Now":"Loading..."}</button>
+                    }
+                </div>
+            }
+        </div>
+    )
 }

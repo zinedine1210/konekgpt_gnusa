@@ -84,6 +84,8 @@ export default function ModalQRWhatsapp(props) {
       localStorage.setItem("whatsappChannel", JSON.stringify([result.data]))
       context.setData({...context, channelWhatsapp:[result.data]})
     }
+
+    
     setData(null)
     context.setData({...context, modal:null})
   }

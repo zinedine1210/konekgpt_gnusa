@@ -50,7 +50,7 @@ export default function WhatsappNonOfficialList() {
             </button>
         </div>
 
-        <div className='py-10'>
+        <div className='py-10 relative'>
 
                 {
                     data ?
