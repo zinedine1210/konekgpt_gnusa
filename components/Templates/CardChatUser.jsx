@@ -29,7 +29,7 @@ export default function CardChatUser({dataChat, index}){
                     </div>
                     :
                     <div className="w-fit bg-white dark:bg-darkPrimary pt-1.5 pb-6 px-1.5 shadow-md rounded-md min-w-[80px] max-w-xl relative group">
-                        <DropdownChatUser />
+                        <DropdownChatUser dataChat={dataChat} />
                         {
                             dataChat.data.message?.conversation ?
                             <h1 className="text-xs xl:text-sm">{dataChat.data.message.conversation}</h1>

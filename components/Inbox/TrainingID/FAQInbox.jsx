@@ -1,9 +1,18 @@
 import CardQuestion from "@/components/FAQ/CardQuestion"
 import Link from "next/link"
+import { useEffect, useState } from "react"
 import { FaChevronLeft } from "react-icons/fa"
 import { IoCreate } from "react-icons/io5"
 
 export default function FAQInbox() {
+    const [data, setData] = useState(null)
+
+    const getData = () => {
+        const getLocalStorage = JSON.parse(localStorage.getItem("FAQlocal"))
+        setData(getLocalStorage ?? [])
+    }
+
+    useEffect(() => {if(!data) getData()}, [])
   return (
     <>
         <div className="w-full relative h-screen pt-16 overflow-y-auto">
@@ -33,11 +42,11 @@ export default function FAQInbox() {
                     <h1 className="bg-blue-100 text-blue-500 text-sm inline-block py-1 px-2 rounded-md"><span className="font-bold">200</span> Question</h1>
                     <div className="py-5">
                         {
-                            new Array(30).fill("coba").map((item, key) => {
+                            data ? data.map((item, key) => {
                                 return (
                                     <CardQuestion key={key}/>
                                 )
-                            })
+                            }):""
                         }
                     </div>
                 </div>
