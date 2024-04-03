@@ -3,6 +3,7 @@ import ChannelRepository from "@/repositories/ChannelRepository"
 import KnowledgeRepository from "@/repositories/KnowledgeRepository"
 import WhatsappRepository from "@/repositories/WhatsappRepository"
 import Link from "next/link"
+import { useRouter } from "next/router"
 import { useContext, useEffect, useRef, useState } from "react"
 import { FaEye, FaPowerOff, FaTrash, FaWhatsapp } from "react-icons/fa"
 import Swal from "sweetalert2"
@@ -193,23 +194,26 @@ export default function CardWhatsapp(props) {
                 </button>
                 <button title="Information Session" onClick={() => setOpen(!open)} className="btn-primary">
                     <FaEye className="text-white"/>
-                    Connect
+                    {
+                        props.item?.knowledge_id ? "Info":"Connect"
+                    }
                 </button>
             </div>
         </div>
 
         {
-            open && <InformationKnowledge item={props.item}/>
+            open && <InformationKnowledge item={props.item} options={options}/>
         }
     </div>
   )
 }
 
 
-function InformationKnowledge({ item }){
+function InformationKnowledge({ item, options }){
     const context = useContext(MyContext)
     const [data, setData] = useState(null)
     const [loading, setLoading] = useState(false)
+    const router = useRouter()
 
     const handleConnect = async () => {
         setLoading(true)
@@ -236,25 +240,66 @@ function InformationKnowledge({ item }){
     const handleSelectKnowledge = async (itemKnowledge) => {
         let obj = {
             "knowledge_id": itemKnowledge.id, //diambil dari knowledge id
-            "knowledge_name": itemKnowledge.id, //diambil dari knowledge id
-            "channel_id": item.identity //id dari channel
+            "knowledge_name": itemKnowledge.name, //diambil dari knowledge id
+            "channel_id": Number(item.identity) //id dari channel
         }
         const getXa = JSON.parse(localStorage.getItem("XA"))
         const result = await KnowledgeRepository.selectKnowledgeForChannel({
             data: obj,
             xa: {
-                xa: getXa
+                XA: getXa
             }
         })
         console.log(result, obj)
     }
 
+    const gotoInbox = async () => {
+        if(item.active){
+            router.push(`/usr/inbox/${item.knowledge_id}?m=clm_inbox`, undefined, {
+                shallow: true,
+                target: "_blank"
+            })
+        }else{
+            Swal.fire({
+                icon: 'info', 
+                title: 'Disconnected Status',
+                text: 'This channel must be in status connected'
+            })
+        }
+    }
+
     return (
         <div className="w-full xl:w-1/2 border-l absolute right-2 bg-white p-5 top-5">
-            <h1 className="font-bold text-xl flex items-center gap-5">Information Of Knowledge <span className="badge-blue">{item.identity}</span></h1>
+            <h1 className="font-bold text-xl flex items-center gap-5 uppercase pb-5 border-b border-dashed border-black">Information Of Knowledge <span className="badge-blue">{item.identity}</span></h1>
             {
                 item?.knowledge_id ?
-                "Information"
+                // Halaman information jika dia sudah mengoneksikan dengan knowledge
+                <div className="w-full py-5 text-sm space-y-3">
+                    <div className="flex items-center gap-5">
+                        Knowledge ID : 
+                        <p className="font-bold">{item.knowledge_id}</p>
+                    </div>
+                    <div className="flex items-center gap-5">
+                        Knowledge Name :
+                        <p className="font-bold">{item.knowledge_name}</p>
+                    </div>
+                    <div className="flex items-center gap-5">
+                        Channel Label : 
+                        <p className="font-bold">{item.name}</p>
+                    </div>
+                    <div className="flex items-center gap-5">
+                        Channel Identity : 
+                        <p className="font-bold">{item.identity}</p>
+                    </div>
+                    <div className="flex items-center gap-5">
+                        Status : 
+                        <p className={item.active ? "badge-green":"badge-red"}>{item.active ? 'Active':'Unactive'}</p>
+                    </div>
+
+                    <button className="btn-secondary" onClick={() => gotoInbox()}>
+                        Goto Inbox
+                    </button>
+                </div>
                 :
                 <div>
                     <p className="text-sm mb-5">You have not added a training knowledge base from the (training -{">"} knowledge) menu</p>
@@ -286,7 +331,6 @@ function InformationKnowledge({ item }){
                                                         })
                                                     }
                                                 </div>
-
                                                 <button onClick={() => handleSelectKnowledge(item)} className="absolute top-2 right-2 btn-secondary">Insert</button>
                                             </div>
                                         )

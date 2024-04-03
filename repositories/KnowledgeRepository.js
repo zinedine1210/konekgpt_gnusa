@@ -179,7 +179,7 @@ class KnowledgeRepository {
         const reponse = await Repository.get(
             `${baseUrl}/gpt-konek/inbox/${params.id}`,
             {
-                headers: params,
+                headers: params.xa,
                 contentType:"application/cbor",
                 responseType: "arraybuffer"
             }
@@ -196,9 +196,10 @@ class KnowledgeRepository {
     }
 
     async selectKnowledgeForChannel(params) {
+        const data = cbor.encode(params.data)
         const reponse = await Repository.post(
             `${baseUrl}/gpt-konek/channel/select-knowledge`,
-            params.data,
+            data,
             {
                 headers: params.xa,
                 contentType:"application/cbor",

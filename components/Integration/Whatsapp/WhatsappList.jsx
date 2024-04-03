@@ -19,6 +19,7 @@ export default function WhatsappList() {
         const result = await ChannelRepository.getAllChannel({xa:getxa})
         localStorage.setItem("whatsappChannel", JSON.stringify(result.data))
         context.setData({...context, channelWhatsapp:result.data})
+        console.log(result.data)
     }
 
     useEffect(() => {

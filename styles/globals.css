@@ -55,6 +55,12 @@ a {
   .badge-blue {
     @apply bg-blue-100 rounded-md text-xs font-bold py-1.5 px-4 text-blue-500 hover:bg-blue-200 transition-colors duration-300 flex items-center gap-1;
   }
+  .badge-green {
+    @apply bg-green-100 rounded-md text-xs font-bold py-1.5 px-4 text-green-500 hover:bg-green-200 transition-colors duration-300 flex items-center gap-1;
+  }
+  .badge-red {
+    @apply bg-red-100 rounded-md text-xs font-bold py-1.5 px-4 text-red-500 hover:bg-red-200 transition-colors duration-300 flex items-center gap-1;
+  }
 }
 
 .editable:empty:before {
