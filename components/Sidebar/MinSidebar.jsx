@@ -38,7 +38,7 @@ export default function MinSidebar() {
     }
 
   return (
-    <div className={`hidden xl:flex flex-col items-center w-14 h-screen pt-16 pb-10 bg-white dark:bg-zinc-900 dark:border-zinc-700 border-r`}>
+    <div className={`hidden xl:flex flex-col items-center w-14 h-screen pt-16 pb-10 bg-white dark:bg-darkPrimary dark:border-zinc-700 border-r`}>
         <nav className="flex flex-col items-center flex-1 space-y-3">
             <button onClick={() => handlerCloseMinimize()} className="p-1.5 inline-block text-zinc-500 focus:outline-nones transition-colors duration-200 rounded-lg dark:text-zinc-400 dark:hover:bg-zinc-800 hover:bg-zinc-100">
                 <BsArrowRight className="w-5 h-5"/>
@@ -47,14 +47,11 @@ export default function MinSidebar() {
                 context.menus ?
                 context.menus.length > 0 ?
                 context.menus.map((parent) => {
-                    // console.log(parent);
                     return parent.menus.filter(res => res.parent == "").map((menu, key) => {
-                        // console.log(menu);
-                        
+                        const getThisMenu = router.query?.m ? router.query.m.includes(menu.id) : getIdMenu(context.menus, menu.id)
+                        if(menu.show)
                         return (
-                            <button key={key} onClick={() => handlerRedirect(menu.route, menu.id)} disabled={router.query?.m.includes(menu.id)} className={`p-1.5 inline-block text-zinc-500 focus:outline-nones transition-colors duration-200 rounded-lg disabled:cursor-not-allowed text-sm disabled:bg-blue-100 dark:disabled:bg-dark dark:hover:bg-zinc-800 dark:hover:text-zinc-200 hover:bg-zinc-100`}>
-                                {/* <TfiLayoutGrid2 className="w-6 h-6"/> */}
-                                {/* {menu.id} */}
+                            <button key={key} onClick={() => handlerRedirect(menu.route, menu.id)} disabled={getThisMenu} className={`p-1.5 inline-block text-zinc-500 focus:outline-nones transition-colors duration-200 rounded-lg disabled:cursor-not-allowed text-sm disabled:bg-blue-100 dark:disabled:bg-dark dark:hover:bg-dark dark:hover:text-zinc-200 hover:bg-zinc-100`}>
                                 {
                                     icon_menus[menu.id]
                                 }

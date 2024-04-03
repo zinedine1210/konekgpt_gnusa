@@ -85,11 +85,11 @@ export default function CardKnowledge({item}) {
                     <BsPencilFill />
                 </button>
             </Link>
-            <Link href={`/usr/inbox/${item.id}?m=clm_inbox`} target="_blank" shallow>
+            {/* <Link href={`/usr/inbox/${item.id}?m=clm_inbox`} target="_blank" shallow>
                 <button className="p-2 text-purple-500 transition-colors duration-200 rounded-lg dark:text-purple-300 hover:bg-purple-100">
                     <BsInboxFill className="text-base"/>
                 </button>
-            </Link>
+            </Link> */}
             <button onClick={() => context.setData({...context, view:3, modal:{name:"simulationKnowledge", data:item}})} className="p-2 text-indigo-500 transition-colors duration-200 rounded-lg dark:text-indigo-300 hover:bg-indigo-100">
                 <BsChatQuoteFill className="text-base"/>
             </button>

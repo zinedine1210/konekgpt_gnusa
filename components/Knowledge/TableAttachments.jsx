@@ -98,7 +98,7 @@ export default function TableAttachments({collect, setCollect}) {
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody className="bg-white divide-y divide-zinc-200 dark:divide-zinc-700 dark:bg-zinc-900">
+                                <tbody className="bg-white divide-y divide-zinc-200 dark:divide-zinc-700 dark:bg-black">
                                     {
                                         context.dataFilesKnowledge.sort((a, b) => b._cd.epoch_time - a._cd.epoch_time).map((file, key) => {
                                             return <CardAttach collect={collect} handlerCheckbox={handlerCheckbox} file={file} key={key}/>

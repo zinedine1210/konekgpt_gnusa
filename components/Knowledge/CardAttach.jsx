@@ -8,7 +8,7 @@ export default function CardAttach({file, handlerCheckbox, collect}) {
 
   return (
     <tr>
-        <td className="px-4 py-4 text-sm font-medium text-zinc-700 whitespace-nowrap">
+        <td className="px-4 py-4 text-sm font-medium text-zinc-700 dark:text-white whitespace-nowrap">
             <div className="inline-flex items-center gap-x-3">
                 <input type="checkbox" checked={collect.includes(file.id)} onChange={e => handlerCheckbox(file.id)} className="text-blue-500 border-zinc-300 rounded dark:bg-zinc-900 dark:ring-offset-zinc-900 dark:border-zinc-700"/>
 
@@ -26,10 +26,10 @@ export default function CardAttach({file, handlerCheckbox, collect}) {
                 </div>
             </div>
         </td>
-        <td className="px-12 py-4 text-sm font-normal text-zinc-700 whitespace-nowrap">
+        <td className="px-12 py-4 text-sm font-normal text-zinc-700 dark:text-white whitespace-nowrap">
             {file.filestat?.["mime-type"]}
         </td>
-        <td className="px-12 py-4 text-sm font-normal text-zinc-700 whitespace-nowrap">
+        <td className="px-12 py-4 text-sm font-normal text-zinc-700 dark:text-white whitespace-nowrap">
             Website tentang perusahaan gnusa...
         </td>
         <td className="px-4 py-4 text-sm text-zinc-500 dark:text-zinc-300 whitespace-nowrap">Jan 4, 2022</td>
@@ -41,13 +41,13 @@ export default function CardAttach({file, handlerCheckbox, collect}) {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
                 </svg>
             </button> */}
-            <a target='_blank' href={file.refKey.name.url} className="flex items-center gap-1 bg-blue-100 p-2 text-zinc-500 transition-colors duration-200 rounded-lg dark:text-zinc-300 hover:bg-blue-200">
+            <a target='_blank' href={file.refKey.name.url} className="flex items-center gap-1 bg-blue-100 dark:bg-blue-500 dark:hover:bg-blue-600 p-2 text-zinc-500 transition-colors duration-200 rounded-lg dark:text-white hover:bg-blue-200">
                 <BsEye /> View
             </a>
-            <button onClick={() => context.setData({...context, modal:{name:"insertKnowledge", files:[file.id]}})} className="bg-yellow-100 p-2 text-zinc-500 transition-colors duration-200 rounded-lg dark:text-zinc-300 hover:bg-yellow-200">
+            <button onClick={() => context.setData({...context, modal:{name:"insertKnowledge", files:[file.id]}})} className="bg-yellow-100 dark:bg-yellow-500 dark:hover:bg-yellow-600 p-2 text-zinc-500 transition-colors duration-200 rounded-lg dark:text-white hover:bg-yellow-200">
                 Training
             </button>
-            <button onClick={() => alert("No function available")} className="bg-red-100 p-2 text-zinc-500 transition-colors duration-200 rounded-lg dark:text-zinc-300 hover:bg-red-200">
+            <button onClick={() => alert("No function available")} className="bg-red-100 dark:bg-red-500 dark:hover:bg-red-600 p-2 text-zinc-500 transition-colors duration-200 rounded-lg dark:text-white hover:bg-red-200">
                 Delete
             </button>
         </td>

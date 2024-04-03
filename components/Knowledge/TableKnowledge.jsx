@@ -55,7 +55,7 @@ export default function TableKnowledge() {
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody className="bg-white divide-y divide-zinc-200 dark:divide-zinc-700 dark:bg-zinc-900">
+                            <tbody className="bg-white divide-y divide-zinc-200 dark:divide-zinc-700 dark:bg-black">
                                 {
                                     context.dataKnowledge.map((item, key) => {
                                         return <CardKnowledge item={item} key={key}/>

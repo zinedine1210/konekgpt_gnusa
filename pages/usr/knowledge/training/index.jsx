@@ -21,7 +21,7 @@ export default function HalamanTraining() {
 
           <div className="flex gap-5">
             <div className={`my-5 w-full ${context.modal ? context.modal.name == "simulationKnowledge" ? "xl:w-auto":"xl:w-full":""}`}>
-              <h1 className="text-sm font-bold text-zinc-600 mb-3">All Stories Your Bot</h1>
+              <h1 className="text-sm font-bold text-zinc-600 mb-3 dark:text-zinc-400">All Stories Your Bot</h1>
               <div className="xl:flex items-center justify-between">
                 <input type="search" className="input-search w-full xl:w-auto" placeholder="Search" />
 

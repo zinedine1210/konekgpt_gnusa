@@ -41,11 +41,11 @@ export default function HalamanAttachment() {
 
                 <div className="xl:flex space-y-2 xl:space-y-0 items-center justify-between gap-2 mt-2 xl:mt-0">
                   <div className="group relative">
-                    <div className="transition-opacity z-20 duration-300 invisible group-hover:visible opacity-0 group-hover:opacity-100 group-hover:block absolute w-72 shadow-md p-5 bg-white rounded-md top-full right-0">
+                    <div className="transition-opacity z-20 duration-300 invisible group-hover:visible opacity-0 group-hover:opacity-100 group-hover:block absolute w-72 shadow-md p-5 bg-white dark:bg-darkPrimary rounded-md top-full right-0">
                       <h1 className="text-sm font-bold">Usage Information</h1>
                       <p className="text-xs font-light mt-2">Select files you want to create and train, then enter to button <span className="font-bold">Training Bot</span>. <br /> Your training files will be added to the training page.</p>
                     </div>
-                    <span className="flex items-center justify-center w-10 h-10 rounded-full text-xl font-bold bg-white border hover:bg-zinc-100 ">
+                    <span className="flex items-center justify-center w-10 h-10 rounded-full text-xl font-bold bg-white dark:bg-black border hover:bg-zinc-100 ">
                       <BsInfo className="w-6 h-6" />
                     </span>
                   </div>

@@ -31,10 +31,10 @@ export default function SimulationKnowledge() {
 
   return (
     <div className="fixed top-0 left-0 z-50 xl:block w-full xl:min-w-[300px] xl:max-w-[300px] h-screen xl:h-[640px] xl:border-8 border-black xl:z-0 xl:rounded-[20px] bg-white dark:bg-dark dark:border-black mx-auto outline outline-blue-300 shadow-2xl pb-16 xl:relative overflow-hidden">
-        <div className="w-full py-2 flex items-center justify-between bg-blue-100 px-2">
+        <div className="w-full py-2 flex items-center justify-between bg-blue-100 dark:bg-blue-500 px-2">
             <div>
                 <h1 className="text-sm">{context.modal.data.name}</h1>
-                <p className="text-xs text-zinc-500">Simulation Knowledge</p>
+                <p className="text-xs text-zinc-600 dark:text-zinc-200">Simulation Knowledge</p>
             </div>
             <button className="flex items-center justify-center hover:bg-red-200 transition-colors duration-300 ease-in-out rounded-full w-6 h-6" onClick={() => context.setData({...context, modal:null, view:2})}>
                 <HiX />
@@ -81,7 +81,7 @@ export default function SimulationKnowledge() {
         </div>
         <div className="fixed xl:absolute right-1/2 translate-x-1/2 w-full px-5 bottom-0 overflow-hidden rounded-xl">
             <form onSubmit={(e) => handlerSubmit(e)} className="relative">
-                <input disabled={loading} value={data} id="inputQuestion" type="text" className="outline-none peer p-2 w-full text-xs border-2 border-blue-200 rounded-xl placeholder:text-zinc-500 pr-10 pl-5 bg-zinc-200 focus:bg-white transition-all duration-300" placeholder="Any Question?" maxLength={50} onChange={(e) => handlerChange(e.target.value)} />
+                <input disabled={loading} value={data} id="inputQuestion" type="text" className="outline-none peer p-2 w-full text-xs border-2 border-blue-200 rounded-xl placeholder:text-zinc-500 pr-10 pl-5 bg-zinc-200 dark:bg-darkPrimary focus:bg-white transition-all duration-300" placeholder="Any Question?" maxLength={50} onChange={(e) => handlerChange(e.target.value)} />
                 <button type="submit" className="absolute peer-focus:translate-x-0 -translate-x-5 opacity-0 peer-focus:opacity-100 hover:scale-125 transition-all duration-300 top-1/2 -translate-y-1/2 right-2 w-8 h-8 flex items-center justify-center peer-focus:visible invisible">
                     {
                         loading ?

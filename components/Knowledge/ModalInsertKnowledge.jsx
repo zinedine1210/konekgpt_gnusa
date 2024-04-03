@@ -62,7 +62,7 @@ export default function ModalInsertKnowledge() {
 
   return (
     <div className="absolute w-full h-full bg-black backdrop-blur-md bg-opacity-40 overflow-y-auto left-0 top-0 z-20 flex items-center justify-center">
-      <div className="bg-white w-full xl:w-1/2 mx-auto rounded-md p-5">
+      <div className="bg-white dark:bg-darkPrimary w-full xl:w-1/2 mx-auto rounded-md p-5">
         <div className="flex items-center justify-between">
           <h1 className="font-bold">Create New Knowledge</h1>
           <button onClick={() => context.setData({ ...context, modal: null })}>

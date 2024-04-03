@@ -29,7 +29,7 @@ export default function SelectBot({ setName }) {
     }
 
   return (
-    <div ref={dropRef} className={`relative bg-zinc-50 py-2 px-4 outline-none border-2 w-56 ${open ? "border-lightPrimary bg-white":"hover:bg-zinc-100"}`}>
+    <div ref={dropRef} className={`relative bg-zinc-50 dark:bg-black py-2 px-4 outline-none border-2 w-56 ${open ? "border-lightPrimary bg-white":"hover:bg-zinc-100"}`}>
         <div onClick={() => setOpen(!open)} className="flex items-center justify-between cursor-pointer">
             <h1 className="text-sm mr-5">{data ? data.name : "Select Bot"}</h1>
             <FaChevronDown className={`${open ? "rotate-180":""} transition-transform duration-300 text-zinc-500 text-xs`}/>
@@ -41,7 +41,7 @@ export default function SelectBot({ setName }) {
                 context.dataKnowledge.length > 0 ?
                 context.dataKnowledge.map((item, key) => {
                     return (
-                        <button key={key} onClick={() => handlerChoose(key)} className="py-2 px-4 w-full block text-start text-sm transition-colors duration-300 hover:bg-blue-100">{item.name}</button>
+                        <button key={key} onClick={() => handlerChoose(key)} className="py-2 px-4 w-full block text-start text-sm transition-colors duration-300 hover:bg-blue-100 dark:hover:bg-blue-500">{item.name}</button>
                     )
                 })
                 :

@@ -269,7 +269,7 @@ function InformationKnowledge({ item, options }){
     }
 
     return (
-        <div className="w-full xl:w-1/2 border-l absolute right-2 bg-white p-5 top-5">
+        <div className="w-full xl:w-1/2 border-l absolute right-2 bg-transparent p-5 top-5">
             <h1 className="font-bold text-xl flex items-center gap-5 uppercase pb-5 border-b border-dashed border-black">Information Of Knowledge <span className="badge-blue">{item.identity}</span></h1>
             {
                 item?.knowledge_id ?

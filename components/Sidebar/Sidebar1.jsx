@@ -1,15 +1,14 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import {BsArrowLeft} from "react-icons/bs"
 import MinSidebar from "./MinSidebar";
 import { MyContext } from "@/context/MyProvider";
 import { useRouter } from "next/router";
 import AuthRepository from "@/repositories/AuthRepository";
 import Swal from "sweetalert2";
-import axios from "axios";
 import { icon_menus } from "@/utils/icon_menu";
 import { getIdMenu } from "@/utils/script";
 
-export default function Sidebar1({ menus }) {
+export default function Sidebar1() {
     const context = useContext(MyContext)
     const router = useRouter()
 
@@ -46,15 +45,6 @@ export default function Sidebar1({ menus }) {
                 <MinSidebar /> 
             :
             <div className="flex flex-col justify-between h-screen px-5 pt-16 pb-5 overflow-y-auto bg-white border-l border-r w-full dark:bg-darkPrimary dark:border-dark">
-                {/* <div className="relative">
-                    <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                        <svg className="w-5 h-5 text-zinc-400" viewBox="0 0 24 24" fill="none">
-                            <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
-                        </svg>
-                    </span>
-
-                    <input type="text" className="w-full py-1.5 pl-10 pr-4 text-zinc-700 bg-white border rounded-md dark:bg-zinc-900 dark:text-zinc-300 dark:border-zinc-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring" placeholder="Search" />
-                </div> */}
                 <nav className="-mx-3 space-y-6 ">
                     {
                         context.menus ?
@@ -101,9 +91,7 @@ export default function Sidebar1({ menus }) {
                             {
                                 new Array(14).fill("menu").map((item) => {
                                     return (
-                                        <div className="rounded-md shadow-md bg-zinc-200 animate-pulse w-full h-6">
-
-                                        </div>
+                                        <div key={item} className="rounded-md shadow-md bg-zinc-200 animate-pulse w-full h-6"></div>
                                     )
                                 })
                             }
