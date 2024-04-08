@@ -23,8 +23,8 @@ export default function ChatList(props) {
                     getActiveWhatsappList.forEach(async val => {
                         const result = await WhatsappRepository.getChatList({id:val.identity})
                         const groupResult = await WhatsappRepository.getGroupList({id:val.identity})
-                        console.log(`chat ${val.identity}`, result);
-                        console.log(`group chat ${val.identity}`, groupResult);
+                        // console.log(`chat ${val.identity}`, result);
+                        // console.log(`group chat ${val.identity}`, groupResult);
 
                         if(result.success && groupResult.success){
                             

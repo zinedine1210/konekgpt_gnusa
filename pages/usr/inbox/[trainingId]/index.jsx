@@ -74,6 +74,21 @@ export default function TrainingInbox({ params }) {
     context.setData({...context, view: 2})
   }
 
+  const getChatTry = async () => {
+    console.log(trainingId)
+    const result = await KnowledgeRepository.getChatByKnowledge({
+      id: trainingId,
+      xa: {
+        XA: JSON.parse(localStorage.getItem("XA"))
+      }
+    })
+    console.log("this is the chat", result)
+  }
+
+  useEffect(() => {
+    getChatTry()
+  }, [])
+
   return (
     <>
       <Seo 

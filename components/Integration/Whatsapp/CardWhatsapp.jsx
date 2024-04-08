@@ -202,14 +202,14 @@ export default function CardWhatsapp(props) {
         </div>
 
         {
-            open && <InformationKnowledge item={props.item} options={options}/>
+            open && <InformationKnowledge item={props.item}/>
         }
     </div>
   )
 }
 
 
-function InformationKnowledge({ item, options }){
+function InformationKnowledge({ item }){
     const context = useContext(MyContext)
     const [data, setData] = useState(null)
     const [loading, setLoading] = useState(false)
@@ -250,7 +250,21 @@ function InformationKnowledge({ item, options }){
                 XA: getXa
             }
         })
-        console.log(result, obj)
+        if(result.type == "success"){
+            let updateChannel = JSON.parse(localStorage.getItem("whatsappChannel"))
+            updateChannel = updateChannel.filter(res => res.id !== item.id)
+            updateChannel.push(result.data)
+            localStorage.setItem("whatsappChannel", JSON.stringify(updateChannel)) 
+            window.location.reload()
+            Swal.fire({
+                icon: "info",
+                position: "top-end",
+                title: "Success Updated",
+                showCloseButton: false
+            })
+        }else{
+            alert("Something went wrong, please try again later")
+        }
     }
 
     const gotoInbox = async () => {

@@ -162,9 +162,9 @@ XA: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AZ251c2EuaWQiLCJwYXN
 
 ### GET INBOX BY ID KNOWLEDGE
 # https://konekgpt.gnusa.id/service/gpt-konek/inbox/:knowldegeId
-GET https://konekgpt.gnusa.id/service/gpt-konek/inbox/53ea7d36-f1fc-4307-8356-05dfd02cfbf8 HTTP/1.1
+GET https://konekgpt.gnusa.id/service/gpt-konek/inbox/d700243e-b82c-4b5b-8c37-fbbad67d5261 HTTP/1.1
 content-type: application/cbor
-XA: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AZ251c2EuaWQiLCJwYXNzd29yZCI6IjcyZGZhYjMzNWNlODIwYjkyZWRjMmEwN2RiMmMxZGQ0Y2FjYTU2MTMifQ.ceCFGSKxjDEH2jPVmICL3SjMu1-9rgLKnBOL1mPnWaQ
+XA: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiemlkYW5lQGdudXNhLmlkIiwicGFzc3dvcmQiOiI3MmRmYWIzMzVjZTgyMGI5MmVkYzJhMDdkYjJjMWRkNGNhY2E1NjEzIn0.-NrC6YA6QnU7FV6BIzW2qq_AZueqrYkye5n3e-clr5U
 [
 {
     "n": "msg",
