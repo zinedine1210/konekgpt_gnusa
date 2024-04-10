@@ -4,7 +4,6 @@ import cbor from 'cbor';
 class KnowledgeRepository {
     async insertKnowledge(params) {
         const data = cbor.encode(params.data)
-        console.log(data);
         const reponse = await Repository.post(
             `${baseUrl}/gpt-konek/knowledge`,
             data,

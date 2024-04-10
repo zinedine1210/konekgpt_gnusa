@@ -13,6 +13,7 @@ export function MyProvider({children}) {
         "chatDetail":null,
         "infoChat":null,
         'allChatList':null,
+        "draftChatList":null,
         "chatFilter":null,
         "AllContact":[],
         "detailContact":null,

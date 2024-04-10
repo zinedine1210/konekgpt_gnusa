@@ -44,7 +44,7 @@ export default function FAQInbox() {
                         {
                             data ? data.map((item, key) => {
                                 return (
-                                    <CardQuestion key={key}/>
+                                    <CardQuestion item={item} key={key}/>
                                 )
                             }):""
                         }

@@ -1,13 +1,8 @@
 import { MyContext } from "@/context/MyProvider";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useContext, useEffect, useRef, useState } from "react";
-import ChatList from "@/components/Inbox/ChatList";
-import DetailChat from "@/components/Inbox/DetailChat";
-import { FaEllipsisV, FaUser } from "react-icons/fa";
-import ModalCreateGroup from "@/components/Inbox/ModalCreateGroup";
-import InfoPersonal from "@/components/Inbox/InfoPersonal";
-import InfoGroup from "@/components/Inbox/InfoGroup";
+import { useContext, useEffect, useState } from "react";
+import { FaUser } from "react-icons/fa";
 import Seo from "@/components/Seo";
 import { IoInformationCircle } from "react-icons/io5";
 import Link from "next/link";
@@ -19,15 +14,13 @@ import UnanswerQuestionInbox from "@/components/Inbox/TrainingID/UnanswerQuestio
 import ContactInbox from "@/components/Inbox/TrainingID/ContactInbox";
 import KnowledgeRepository from "@/repositories/KnowledgeRepository";
 import ScreenReader from "@/components/ScreenReader";
+import ChatLayout from "@/components/Inbox/TrainingID/Chat/ChatLayout";
 
 
 export default function TrainingInbox({ params }) {
   const { trainingId, m } = params
   const {t} = useTranslation("common")
   const context = useContext(MyContext)
-  const [keyword, setKeyword] = useState("")
-  const [open, setOpen] = useState(false)
-  const dropRef = useRef(null)
   const [active, setActive] = useState(1)
 
   const [data, setData] = useState({
@@ -42,11 +35,6 @@ export default function TrainingInbox({ params }) {
     }else{
       getKnowledge()
     }
-    
-    document.addEventListener('mousedown', handleOutsideClick);
-    return () => {
-        document.removeEventListener('mousedown', handleOutsideClick);
-    };
   }, []);
 
   const getKnowledge = async () => {
@@ -59,35 +47,10 @@ export default function TrainingInbox({ params }) {
     }
   }
 
-  const handleOutsideClick = (event) => {
-      if (dropRef.current && !dropRef.current.contains(event.target)) {
-          setOpen(false);
-      }
-  };
-
-  const handlerKeyword = (value) => {
-    setKeyword(value)
-  }
-
   const handleClick = (value) => {
     setActive(value)
     context.setData({...context, view: 2})
   }
-
-  const getChatTry = async () => {
-    console.log(trainingId)
-    const result = await KnowledgeRepository.getChatByKnowledge({
-      id: trainingId,
-      xa: {
-        XA: JSON.parse(localStorage.getItem("XA"))
-      }
-    })
-    console.log("this is the chat", result)
-  }
-
-  useEffect(() => {
-    getChatTry()
-  }, [])
 
   return (
     <>
@@ -118,59 +81,7 @@ export default function TrainingInbox({ params }) {
             <>
               {
                 active == 1 && (
-                  <div className="w-full bg-zinc-100 dark:bg-dark relative h-screen flex">
-                    {
-                      context.modal == "modalcreategroup" && (
-                        <ModalCreateGroup />
-                      )
-                    }
-                    <div className={`${context.view == 2 ? "fixed top-0 left-0 w-screen h-screen z-20":"hidden xl:block"} xl:z-0 xl:relative xl:w-1/4 bg-white dark:bg-darkPrimary`}>
-                      <div className='px-3 absolute top-0 bg-white dark:bg-darkPrimary left-0 w-full shadow-md z-20 pt-3'>
-                        <div className="flex items-center justify-between">
-                          <button className="xl:hidden" onClick={() => context.setData({...context, view: 1})}>
-                            <BsChevronLeft/>
-                          </button>
-                          <label className="block text-sm px-3 xl:text-xs text-zinc-500 uppercase dark:text-zinc-400">INBOX</label>
-                          <div ref={dropRef} className="relative">
-                            <button onClick={() => setOpen(true)}>
-                              <FaEllipsisV className="text-zinc-500 text-sm"/>
-                            </button>
-                            <div className={`${open ? "":"hidden"} absolute top-full right-0 shadow-md rounded-md backdrop-blur-md w-44`}>
-                              <button onClick={() => context.setData({...context, modal:"modalcreategroup"})} className="hover:bg-blue-100 px-3 py-2 text-sm w-full text-start">
-                                Create Group
-                              </button>
-                              <button onClick={() => context.setData({...context, allChatList:null})} className="hover:bg-blue-100 px-3 py-2 text-sm w-full text-start">
-                                Refresh Chat List
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                        <input type="text" disabled={context.allChatList ? false:true} onChange={(e) => handlerKeyword(e.target.value)} name="" id="" className='input-search w-full my-2' placeholder='Search by Number or Last Message' />
-                      </div>
-                      <ChatList keyword={keyword}/>
-                    </div>
-                    {
-                      context.chatDetail && (
-                        <DetailChat />
-                      )
-                    }
-                    {
-                      context.detailContact ? 
-                        <div className={`xl:w-1/4 relative bg-white border border-l`}>
-                          {
-                            context.detailContact?.type == "personal" ? 
-                              <InfoPersonal />
-                            :""
-                          }
-                          {
-                            context.detailContact?.type == "group" ?
-                              <InfoGroup />
-                            :""
-                          }
-                        </div>
-                      :""
-                    }
-                  </div>
+                  <ChatLayout trainingId={trainingId}/>
                 )
               }
               {

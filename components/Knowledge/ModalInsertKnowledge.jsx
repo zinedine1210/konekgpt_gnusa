@@ -4,11 +4,9 @@ import { HiX } from "react-icons/hi";
 import KnowledgeRepository from "@/repositories/KnowledgeRepository";
 import { useRouter } from "next/router";
 import Swal from "sweetalert2";
-import SelectNumberWhatsapp from "../CheckNumber/SelectNumberWhatsapp";
 
 export default function ModalInsertKnowledge() {
   const context = useContext(MyContext);
-  const [number, setNumber] = useState([]);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
@@ -31,6 +29,8 @@ export default function ModalInsertKnowledge() {
 
     setLoading(true);
     data._files = context.modal.files;
+
+    console.log(data)
 
     const result = await KnowledgeRepository.insertKnowledge({
       xa: { XA: JSON.parse(localStorage.getItem("XA")) },
@@ -126,16 +126,6 @@ export default function ModalInsertKnowledge() {
               className="input-search w-full"
               placeholder="Description"
             />
-          </div>
-
-          <div>
-            <label
-              htmlFor="integration"
-              className="font-bold inline-block mb-2 text-sm"
-            >
-              Integration <span className="text-red-500">*</span>
-            </label>
-            <SelectNumberWhatsapp setNumber={setNumber} />
           </div>
 
           {loading ? (

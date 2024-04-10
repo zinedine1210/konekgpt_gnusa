@@ -12,7 +12,6 @@ export default function ChatList(props) {
     const context = useContext(MyContext)
 
     useEffect(() => {
-
         if(!context.allChatList){
             const getWhatsappList = localStorage.getItem("whatsappChannel") != "undefined" ? JSON.parse(localStorage.getItem("whatsappChannel")) : null
             if(getWhatsappList){

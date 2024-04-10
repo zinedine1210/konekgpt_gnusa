@@ -6,7 +6,6 @@ export default function UnanswerQuestionInbox() {
     const [data, setData] = useState(null)
 
     const getData = () => {
-        console.log("ajskaskajska")
         const getLocalStorage = JSON.parse(localStorage.getItem("UQ"))
         setData(getLocalStorage ?? [])
     }
@@ -44,7 +43,7 @@ export default function UnanswerQuestionInbox() {
                         {
                             data ? data.map((item, key) => {
                                 return (
-                                    <CardQuestion key={key}/>
+                                    <CardQuestion item={item} key={key}/>
                                 )
                             })
                             :""

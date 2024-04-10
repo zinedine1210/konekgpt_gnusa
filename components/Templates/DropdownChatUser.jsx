@@ -22,10 +22,10 @@ export default function DropdownChatUser({ dataChat }) {
     const handleAddUnanswerQuestion = async () => {
         const getUQ = JSON.parse(localStorage.getItem("UQ"))
         if(getUQ){
-            getUQ.push(dataChat.data)
+            getUQ.push(dataChat)
             localStorage.setItem("UQ", JSON.stringify(getUQ))
         }else{
-            const array = [dataChat.data]
+            const array = [dataChat]
             localStorage.setItem("UQ", JSON.stringify(array))
         }
     }
@@ -33,10 +33,10 @@ export default function DropdownChatUser({ dataChat }) {
     const handleAddFAQ = async () => {
         const FAQlocal = JSON.parse(localStorage.getItem("FAQlocal"))
         if(FAQlocal){
-            FAQlocal.push(dataChat.data)
+            FAQlocal.push(dataChat)
             localStorage.setItem("FAQlocal", JSON.stringify(FAQlocal))
         }else{
-            const array = [dataChat.data]
+            const array = [dataChat]
             localStorage.setItem("FAQlocal", JSON.stringify(array))
         }
     }
