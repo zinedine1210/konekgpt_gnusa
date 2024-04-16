@@ -27,7 +27,6 @@ export default function Navbar() {
 
     const handlerLogout = async () => {
         const result = await AuthRepository.postLogout({XA:JSON.parse(localStorage.getItem("XA"))})
-        console.log(result);
         if(result?.status == 0 || result?.status == -1){
             localStorage.clear()
             Swal.fire(
@@ -44,7 +43,6 @@ export default function Navbar() {
         }
 
         const resView = Number(localStorage.getItem("view")) - 1
-        console.log("change view to", localStorage.getItem("view"));
         localStorage.setItem("view", resView)
         context.setData({...context, view:resView})
     }
@@ -57,7 +55,7 @@ export default function Navbar() {
                     <button onClick={() => handlerRedirect()} className={`flex gap-1`}>
                         {/* <img src="/images/logo.png" alt="" className="w-5"/> */}
                         <div className="flex items-center gap-2">
-                            {localStorage.getItem("view") > 1 ? <FaChevronLeft className="text-xl text-gray-500 xl:hidden"/>:""}
+                            {localStorage.getItem("view") > 1 ? <FaChevronLeft className="text-xl text-zinc-300 xl:hidden"/>:""}
                             <span className="font-extrabold text-white text-3xl xl:text-4xl block">Konek</span>
                         </div>
                         <p className="self-end text-xs font-extrabold uppercase mb-1 text-white">Gpt</p>
@@ -72,6 +70,7 @@ export default function Navbar() {
 
                         <div ref={dropRef} className="relative">
                             <button type="button" onClick={() => setOpen(!open)} className="flex items-center focus:outline-none" aria-label="toggle profile dropdown">
+                                <h1 className="hidden xl:block text-sm text-white rounded-md mr-1 font-semibold font-sans">{JSON.parse(localStorage.getItem("auth"))?.data?.username}</h1>
                                 <div className="w-8 h-8 overflow-hidden border-2 border-white rounded-full">
                                     <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" className="object-cover w-full h-full" alt="avatar"/>
                                 </div>

@@ -174,7 +174,7 @@ export default function CardWhatsapp(props) {
 
   return (
     <div ref={dropRef}>
-        <div className="border-2 border-zinc-300 p-4 flex items-center justify-between">
+        <div className="border-2 border-zinc-300 p-2 xl:p-4 flex items-center justify-between">
             <div className="flex items-center gap-2">
                 <FaWhatsapp className="text-green-500 text-2xl"/>
                 <div>
@@ -182,11 +182,12 @@ export default function CardWhatsapp(props) {
                     <h1 className="dark:text-zinc-300 text-zinc-600 font-bold">{props.item?.identity}</h1>
                 </div>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center xl:gap-4 gap-2">
                 <h1 className="flex items-center gap-2">
                     <span className={`w-4 xl:w-2 h-4 xl:h-2 rounded-full ${options[status] ? options[status]['warna'] : "bg-blue-500"}`}></span>
                     <p className="text-xs dark:text-zinc-300 text-zinc-600 capitalize xl:block hidden">{options[status] ? options[status]['name'] :"Searching"}</p>
                 </h1>
+
                 <button type="button" onClick={() => handlerCheck()}>
                     <FaPowerOff className={`${props.item.active ? "text-green-500":"text-red-500"}`}/>
                 </button>
@@ -195,9 +196,7 @@ export default function CardWhatsapp(props) {
                 </button>
                 <button title="Information Session" onClick={() => setOpen(!open)} className="btn-primary">
                     <FaEye className="text-white"/>
-                    {
-                        props.item?.knowledge_id ? "Info":"Connect"
-                    }
+                    <h1 className="hidden xl:block">{props.item?.knowledge_id ? "Info":"Connect"}</h1>
                 </button>
             </div>
         </div>
@@ -255,36 +254,60 @@ function InformationKnowledge({ item }){
     }
 
     return (
-        <div className="w-full xl:w-1/2 border-l absolute right-2 bg-transparent p-5 top-5">
+        <div className="w-full xl:w-1/2 border-l right-0 absolute bg-white xl:right-2 xl:bg-transparent p-5 top-5">
             <h1 className="font-bold text-xl flex items-center gap-5 uppercase pb-5 border-b border-dashed border-black">Information Of Knowledge <span className="badge-blue">{item.identity}</span></h1>
             {
                 item?.knowledge_id ?
                 // Halaman information jika dia sudah mengoneksikan dengan knowledge
-                <div className="w-full py-5 text-sm space-y-3">
-                    <div className="flex items-center gap-5">
-                        Knowledge ID : 
-                        <p className="font-bold">{item.knowledge_id}</p>
-                    </div>
-                    <div className="flex items-center gap-5">
-                        Knowledge Name :
-                        <p className="font-bold">{item.knowledge_name}</p>
-                    </div>
-                    <div className="flex items-center gap-5">
-                        Channel Label : 
-                        <p className="font-bold">{item.name}</p>
-                    </div>
-                    <div className="flex items-center gap-5">
-                        Channel Identity : 
-                        <p className="font-bold">{item.identity}</p>
-                    </div>
-                    <div className="flex items-center gap-5">
-                        Status : 
-                        <p className={item.active ? "badge-green":"badge-red"}>{item.active ? 'Active':'Unactive'}</p>
-                    </div>
+                <div>
+                    {
+                        data ?
+                        <div className="w-full py-5">
+                            <button onClick={() => setData(null)} className="text-red-500 pb-5 font-bold">Cancel</button>
+                            <div className="grid grid-cols-1 gap-2 w-full">
+                                {
+                                    data.map((item2, i) => {
+                                        const used = item2.id === item.knowledge_id
+                                        return (
+                                            <div key={i} className="bg-zinc-100 px-3 py-5 rounded-md">
+                                                <CardSelectKnowledge active={!used} channelId={item.id} item={item2}/>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+                        </div>
+                        :
+                            <div className="w-full py-5 text-sm space-y-3">
+                                <div className="flex items-center gap-5">
+                                    Knowledge ID : 
+                                    <p className="font-bold">{item.knowledge_id}</p>
+                                </div>
+                                <div className="flex items-center gap-5">
+                                    Knowledge Name :
+                                    <p className="font-bold">{item.knowledge_name}</p>
+                                </div>
+                                <div className="flex items-center gap-5">
+                                    Channel Label : 
+                                    <p className="font-bold">{item.name}</p>
+                                </div>
+                                <div className="flex items-center gap-5">
+                                    Channel Identity : 
+                                    <p className="font-bold">{item.identity}</p>
+                                </div>
+                                <div className="flex items-center gap-5">
+                                    Status : 
+                                    <p className={item.active ? "badge-green":"badge-red"}>{item.active ? 'Active':'Unactive'}</p>
+                                </div>
 
-                    <button className="btn-secondary" onClick={() => gotoInbox()}>
-                        Goto Inbox
-                    </button>
+                                <button className="btn-secondary" onClick={() => gotoInbox()}>
+                                    Goto Inbox
+                                </button>
+                                <button className="btn-primary" onClick={() => handleConnect()}>
+                                    Change
+                                </button>
+                            </div>
+                    }
                 </div>
                 :
                 <div>

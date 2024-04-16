@@ -48,7 +48,7 @@ function ChangeKnowledge({ channelInformation }){
             <p className="font-light text-sm mb-2">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nulla pariatur, aliquam quae iure delectus illum libero ipsam in rerum ea!</p>
             {
                 data ?
-                <div className="grid grid-cols-3 gap-5">
+                <div className="grid grid-cols-1 xl:grid-cols-3 gap-5">
                     {
                         data.map((item, i) => {
                             const used = item.id === channelInformation.knowledge_id

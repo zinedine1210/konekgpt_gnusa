@@ -109,7 +109,6 @@ export default function DonatChart({ judul, value }) {
                         options={data?.options}
                         series={data?.series}
                         type="donut"
-                        width="550"
                     />
                 </div>
             </div>

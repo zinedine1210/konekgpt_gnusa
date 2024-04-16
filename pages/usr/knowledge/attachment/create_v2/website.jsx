@@ -35,7 +35,7 @@ export default function WebsiteKnowledge() {
         context.setData({ ...context, dataKnowledge: [result.data] });
       }
       setLoading(false);
-      router.push("/usr/knowledge");
+      router.push("/usr/knowledge/attachment?m=clm_knowledge_attachment");
     } else {
       Swal.fire({
         icon: "error",

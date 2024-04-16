@@ -48,7 +48,7 @@ export default function CardSelectKnowledge({ item, channelId, active=true }) {
                             return (
                                 <div key={i2} className="flex items-center justify-between">
                                     <h1 className="text-sm">{file}</h1>
-                                    <Link href={""}>
+                                    <Link href={"/"}>
                                         <button className="text-sm text-blue-500 font-semibold">View</button>
                                     </Link>
                                 </div>
