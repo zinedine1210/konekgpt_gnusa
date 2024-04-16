@@ -1,19 +1,16 @@
-import UploadFileRepository from "@/repositories/UploadFileRepository"
-import { useEffect, useState } from "react"
-
-export default function InformationInbox({data}) {
-
+export default function InformationInbox({ data }) {
+  const channel = data.channelInformation
+  const knowledge = data.knowledgeInformation
   let typeTraining = {
     1: "Upload File",
     2: 'Website',
     3: 'Scratch'
   }
-
   
   return (
     <div>
         <h1 className="font-bold text-lg xl:text-xl">Information</h1>
-        <p className="font-light text-xs xl:text-sm">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic, tempora!</p>
+        <p className="font-light text-xs xl:text-sm">Knowledge information that you are currently using</p>
 
         <div className="mt-5">
             <h1 className="font-semibold mb-5 text-sm xl:text-base">Knowledge Information</h1>
@@ -22,29 +19,29 @@ export default function InformationInbox({data}) {
               <div className="bg-white dark:bg-darkPrimary rounded-md shadow-md w-full xl:w-1/3 p-5 font-mono text-xs xl:text-sm space-y-1">
                 <div className="flex items-center justify-between">
                   <h1 className="font-semibold text-blue-500 dark:text-blue-300">Name</h1>
-                  <p>{data.name}</p>
+                  <p>{knowledge.name}</p>
                 </div>
                 <div className="flex items-center justify-between">
                   <h1 className="font-semibold text-blue-500 dark:text-blue-300">Code</h1>
-                  <p>{data.code}</p>
+                  <p>{knowledge.code}</p>
                 </div>
                 <div className="flex items-center justify-between">
                   <h1 className="font-semibold text-blue-500 dark:text-blue-300">Type Training</h1>
-                  <p>{typeTraining[data.type_training]}</p>
+                  <p>{typeTraining[knowledge.type_training]}</p>
                 </div>
                 <div className="flex items-center justify-between">
                   <h1 className="font-semibold text-blue-500 dark:text-blue-300">ORG ID</h1>
-                  <p>{data.org_id}</p>
+                  <p>{knowledge.org_id}</p>
                 </div>
                 <div>
                   <h1 className="font-semibold text-blue-500 dark:text-blue-300">Description</h1>
-                  <p className="mt-2 border dark:border-zinc-500 rounded-md px-2 py-3">{data.description}</p>
+                  <p className="mt-2 border dark:border-zinc-500 rounded-md px-2 py-3">{knowledge.description}</p>
                 </div>
               </div>
               <div className="mt-5 xl:mt-0 bg-white dark:bg-darkPrimary rounded-md shadow-md w-full xl:w-2/3 p-5 font-mono text-xs xl:text-sm space-y-1 h-full">
                 <h1 className="font-bold text-blue-500 dark:text-blue-300">Files</h1>
                 <div className="space-y-2">
-                  {data._files.map((item, index) => {
+                  {knowledge._files.map((item, index) => {
                     return (
                       <CardFile key={index} item={item}/>
                     )

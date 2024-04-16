@@ -1,5 +1,6 @@
 import { MyContext } from "@/context/MyProvider"
 import AuthRepository from "@/repositories/AuthRepository"
+import Link from "next/link"
 import { useRouter } from "next/router"
 import { useContext, useEffect, useRef, useState } from "react"
 import { FaChevronLeft } from "react-icons/fa"
@@ -77,7 +78,9 @@ export default function Navbar() {
                             </button>
 
                             <div className={`${open ? "visible translate-y-0 opacity-100":"opacity-0 invisible translate-y-5"} rounded-md max-h-52 overflow-y-auto shadow-md z-20 w-32 transition-all duration-300 absolute backdrop-blur-md top-full right-0 mt-1`}>
-                                <button className="py-2 px-4 w-full block text-start text-sm transition-colors duration-300 hover:bg-blue-100">Profile</button>
+                                <Link href={"/usr/profile"}>
+                                    <button className="py-2 px-4 w-full block text-start text-sm transition-colors duration-300 hover:bg-blue-100">Profile</button>
+                                </Link>
                                 <button onClick={() => handlerLogout()} className="py-2 px-4 w-full block text-start text-sm transition-colors duration-300 hover:bg-red-100">Logout</button>
                             </div>
                         </div>

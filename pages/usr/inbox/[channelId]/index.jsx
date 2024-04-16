@@ -4,7 +4,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useContext, useEffect, useState } from "react";
 import { FaUser } from "react-icons/fa";
 import Seo from "@/components/Seo";
-import { IoInformationCircle } from "react-icons/io5";
+import { IoInformationCircle, IoSettings } from "react-icons/io5";
 import Link from "next/link";
 import { BsChatFill, BsChevronLeft, BsFillPatchQuestionFill } from "react-icons/bs";
 import { HiQuestionMarkCircle } from "react-icons/hi";
@@ -15,35 +15,58 @@ import ContactInbox from "@/components/Inbox/TrainingID/ContactInbox";
 import KnowledgeRepository from "@/repositories/KnowledgeRepository";
 import ScreenReader from "@/components/ScreenReader";
 import ChatLayout from "@/components/Inbox/TrainingID/Chat/ChatLayout";
+import SettingInbox from "@/components/Inbox/TrainingID/SettingInbox";
+import ChannelRepository from "@/repositories/ChannelRepository";
 
 
 export default function TrainingInbox({ params }) {
-  const { trainingId, m } = params
+  const { channelId, m } = params
   const {t} = useTranslation("common")
   const context = useContext(MyContext)
   const [active, setActive] = useState(1)
 
   const [data, setData] = useState({
-    information: null,
-
+    channelInformation: null,
+    knowledgeInformation: null
   })
 
   useEffect(() => {
-    if(context.dataKnowledge){
-      const findOne = context.dataKnowledge.find(res => res.id == trainingId)
-      setData({...data, information: findOne})
-    }else{
-      getKnowledge()
+    if(!data.channelInformation){
+      getAllMountingData()
     }
-  }, []);
+  }, [data]);
 
-  const getKnowledge = async () => {
+  const getAllMountingData = async () => {
     const getxa = JSON.parse(localStorage.getItem("XA"))
-    const result = await KnowledgeRepository.getAllKnowledge({xa:getxa})
+    const result = await ChannelRepository.getOneChannel({
+      xa: {
+        XA: getxa
+      },
+      id: channelId
+    })
     if(result?.data){
-      const findOne = result.data.find(res => res.id == trainingId)
-      context.setData({...context, dataKnowledge:result.data})
-      setData({...data, information:findOne})
+      const resultKnowledge = await getKnowledge(result.data.knowledge_id)
+      setData({
+        ...data,
+        knowledgeInformation: resultKnowledge,
+        channelInformation: result.data
+      })
+      console.log(resultKnowledge, result.data)
+    }
+  }
+
+  const getKnowledge = async (knowledgeId) => {
+    const getxa = JSON.parse(localStorage.getItem("XA"))
+    const result = await KnowledgeRepository.getOneKnowledge({
+        xa: {
+          XA: getxa
+        },
+        id: knowledgeId
+    })
+    if(result?.data){
+      return result.data
+    }else{
+      return {}
     }
   }
 
@@ -65,12 +88,13 @@ export default function TrainingInbox({ params }) {
             <input type="text" className="input-search w-full" placeholder="Search Menu" />
           </div>
           <div className="space-y-2 mt-5">
-            <button onClick={() => handleClick(1)} className="w-full hover:bg-gray-900 text-start duration-300 ease-in-out px-5 py-2 text-white flex items-center gap-2"><BsChatFill className="text-xl text-blue-500" />Chat</button>
-            <button onClick={() => handleClick(2)} className="w-full hover:bg-gray-900 text-start duration-300 ease-in-out px-5 py-2 text-white flex items-center gap-2"><IoInformationCircle className="text-xl text-blue-500" /> Information</button>
-            <button onClick={() => handleClick(3)} className="w-full hover:bg-gray-900 text-start duration-300 ease-in-out px-5 py-2 text-white flex items-center gap-2"><HiQuestionMarkCircle className="text-xl text-blue-500" />Unanswer Question</button>
-            <button onClick={() => handleClick(4)} className="w-full hover:bg-gray-900 text-start duration-300 ease-in-out px-5 py-2 text-white flex items-center gap-2"><BsFillPatchQuestionFill className="text-xl text-blue-500" /> FAQ</button>
-            <button onClick={() => handleClick(8)} className="w-full hover:bg-gray-900 text-start duration-300 ease-in-out px-5 py-2 text-white flex items-center gap-2"><FaUser className=" text-blue-500" />Contacts</button>
-            <Link href={"/usr/knowledge/training?m=clm_knowledge_training"}>
+            <button onClick={() => handleClick(1)} className="w-full hover:bg-gray-900 text-start duration-300 ease-in-out px-5 py-2 text-white flex items-center gap-2 text-sm"><BsChatFill className="text-xl text-blue-500" />Chat</button>
+            <button onClick={() => handleClick(2)} className="w-full hover:bg-gray-900 text-start duration-300 ease-in-out px-5 py-2 text-white flex items-center gap-2 text-sm"><IoInformationCircle className="text-xl text-blue-500" /> Information</button>
+            <button onClick={() => handleClick(3)} className="w-full hover:bg-gray-900 text-start duration-300 ease-in-out px-5 py-2 text-white flex items-center gap-2 text-sm"><HiQuestionMarkCircle className="text-xl text-blue-500" />Unanswer Question</button>
+            <button onClick={() => handleClick(4)} className="w-full hover:bg-gray-900 text-start duration-300 ease-in-out px-5 py-2 text-white flex items-center gap-2 text-sm"><BsFillPatchQuestionFill className="text-xl text-blue-500" /> FAQ</button>
+            <button onClick={() => handleClick(8)} className="w-full hover:bg-gray-900 text-start duration-300 ease-in-out px-5 py-2 text-white flex items-center gap-2 text-sm"><FaUser className=" text-blue-500" />Contacts</button>
+            <button onClick={() => handleClick(9)} className="w-full hover:bg-gray-900 text-start duration-300 ease-in-out px-5 py-2 text-white flex items-center gap-2 text-sm"><IoSettings className=" text-blue-500" />Settings</button>
+            <Link href={"/usr/integration/whatsapp?m=clm_integration"}>
               <button className="w-full hover:bg-red-500 hover:text-white text-start duration-300 ease-in-out px-5 py-2 flex items-center gap-2 text-red-500 font-semibold mt-5">Close</button>
             </Link>
           </div>
@@ -81,7 +105,7 @@ export default function TrainingInbox({ params }) {
             <>
               {
                 active == 1 && (
-                  <ChatLayout trainingId={trainingId}/>
+                  <ChatLayout channelId={channelId}/>
                 )
               }
               {
@@ -93,7 +117,7 @@ export default function TrainingInbox({ params }) {
                         Close
                       </button>
                     </div>
-                    <InformationInbox data={data.information}/>
+                    <InformationInbox data={data}/>
                   </div>
                 )
               }
@@ -133,6 +157,19 @@ export default function TrainingInbox({ params }) {
                       </button>
                     </div>
                     <ContactInbox />
+                  </div>
+                )
+              }
+              {
+                active == 9 && (
+                  <div className="w-full bg-zinc-100 dark:bg-dark relative h-screen">
+                    <div className="xl:hidden w-full border-b border-zinc-500 dark:border-zinc-300 py-2 px-2">
+                      <button className="xl:hidden flex items-center gap-2 text-sm font-semibold" onClick={() => context.setData({...context, view: 1})}>
+                        <BsChevronLeft className="text-blue-500 font-bold"/>
+                        Close
+                      </button>
+                    </div>
+                    <SettingInbox data={data}/>
                   </div>
                 )
               }

@@ -1,3 +1,4 @@
+import CardSelectKnowledge from "@/components/Knowledge/CardSelectKnowledge"
 import { MyContext } from "@/context/MyProvider"
 import ChannelRepository from "@/repositories/ChannelRepository"
 import KnowledgeRepository from "@/repositories/KnowledgeRepository"
@@ -229,6 +230,7 @@ function InformationKnowledge({ item }){
     const getKnowledge = async () => {
         const getxa = JSON.parse(localStorage.getItem("XA"))
         const result = await KnowledgeRepository.getAllKnowledge({xa:getxa})
+        // console.log(result)
         if(result?.data){
             context.setData({...context, dataKnowledge:result.data})
             setData(result.data)
@@ -237,39 +239,9 @@ function InformationKnowledge({ item }){
         }
     }
 
-    const handleSelectKnowledge = async (itemKnowledge) => {
-        let obj = {
-            "knowledge_id": itemKnowledge.id, //diambil dari knowledge id
-            "knowledge_name": itemKnowledge.name, //diambil dari knowledge id
-            "channel_id": Number(item.identity) //id dari channel
-        }
-        const getXa = JSON.parse(localStorage.getItem("XA"))
-        const result = await KnowledgeRepository.selectKnowledgeForChannel({
-            data: obj,
-            xa: {
-                XA: getXa
-            }
-        })
-        if(result.type == "success"){
-            let updateChannel = JSON.parse(localStorage.getItem("whatsappChannel"))
-            updateChannel = updateChannel.filter(res => res.id !== item.id)
-            updateChannel.push(result.data)
-            localStorage.setItem("whatsappChannel", JSON.stringify(updateChannel)) 
-            window.location.reload()
-            Swal.fire({
-                icon: "info",
-                position: "top-end",
-                title: "Success Updated",
-                showCloseButton: false
-            })
-        }else{
-            alert("Something went wrong, please try again later")
-        }
-    }
-
     const gotoInbox = async () => {
         if(item.active){
-            router.push(`/usr/inbox/${item.knowledge_id}?m=clm_inbox`, undefined, {
+            router.push(`/usr/inbox/${item.id}?m=clm_inbox`, undefined, {
                 shallow: true,
                 target: "_blank"
             })
@@ -277,7 +249,7 @@ function InformationKnowledge({ item }){
             Swal.fire({
                 icon: 'info', 
                 title: 'Disconnected Status',
-                text: 'This channel must be in status connected'
+                text: 'This channel must be in status authenticated'
             })
         }
     }
@@ -323,29 +295,10 @@ function InformationKnowledge({ item }){
                             <h1 className="font-bold mb-2">Choose your knowledge for the channel</h1>
                             <div className="grid grid-cols-1 gap-2">
                                 {
-                                    data.map((item, i) => {
+                                    data.map((item2, i) => {
                                         return (
-                                            <div key={i} className="bg-zinc-100 rounded-md w-full py-3 px-5 relative">
-                                                <h1 className="font-bold">{item.name}</h1>
-                                                <p className="text-sm font-light">Description : <span className="font-bold">{item.description}</span></p>
-                                                <p className="text-sm font-light">Code : <span className="font-bold">{item.code}</span></p>
-                                                <p className="text-sm font-bold text-blue-500">Files :</p>
-                                                <div className="border rounded-md border-zinc-300 p-2">
-                                                    {
-                                                        item?._files.map((file, i2) => {
-                                                            return (
-                                                                <div key={i2} className="flex items-center justify-between">
-                                                                    <h1 className="text-sm">{file}</h1>
-                                                                    <Link href={""}>
-                                                                        <button className="text-sm text-blue-500 font-semibold">View</button>
-                                                                    </Link>
-                                                                </div>
-
-                                                            )
-                                                        })
-                                                    }
-                                                </div>
-                                                <button onClick={() => handleSelectKnowledge(item)} className="absolute top-2 right-2 btn-secondary">Insert</button>
+                                            <div key={i} className="bg-zinc-100 px-3 py-5 rounded-md">
+                                                <CardSelectKnowledge channelId={item.id} item={item2}/>
                                             </div>
                                         )
                                     })

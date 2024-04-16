@@ -59,7 +59,7 @@ export default function DetailChat() {
                         {chatDetail?.fromName.charAt(0) ?? "A"}
                     </div>
                     <div>
-                        <h1 className='font-bold'>{chatDetail?.fromName ?? chatDetail.from}</h1>
+                        <h1 className='font-bold'>{chatDetail.fromName == "" ? chatDetail.from : chatDetail.fromName}</h1>
                         <p className='text-xs font-light text-green-500'>Active</p>
                     </div>
                 </div>

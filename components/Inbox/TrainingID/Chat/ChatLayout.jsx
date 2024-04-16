@@ -7,7 +7,7 @@ import KnowledgeRepository from "@/repositories/KnowledgeRepository"
 import DetailChat from "./DetailChat"
 import InfoPersonal from "./InfoPersonal"
 
-export default function ChatLayout({ trainingId }) {
+export default function ChatLayout({ channelId }) {
     const context = useContext(MyContext)
     const dropRef = useRef(null)
     const [open, setOpen] = useState(false)
@@ -31,14 +31,14 @@ export default function ChatLayout({ trainingId }) {
 
     const getChatTry = async () => {    
         const result = await KnowledgeRepository.getChatByKnowledge({
-          id: trainingId,
+          id: channelId,
           xa: {
             XA: JSON.parse(localStorage.getItem("XA"))
           }
         })
 
         console.log(result.data.res)
-        const getChannelData = JSON.parse(localStorage.getItem("whatsappChannel")).find(res => res.knowledge_id == trainingId)
+        const getChannelData = JSON.parse(localStorage.getItem("whatsappChannel")).find(res => res.knowledge_id == channelId)
         const filterMyMessage = result.data.res.filter(res => res.channel_identity == getChannelData.identity).reverse()
         // kelola data
         let arr = []
@@ -72,8 +72,6 @@ export default function ChatLayout({ trainingId }) {
                 }
             }
         });
-
-        console.log(arr.reverse())
         
         const getDraftChatList = JSON.parse(localStorage.getItem("draftChatList"))
         if(!getDraftChatList){
@@ -155,7 +153,7 @@ export default function ChatLayout({ trainingId }) {
                                     <FaWhatsapp className='text-green-500 font-bold text-xl'/>
                                 </span>
                                 <div>
-                                    <h1 className="text-[15px] font-bold">{chatList?.fromName ?? chatList.from}</h1>
+                                    <h1 className="text-[15px] font-bold">{chatList.fromName == "" ? chatList.from : chatList.fromName}</h1>
                                     <p className='text-xs text-blue-500 font-bold mb-1'>Auth from {chatList.channelIdentity}</p>
                                     <p className="text-sm text-zinc-600 dark:text-zinc-300">{chatList.messages[chatList.messages.length - 1].msg.length > 35 ? chatList.messages[chatList.messages.length - 1].msg.substring(0, 35) + "..." :chatList.messages[chatList.messages.length - 1].msg}</p>
                                 </div>
