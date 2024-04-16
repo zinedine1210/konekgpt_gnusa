@@ -1,15 +1,11 @@
 import CardQuestion from "@/components/FAQ/CardQuestion";
-import FAQInbox from "@/components/Inbox/TrainingID/FAQInbox";
-import Layout from "@/components/Layouts/Layout";
 import LayoutQnA from "@/components/QNA/LayoutQnA";
-import { MyContext } from "@/context/MyProvider";
 import Link from "next/link";
-import { Suspense, useContext, useEffect } from "react";
-import { FaChevronDown, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { Suspense } from "react";
+import { FaChevronLeft } from "react-icons/fa";
 import { IoCreate } from "react-icons/io5";
 
 export default function CreateFAQ() {
-  const context = useContext(MyContext)
 
   return (
     <LayoutQnA>
@@ -44,7 +40,7 @@ export default function CreateFAQ() {
                     {
                         new Array(30).fill("coba").map((item, key) => {
                             return (
-                                <CardQuestion />
+                                <CardQuestion key={key}/>
                             )
                         })
                     }

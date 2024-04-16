@@ -1,11 +1,8 @@
-import CardQuestion from "@/components/FAQ/CardQuestion";
 import ModalInsertKnowledge from "@/components/Knowledge/ModalInsertKnowledge";
 import SelectType from "@/components/Knowledge/SelectType";
 import TableAttachments from "@/components/Knowledge/TableAttachments";
-import TableKnowledge from "@/components/Knowledge/TableKnowledge";
 import Layout from "@/components/Layouts/Layout";
 import { MyContext } from "@/context/MyProvider";
-import KnowledgeRepository from "@/repositories/KnowledgeRepository";
 import { useContext, useState } from "react";
 import { BsInfo } from "react-icons/bs";
 import { IoRefresh } from "react-icons/io5";

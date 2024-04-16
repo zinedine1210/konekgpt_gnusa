@@ -1,6 +1,6 @@
 import { MyContext } from '@/context/MyProvider'
-import UploadFileRepository from '@/repositories/UploadFileRepository'
-import React, { useContext, useEffect, useState } from 'react'
+import moment from 'moment'
+import React, { useContext } from 'react'
 import { BsEye } from 'react-icons/bs'
 
 export default function CardAttach({file, handlerCheckbox, collect}) {
@@ -30,11 +30,12 @@ export default function CardAttach({file, handlerCheckbox, collect}) {
             {file.filestat?.["mime-type"]}
         </td>
         <td className="px-12 py-4 text-sm font-normal text-zinc-700 dark:text-white whitespace-nowrap">
-            Website tentang perusahaan gnusa...
+            {file.filestat?.['size']} KB
         </td>
-        <td className="px-4 py-4 text-sm text-zinc-500 dark:text-zinc-300 whitespace-nowrap">Jan 4, 2022</td>
-        {/* <td className="px-4 py-4 text-sm text-zinc-500 dark:text-zinc-300 whitespace-nowrap">Jan 4, 2022</td> */}
-        {/* <td className="px-4 py-4 text-sm text-zinc-500 dark:text-zinc-300 whitespace-nowrap">Lana Steiner</td> */}
+        <td className="px-12 py-4 text-sm font-normal text-zinc-700 dark:text-white whitespace-nowrap">
+            {file?.refKey?.name?._dmsversion}
+        </td>
+        <td className="px-4 py-4 text-sm text-zinc-500 dark:text-zinc-300 whitespace-nowrap">{moment(file._cd.epoch_time * 1000).format("MMM DD, YYYY")}</td>
         <td className="px-4 py-4 text-sm whitespace-nowrap flex items-center gap-2">
             {/* <button className="px-1 py-1 text-zinc-500 transition-colors duration-200 rounded-lg dark:text-zinc-300 hover:bg-zinc-100">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">

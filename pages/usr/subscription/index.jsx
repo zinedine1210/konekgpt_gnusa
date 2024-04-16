@@ -1,20 +1,12 @@
-import { MyContext } from "@/context/MyProvider";
+
 import Layout from "../../../components/Layouts/Layout";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { Suspense, useContext, useEffect, useState } from "react";
-import {FaChevronLeft, FaInstagram, FaTelegramPlane, FaTwitter, FaWhatsapp} from "react-icons/fa"
-import {HiOutlineArrowSmRight} from "react-icons/hi"
+import { Suspense, useContext, useState } from "react";
 
 
 export default function Subscription() {
   const {t} = useTranslation("common")
-  const [data, setData] = useState(null)
-  const context = useContext(MyContext)
-
-  const handlerChange = value => {
-    setData(value)
-  }
   
   return (
     <Layout title="SUBSCRIPTION" desc="HALAMAN UTAMA">

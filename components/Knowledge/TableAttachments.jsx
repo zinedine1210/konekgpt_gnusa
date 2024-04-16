@@ -78,21 +78,17 @@ export default function TableAttachments({collect, setCollect}) {
                                         </th>
 
                                         <th scope="col" className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-zinc-500 dark:text-zinc-400">
-                                            Description
+                                            Size
+                                        </th>
+
+                                        <th scope="col" className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-zinc-500 dark:text-zinc-400">
+                                            Version
                                         </th>
     
                                         <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-zinc-500 dark:text-zinc-400">
                                             Date created
                                         </th>
-    
-                                        {/* <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-zinc-500 dark:text-zinc-400">
-                                            Last updated
-                                        </th> */}
-    
-                                        {/* <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-zinc-500 dark:text-zinc-400">
-                                            Uploaded by
-                                        </th> */}
-    
+
                                         <th scope="col" className="relative py-3.5 px-4">
                                             <span className="sr-only">Edit</span>
                                         </th>

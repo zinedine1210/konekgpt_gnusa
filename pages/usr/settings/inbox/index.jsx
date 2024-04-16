@@ -4,7 +4,7 @@ import React from 'react'
 export default function HalamanInbox() {
   return (
     <Layout> 
-        jalsjasjl
+        Setting Inbox
     </Layout>
   )
 }

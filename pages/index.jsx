@@ -294,7 +294,7 @@ export default function Login() {
                         step == 2 ? "" : "hidden"
                       } w-2/5 px-6 py-3 mt-4 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-500 rounded-lg hover:bg-red-400 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-50`}
                     >
-                      "Cancel"
+                      {"Cancel"}
                     </button>
                     <button
                       type="submit"

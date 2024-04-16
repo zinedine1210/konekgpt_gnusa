@@ -2,14 +2,12 @@ import Layout from "../../../components/Layouts/Layout";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Suspense, useContext } from "react";
-import { MyContext } from "@/context/MyProvider";
 import TableUsageReport from "@/components/UsageReport/TableUsageReport";
 
 
 export default function UsageReport() {
   const {t} = useTranslation("common")
-  const context = useContext(MyContext)
-  
+
   return (
     <Layout title="HOME" desc="HALAMAN UTAMA">
       <Suspense fallback={"Loading"}>
