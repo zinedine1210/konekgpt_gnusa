@@ -12,10 +12,10 @@ export default function EditContact() {
   return (
     <Layout title="CONTACT" desc="HALAMAN UTAMA">
       <Suspense fallback={"Loading"}>
-        <section className="w-full bg-zinc-100 relative h-screen flex">
+        <section className="w-full bg-zinc-100 dark:bg-dark relative h-screen flex">
           <div className="w-full relative h-screen pt-16 overflow-y-auto">
             <div className="mx-0 xl:mx-2 xl:flex gap-2">
-              <div className="w-full xl:w-1/4 bg-white rounded-md shadow-md p-3 xl:p-5">
+              <div className="w-full xl:w-1/4 bg-white dark:bg-darkPrimary rounded-md shadow-md p-3 xl:p-5">
                 <div className="flex items-center gap-2 pt-1 pb-3">
                   <Link href={"/usr/contacts"}>
                     <h1 className="badge-blue">
@@ -71,12 +71,7 @@ export default function EditContact() {
                       >
                         Full Name <span className="text-red-500">*</span>
                       </label>
-                      <input
-                        id="fullnamecontact"
-                        type="text"
-                        className="w-full block bg-zinc-50 text-sm py-2 px-2 outline-none border-2 hover:bg-zinc-100 focus:bg-white focus:border-lightPrimary"
-                        placeholder=""
-                      />
+                      <input type="text" className="input-search w-full" />
                     </div>
                     <div>
                       <label
@@ -85,12 +80,7 @@ export default function EditContact() {
                       >
                         Phone Number <span className="text-red-500">*</span>
                       </label>
-                      <input
-                        id="phonecontact"
-                        type="text"
-                        className="w-full block bg-zinc-50 text-sm py-2 px-2 outline-none border-2 hover:bg-zinc-100 focus:bg-white focus:border-lightPrimary"
-                        placeholder=""
-                      />
+                      <input type="text" className="input-search w-full" />
                     </div>
                     <div>
                       <label
@@ -99,12 +89,7 @@ export default function EditContact() {
                       >
                         Email Address <span className="text-red-500">*</span>
                       </label>
-                      <input
-                        id="emailcontact"
-                        type="text"
-                        className="w-full block bg-zinc-50 text-sm py-2 px-2 outline-none border-2 hover:bg-zinc-100 focus:bg-white focus:border-lightPrimary"
-                        placeholder=""
-                      />
+                      <input type="text" className="input-search w-full" />
                     </div>
                   </div>
 
@@ -113,7 +98,7 @@ export default function EditContact() {
                   </button>
                 </div>
               </div>
-              <div className="w-full xl:w-3/4 bg-white rounded-md shadow-md p-5">
+              <div className="w-full xl:w-3/4 bg-white dark:bg-darkPrimary rounded-md shadow-md p-5">
                 <div>
                   <div className="flex items-center justify-between">
                     <p className="text-zinc-500 text-sm uppercase dark:text-zinc-400">

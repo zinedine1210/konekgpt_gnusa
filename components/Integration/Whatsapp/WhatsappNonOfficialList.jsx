@@ -8,7 +8,7 @@ import Image from 'next/image'
 
 export default function WhatsappNonOfficialList() {
     const context = useContext(MyContext)
-    const data = localStorage.getItem("whatsappChannel") != "undefined" ? JSON.parse(localStorage.getItem("whatsappChannel")) : null
+    const data = localStorage.getItem("whatsappNonOfficial") != "undefined" ? JSON.parse(localStorage.getItem("whatsappNonOfficial")) : null
 
     const handlerCreateSession = async () => {
         context.setData({...context, modal:{name:"QRWhatsapp", id:null}})
@@ -16,9 +16,10 @@ export default function WhatsappNonOfficialList() {
 
     const getAllChannel = async () => {
         const getxa = JSON.parse(localStorage.getItem("XA"))
-        const result = await ChannelRepository.getAllChannel({xa:getxa})
-        console.log("allchannel", result);
-        localStorage.setItem("whatsappChannel", JSON.stringify(result.data))
+        // const result = await ChannelRepository.getAllChannel({xa:getxa})
+        // console.log("allchannel", result);
+        const result = {data:[]}
+        localStorage.setItem("whatsappNonOfficial", JSON.stringify(result.data))
         context.setData({...context, channelWhatsapp:result.data})
     }
 

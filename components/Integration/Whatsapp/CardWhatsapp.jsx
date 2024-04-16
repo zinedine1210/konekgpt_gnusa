@@ -269,7 +269,7 @@ function InformationKnowledge({ item }){
                                     data.map((item2, i) => {
                                         const used = item2.id === item.knowledge_id
                                         return (
-                                            <div key={i} className="bg-zinc-100 px-3 py-5 rounded-md">
+                                            <div key={i} className="bg-zinc-100 dark:bg-darkPrimary px-3 py-5 rounded-md">
                                                 <CardSelectKnowledge active={!used} channelId={item.id} item={item2}/>
                                             </div>
                                         )
@@ -300,12 +300,14 @@ function InformationKnowledge({ item }){
                                     <p className={item.active ? "badge-green":"badge-red"}>{item.active ? 'Active':'Unactive'}</p>
                                 </div>
 
-                                <button className="btn-secondary" onClick={() => gotoInbox()}>
-                                    Goto Inbox
-                                </button>
-                                <button className="btn-primary" onClick={() => handleConnect()}>
-                                    Change
-                                </button>
+                                <div className="flex items-center gap-3">
+                                    <button className="btn-primary" onClick={() => gotoInbox()}>
+                                        Goto Inbox
+                                    </button>
+                                    <button className="btn-secondary" onClick={() => handleConnect()}>
+                                        Change Knowledge
+                                    </button>
+                                </div>
                             </div>
                     }
                 </div>
@@ -320,7 +322,7 @@ function InformationKnowledge({ item }){
                                 {
                                     data.map((item2, i) => {
                                         return (
-                                            <div key={i} className="bg-zinc-100 px-3 py-5 rounded-md">
+                                            <div key={i} className="bg-zinc-100 dark:bg-darkPrimary px-3 py-5 rounded-md">
                                                 <CardSelectKnowledge channelId={item.id} item={item2}/>
                                             </div>
                                         )

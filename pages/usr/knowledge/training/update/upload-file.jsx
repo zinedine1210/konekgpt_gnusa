@@ -77,15 +77,15 @@ export default function UpdateUploadFile() {
   return (
     <Layout title={"Update Knowledge"} desc={"Halaman untuk update knowledge"}>
       <Suspense fallback={"Loading"}>
-        <section className="w-full bg-zinc-100 relative h-screen flex">
+        <section className="w-full bg-zinc-100 dark:bg-dark relative h-screen flex">
           <div className="w-full relative h-screen pt-16 overflow-y-auto">
             <div className="mx-0 xl:mx-2">
               {data ? (
-                <div className="w-full xl:w-1/2 bg-white rounded-md shadow-md p-3 xl:p-5">
-                  <label className="text-base xl:text-xl dark:text-zinc-400 font-semibold">
+                <div className="w-full xl:w-1/2 bg-white dark:bg-darkPrimary rounded-md shadow-md p-3 xl:p-5">
+                  <label className="text-base xl:text-xl dark:text-white font-semibold">
                     Update Information Training Knowledge
                   </label>
-                  <p className="text-zinc-600 text-sm">ID: {data.id}</p>
+                  <p className="text-zinc-600 text-sm dark:text-zinc-300">ID: {data.id}</p>
                   <div className="flex items-center gap-2 pt-1 pb-3">
                     <Link
                       href={"/usr/knowledge/training?m=clm_knowledge_training"}

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FaEdit, FaTelegram, FaTelegramPlane } from "react-icons/fa";
+import { FaEdit, FaTelegramPlane } from "react-icons/fa";
 
 export default function CardContacts() {
   return (
@@ -24,7 +24,7 @@ export default function CardContacts() {
         <td className="px-4 py-4 text-sm text-zinc-500 dark:text-zinc-300 whitespace-nowrap">Jan 4, 2022</td>
         {/* <td className="px-4 py-4 text-sm text-zinc-500 dark:text-zinc-300 whitespace-nowrap">Scratch</td> */}
         <td className="px-4 py-4flex items-center gap-2">
-            <Link href={`/usr/contacts/zinedine`}>
+            <Link href={`/usr/contacts/zinedine?m=clm_contacts`}>
                 <button className="flex items-center justify-center hover:bg-gray-100 w-8 rounded-md h-8">
                     <FaEdit className="text-gray-500"/>
                 </button>

@@ -136,13 +136,13 @@ export default function UploadFileKnowledge() {
   return (
     <Layout title={"Create From PDF"} desc={"Halaman untuk membuat word"}>
         <Suspense fallback={"Loading"}>
-            <section className="w-full bg-zinc-100 relative h-screen flex">
+            <section className="w-full bg-zinc-100 dark:bg-dark relative h-screen flex">
                 <div className="w-full xl:w-3/4 relative h-screen pt-16 overflow-y-auto">
                     <div className='mx-0 xl:mx-2'>
-                    <div className='bg-white rounded-md shadow-md p-3 xl:p-5'>
-                        <label className="text-base xl:text-xl dark:text-zinc-400 font-semibold">Upload File</label>
+                    <div className='bg-white dark:bg-darkPrimary rounded-md shadow-md p-3 xl:p-5'>
+                        <label className="text-base xl:text-xl dark:text-white font-semibold">Upload File</label>
                         {/* <button onClick={() => console.log(data)}>Click me</button> */}
-                        <p className='text-sm font-light text-zinc-500'>Upload your file business first here to train the knowledge AI</p>
+                        <p className='text-sm font-light text-zinc-500 dark:text-zinc-300'>Upload your file business first here to train the knowledge AI</p>
                         <div className="flex items-center gap-2 pt-1 pb-3 mt-3">
                             <Link href={"/usr/knowledge/attachment?m=clm_knowledge_attachment"}>
                                 <h1 className="badge-blue">
