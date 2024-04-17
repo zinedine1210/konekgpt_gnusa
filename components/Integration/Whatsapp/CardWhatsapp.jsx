@@ -52,7 +52,6 @@ export default function CardWhatsapp(props) {
     }, [])
 
     const handlerDeleteSession = () => {
-        console.log(status);
         if(status == "authenticated"){
             Swal.fire({
                 title: 'This number is still authenticated',
@@ -65,10 +64,8 @@ export default function CardWhatsapp(props) {
               }).then((result) => {
                 if (result.isConfirmed) {
                     WhatsappRepository.deleteSession({id:props.item.identity}).then(async res => {
-                        console.log(res);
                         if(res.success){
                             const result = await ChannelRepository.deleteChannel({xa:{XA:JSON.parse(localStorage.getItem("XA"))}, data:[props.item.id]})
-                            console.log(result);
                             if(result?.type == "success"){
                                 // set localstorage
                                 const getWhatsappList = JSON.parse(localStorage.getItem("whatsappChannel"))
@@ -138,7 +135,6 @@ export default function CardWhatsapp(props) {
 
     const handlerActive = () => {
         const getAllWhatsapp = JSON.parse(localStorage.getItem("whatsappChannel"));
-        
         getAllWhatsapp.find(res => res.id == props.item.id)['active'] = !props.item.active
         // console.log(getAllWhatsapp);
         localStorage.setItem("whatsappChannel", JSON.stringify(getAllWhatsapp))
@@ -148,6 +144,12 @@ export default function CardWhatsapp(props) {
     const handlerCheck = () => {
         if(status == "disconnected"){
             context.setData({...context, modal:{name:"QRWhatsapp", id:props.item.identity, step:2}})
+        }else if(status == "connected"){
+            Swal.fire({
+                icon: "info",
+                title: "Session already create",
+                text: "Please wait until session expired or status disconnected"
+            })
         }else{
             handlerActive()
         }
@@ -301,10 +303,10 @@ function InformationKnowledge({ item }){
                                 </div>
 
                                 <div className="flex items-center gap-3">
-                                    <button className="btn-primary" onClick={() => gotoInbox()}>
+                                    <button disabled={loading} className="btn-primary" onClick={() => gotoInbox()}>
                                         Goto Inbox
                                     </button>
-                                    <button className="btn-secondary" onClick={() => handleConnect()}>
+                                    <button disabled={loading} className="btn-secondary" onClick={() => handleConnect()}>
                                         Change Knowledge
                                     </button>
                                 </div>
@@ -320,13 +322,18 @@ function InformationKnowledge({ item }){
                             <h1 className="font-bold mb-2">Choose your knowledge for the channel</h1>
                             <div className="grid grid-cols-1 gap-2">
                                 {
-                                    data.map((item2, i) => {
+                                    data.length > 0 ? data.map((item2, i) => {
                                         return (
                                             <div key={i} className="bg-zinc-100 dark:bg-darkPrimary px-3 py-5 rounded-md">
                                                 <CardSelectKnowledge channelId={item.id} item={item2}/>
                                             </div>
                                         )
                                     })
+                                    :
+                                    <>
+                                        <h1 className="font-bold text-red-500">No Knowledge available</h1>
+                                        <p className="font-light text-zinc-500 dark:text-zinc-300 text-sm">You {`haven't`} created any training knowledge, <Link href={"/usr/knowledge/training?m=clm_knowledge_training"}><span className="font-bold text-blue-500">Create Now</span></Link></p>
+                                    </>
                                 }
                             </div>
                         </>

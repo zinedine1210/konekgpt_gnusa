@@ -1,5 +1,4 @@
 import Layout from "../../../components/Layouts/Layout";
-import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Suspense, useState } from "react";
 import {FaChevronRight} from "react-icons/fa"
@@ -7,13 +6,6 @@ import WhatsappList from "@/components/Integration/Whatsapp/WhatsappList";
 
 
 export default function WhatsappOfficial() {
-  // console.log(type);
-  const {t} = useTranslation("common")
-  const [data, setData] = useState(null)
-
-  const handlerChange = value => {
-    setData(value)
-  }
   
   return (
     <Layout title="Whatsapp Integration" desc="HALAMAN UTAMA">

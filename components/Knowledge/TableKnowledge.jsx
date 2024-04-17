@@ -2,6 +2,8 @@ import { useContext, useEffect } from "react"
 import CardKnowledge from "./CardKnowledge"
 import { MyContext } from "@/context/MyProvider"
 import KnowledgeRepository from "@/repositories/KnowledgeRepository"
+import Link from "next/link"
+import { BsPlus, BsPlusCircle } from "react-icons/bs"
 
 export default function TableKnowledge() {
     const context = useContext(MyContext)
@@ -67,6 +69,9 @@ export default function TableKnowledge() {
                     :
                     <div className="w-full text-center p-5">
                         <h1 className="text-red-500 text-sm uppercase font-bold">No Data Available</h1>
+                        <Link href="/usr/knowledge/attachment?m=clm_knowledge_attachment">
+                            <button className="btn-secondary text-center mx-auto mt-5"><BsPlusCircle /> Training Bot</button>
+                        </Link>
                     </div>
                     :
                     new Array(10).fill("mantap").map((key) => {

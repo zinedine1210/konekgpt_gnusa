@@ -3,7 +3,6 @@ import React, { useContext, useEffect } from 'react'
 import { FaWhatsapp } from 'react-icons/fa'
 import ModalQRWhatsapp from './ModalQRWhatsapp'
 import CardWhatsapp from './CardWhatsapp'
-import ChannelRepository from '@/repositories/ChannelRepository'
 import Image from 'next/image'
 
 export default function WhatsappNonOfficialList() {
@@ -46,8 +45,8 @@ export default function WhatsappNonOfficialList() {
                         <p className='text-zinc-600 dark:text-zinc-400 mt-2'>Whatsapp by Gnusa Package Development</p>
                     </div>
                 </div>
-            <button className='btn-primary' onClick={() => handlerCreateSession()}>
-                Add Whatsapp
+            <button className='btn-primary' disabled onClick={() => alert("Something went wrong")}>
+                In Development
             </button>
         </div>
 

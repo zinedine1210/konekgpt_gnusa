@@ -1,22 +1,11 @@
 import Layout from "../../../components/Layouts/Layout";
-import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { Suspense, useState } from "react";
-import {FaChevronRight, FaPowerOff, FaTelegram, FaTelegramPlane} from "react-icons/fa"
-import ChannelType from "@/components/Integration/ChannelType";
-import TelegramList from "@/components/Integration/Telegram/TelegramList";
-import WhatsappList from "@/components/Integration/Whatsapp/WhatsappList";
+import { Suspense } from "react";
+import {FaChevronRight} from "react-icons/fa"
 import WhatsappNonOfficialList from "@/components/Integration/Whatsapp/WhatsappNonOfficialList";
 
 
 export default function WhatsappNonOfficial() {
-  // console.log(type);
-  const {t} = useTranslation("common")
-  const [data, setData] = useState(null)
-
-  const handlerChange = value => {
-    setData(value)
-  }
   
   return (
     <Layout title="HOME" desc="HALAMAN UTAMA">

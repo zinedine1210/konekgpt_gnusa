@@ -7,7 +7,6 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import { HiX } from 'react-icons/hi'
 import Swal from 'sweetalert2'
 
-
 export default function ModalQRWhatsapp(props) {
   const context = useContext(MyContext)
   const [step, setStep] = useState(props.defaultStep ?? 1)
@@ -72,9 +71,9 @@ export default function ModalQRWhatsapp(props) {
     const result = await ChannelRepository.insertChannel({xa:{XA:getxa}, data:obj})
     const getWhatsappList = JSON.parse(localStorage.getItem("whatsappChannel"))
     if(getWhatsappList){
-      const getDetailWhatsappList = getWhatsappList.find(res => res.identity == id)
+      const getDetailWhatsappList = getWhatsappList.find(res => res.identity == getID)
       if(getDetailWhatsappList){
-        getWhatsappList.find(res => res.identity == id)['active'] = true
+        getWhatsappList.find(res => res.identity == getID)['active'] = true
       }else{
         getWhatsappList.push(result.data)
       }
@@ -84,19 +83,20 @@ export default function ModalQRWhatsapp(props) {
       localStorage.setItem("whatsappChannel", JSON.stringify([result.data]))
       context.setData({...context, channelWhatsapp:[result.data]})
     }
-
-    
-    setData(null)
     context.setData({...context, modal:null})
   }
 
   async function checkStatus(id) {
     try {
+      if(connect) return false
       const response = await WhatsappRepository.statusSession({id:id})
-      // console.log(response);
       if(response.success && response.data.status == "authenticated"){
         setConnect(true)
-        insertChannel(id)
+        console.log("hallo")
+        setData(null)
+        setTimeout(() => {
+          insertChannel(id)
+        }, 5000);
       }
     } catch (error) {
       console.error(error);
@@ -106,7 +106,6 @@ export default function ModalQRWhatsapp(props) {
 
   const handlerClose = () => {
     context.setData({...context, modal:null})
-    // fetchEventSource(`https://be1.whatsva.id/sessions/find/${id}`)
   }
 
 

@@ -5,6 +5,7 @@ import ModalQRWhatsapp from './ModalQRWhatsapp'
 import CardWhatsapp from './CardWhatsapp'
 import ChannelRepository from '@/repositories/ChannelRepository'
 import Image from 'next/image'
+import { IoRefresh } from 'react-icons/io5'
 
 export default function WhatsappList() {
     const context = useContext(MyContext)
@@ -16,10 +17,9 @@ export default function WhatsappList() {
 
     const getAllChannel = async () => {
         const getxa = JSON.parse(localStorage.getItem("XA"))
-        const result = await ChannelRepository.getAllChannel({xa:getxa})
+        const result = await ChannelRepository.getAllChannel({xa:getxa}) 
         localStorage.setItem("whatsappChannel", JSON.stringify(result.data))
         context.setData({...context, channelWhatsapp:result.data})
-        console.log(result.data)
     }
 
     useEffect(() => {
@@ -55,6 +55,10 @@ export default function WhatsappList() {
                 data.length > 0 ?
                 <>
                     <div className='w-full xl:w-1/2 space-y-2 px-5'>
+                        <button className='btn-secondary' onClick={() => getAllChannel()}>
+                            <IoRefresh />
+                            Refresh
+                        </button>
                         {
                             data.map((item, key) => {
                                 return <CardWhatsapp key={key} item={item} />
