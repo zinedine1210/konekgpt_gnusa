@@ -36,8 +36,6 @@ export default function ChatLayout({ channelId }) {
             XA: JSON.parse(localStorage.getItem("XA"))
           }
         })
-
-        console.log(result.data.res)
         const getChannelData = JSON.parse(localStorage.getItem("whatsappChannel")).find(res => res.knowledge_id == channelId)
         const filterMyMessage = result.data.res.filter(res => res.channel_identity == getChannelData.identity).reverse()
         // kelola data

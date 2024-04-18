@@ -38,16 +38,20 @@ export default function InformationInbox({ data }) {
                   <p className="mt-2 border dark:border-zinc-500 rounded-md px-2 py-3">{knowledge.description}</p>
                 </div>
               </div>
-              <div className="mt-5 xl:mt-0 bg-white dark:bg-darkPrimary rounded-md shadow-md w-full xl:w-2/3 p-5 font-mono text-xs xl:text-sm space-y-1 h-full">
-                <h1 className="font-bold text-blue-500 dark:text-blue-300">Files</h1>
-                <div className="space-y-2">
-                  {knowledge._files.map((item, index) => {
-                    return (
-                      <CardFile key={index} item={item}/>
-                    )
-                  })}
-                </div>
-              </div>
+              {
+                knowledge?._files && (
+                  <div className="mt-5 xl:mt-0 bg-white dark:bg-darkPrimary rounded-md shadow-md w-full xl:w-2/3 p-5 font-mono text-xs xl:text-sm space-y-1 h-full">
+                    <h1 className="font-bold text-blue-500 dark:text-blue-300">Files</h1>
+                    <div className="space-y-2">
+                      {knowledge._files.map((item, index) => {
+                        return (
+                          <CardFile key={index} item={item}/>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )
+              }
             </div>
 
         </div>

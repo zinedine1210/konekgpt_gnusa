@@ -323,9 +323,10 @@ function InformationKnowledge({ item }){
                             <div className="grid grid-cols-1 gap-2">
                                 {
                                     data.length > 0 ? data.map((item2, i) => {
+                                        const used = item2.id === item.knowledge_id
                                         return (
                                             <div key={i} className="bg-zinc-100 dark:bg-darkPrimary px-3 py-5 rounded-md">
-                                                <CardSelectKnowledge channelId={item.id} item={item2}/>
+                                                <CardSelectKnowledge active={!used} channelId={item.id} item={item2}/>
                                             </div>
                                         )
                                     })

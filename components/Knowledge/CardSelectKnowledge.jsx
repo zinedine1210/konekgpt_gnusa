@@ -9,6 +9,7 @@ export default function CardSelectKnowledge({ item, channelId, active=true }) {
             "knowledge_name": itemKnowledge.name, //diambil dari knowledge id
             "channel_id": channelId //id dari channel
         }
+        console.log(obj)
         const getXa = JSON.parse(localStorage.getItem("XA"))
         const result = await KnowledgeRepository.selectKnowledgeForChannel({
             data: obj,
@@ -16,10 +17,10 @@ export default function CardSelectKnowledge({ item, channelId, active=true }) {
                 XA: getXa
             }
         })
-        
+        console.log(result)
         if(result.type == "success"){
             let updateChannel = JSON.parse(localStorage.getItem("whatsappChannel"))
-            updateChannel = updateChannel.filter(res => res.id !== item.id)
+            updateChannel = updateChannel.filter(res => res.id !== channelId)
             updateChannel.push(result.data)
             localStorage.setItem("whatsappChannel", JSON.stringify(updateChannel)) 
             window.location.reload()
@@ -34,14 +35,23 @@ export default function CardSelectKnowledge({ item, channelId, active=true }) {
         }
     }
 
+    const typeTraining = {
+        1: "Attachment",
+        2: "URL Website",
+        3: "Scratch"
+    }
+
   return (
     <div className="w-full relative">
         <h1 className="font-bold">{item.name}</h1>
         <p className="text-sm font-light">Description : <span className="font-bold">{item.description}</span></p>
         <p className="text-sm font-light">Code : <span className="font-bold">{item.code}</span></p>
-        <p className="text-sm font-bold text-blue-500">Files :</p>
+        <p className="text-sm font-light">Type : <span className="font-bold">{typeTraining[item.type_training]}</span></p>
+        
         {
             item?._files ? 
+            <>
+                <p className="text-sm font-bold text-blue-500">Files :</p>
                 <div className="border rounded-md border-zinc-300 p-2">
                     {
                         item._files.map((file, i2) => {
@@ -56,6 +66,7 @@ export default function CardSelectKnowledge({ item, channelId, active=true }) {
                         })
                     }
                 </div>
+            </>
             :""
         }
         <button disabled={!active} onClick={() => handleSelectKnowledge(item)} className="absolute top-2 right-2 btn-secondary">{active ? "Insert":"Used"}</button>

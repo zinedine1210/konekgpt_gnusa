@@ -51,7 +51,6 @@ export default function TrainingInbox({ params }) {
         knowledgeInformation: resultKnowledge,
         channelInformation: result.data
       })
-      console.log(resultKnowledge, result.data)
     }
   }
 

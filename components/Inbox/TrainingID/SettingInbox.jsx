@@ -52,11 +52,10 @@ function ChangeKnowledge({ channelInformation }){
                     {
                         data.map((item, i) => {
                             const used = item.id === channelInformation.knowledge_id
-
-
+                            console.log(item)
                             return (
                                 <div className="bg-white rounded-md px-5 py-5 shadow-md" key={i}>
-                                    <CardSelectKnowledge active={!used} item={item} channelId={channelInformation.knowledge_id}/>
+                                    <CardSelectKnowledge active={!used} item={item} channelId={channelInformation.id}/>
                                 </div>
                             )
                         })
