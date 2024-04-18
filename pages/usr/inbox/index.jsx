@@ -46,7 +46,7 @@ export default function Inbox() {
               <ModalCreateGroup />
             )
           }
-          <div className={`${context.view == 2 ? "fixed top-0 left-0 w-screen h-screen z-20":"hidden xl:block"} xl:z-0 xl:relative xl:w-1/4 bg-white dark:bg-darkPrimary mt-1`}>
+          <div className={`${localStorage.getItem("view") == 2 ? "fixed top-0 left-0 w-screen h-screen z-20":"hidden xl:block"} xl:z-0 xl:relative xl:w-1/4 bg-white dark:bg-darkPrimary mt-1`}>
             <div className='px-3 absolute top-0 bg-white dark:bg-darkPrimary left-0 w-full shadow-md pt-16 z-20'>
               <div className="flex items-center justify-between">
                 <label className="block text-sm px-3 xl:text-xs text-zinc-500 uppercase dark:text-zinc-400">INBOX</label>

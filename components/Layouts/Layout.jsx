@@ -2,9 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import Seo from "../Seo"
 import HelpButton from "../Templates/HelpButton"
 import Navbar from "../Templates/Navbar"
-import Sidebar from "../Sidebar/Sidebar1"
 import { MyContext } from "@/context/MyProvider"
-import SubMenu from "../Sidebar/SubMenu"
 import LayoutSidebar from "../Sidebar/LayoutSidebar"
 import { useRouter } from "next/router"
 import PageChange from "./PageChange"
@@ -15,7 +13,6 @@ import ScreenReader from "../ScreenReader"
 
 export default function Layout({children, title, desc, image}) {
   const context = useContext(MyContext)
-  const view = context.view;
   const [isPageChanging, setIsPageChanging] = useState(false);
   const [routeNow, setRouteNow] = useState("");
   const [mounted, setMounted] = useState(null)
@@ -75,7 +72,6 @@ export default function Layout({children, title, desc, image}) {
 
   useEffect(() => {
     const handleRouteChangeStart = (url) => {
-      console.log(`Loading: ${url}`);
       setRouteNow(router.asPath)
 
       if (url !== router.asPath) {
@@ -98,22 +94,15 @@ export default function Layout({children, title, desc, image}) {
 
   
   useEffect(() => {
-    // pengaturan view
     const getView = localStorage.getItem("view")
-    // console.log("layout - setting view to", getView);
-
-    if(!view){
-      if(getView){
-        const getMinimize = JSON.parse(localStorage.getItem("minimize"))
-        console.log("layout - already has view", getView, getMinimize);
-        context.setData({...context, view:getView, minimize:getMinimize})
-      }else{
-        localStorage.setItem("view", 1)
-        localStorage.setItem("minimize", false)
-        context.setData({...context, view:1, minimize:false})
-      }
+    if(getView){
+      const getMinimize = JSON.parse(localStorage.getItem("minimize"))
+      context.setData({...context, view:getView, minimize:getMinimize})
+    }else{
+      localStorage.setItem("view", 1)
+      localStorage.setItem("minimize", false)
     }
-  }, [view])
+  }, [])
 
 
   return (

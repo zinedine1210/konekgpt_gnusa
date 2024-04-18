@@ -34,7 +34,6 @@ export default function MinSidebar() {
 
     const handlerCloseMinimize = () => {
         localStorage.setItem("minimize", false)
-        context.setData({...context, minimize:false})
     }
 
   return (

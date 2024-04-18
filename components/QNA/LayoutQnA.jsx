@@ -13,7 +13,7 @@ export default function LayoutQnA({children}) {
     setData(value)
   }
 
-  console.log(context.view);
+  console.log(localStorage.getItem("view"));
   const handlerRedirect = (url) => {
       router.push(url)
       localStorage.setItem("view", 3)
@@ -24,7 +24,7 @@ export default function LayoutQnA({children}) {
     <Layout title="QNA" desc="HALAMAN UTAMA">
       <Suspense fallback={"Loading"}>
         <section className="w-full bg-zinc-100 relative h-screen">
-          {/* <div className={`${context.view == 2 ? "fixed top-0 left-0 w-screen h-screen z-20":"hidden xl:block"} xl:z-0 xl:relative xl:w-1/6 bg-white pt-16`}>
+          {/* <div className={`${localStorage.getItem("view") == 2 ? "fixed top-0 left-0 w-screen h-screen z-20":"hidden xl:block"} xl:z-0 xl:relative xl:w-1/6 bg-white pt-16`}>
             <label className="px-3 text-xs text-zinc-500 uppercase dark:text-zinc-400">Question & Answer</label>
 
             <div className="space-y-2 mt-2">

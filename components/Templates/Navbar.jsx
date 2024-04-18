@@ -41,10 +41,9 @@ export default function Navbar() {
         if(localStorage.getItem("view") == 1){
             return false
         }
-
         const resView = Number(localStorage.getItem("view")) - 1
         localStorage.setItem("view", resView)
-        context.setData({...context, view:resView})
+        context.setData({...context.data, minimize: false})
     }
 
   return (

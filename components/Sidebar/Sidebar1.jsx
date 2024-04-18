@@ -14,7 +14,6 @@ export default function Sidebar1() {
 
     const handlerRedirect = async (link, id) => {
         localStorage.setItem("view", 2)
-        context.setData({...context, view:2})
         router.push(`${link}?m=${id}`)
     }
 
@@ -33,15 +32,13 @@ export default function Sidebar1() {
 
     const handlerMinimize = () => {
         localStorage.setItem("minimize", true)
-        context.setData({...context, minimize:true})
+        context.setData({...context.data, minimize: true})
     }
     
-    const getAddOns = JSON.parse(localStorage.getItem("eventAddOns"))
-    
   return (
-    <aside className={`${context.minimize ? "":`${context.view == 1 ? "fixed top-0 left-0 w-screen z-20 xl:z-10 xl:relative xl:w-64":"hidden xl:block xl:w-64"}`} flex h-screen bg-white rtl:border-r-0 rtl:border-l dark:bg-red-500 dark:border-zinc-700`}>
+    <aside className={`${localStorage.getItem("minimize") == true ? "":`${localStorage.getItem("view") == 1 ? "fixed top-0 left-0 w-screen z-20 xl:z-10 xl:relative xl:w-64":"hidden xl:block xl:w-64"}`} flex h-screen bg-white rtl:border-r-0 rtl:border-l dark:bg-red-500 dark:border-zinc-700`}>
         {
-            context.minimize ?
+            localStorage.getItem("minimize") == true ?
                 <MinSidebar /> 
             :
             <div className="flex flex-col justify-between h-screen px-5 pt-16 pb-5 overflow-y-auto bg-white border-l border-r w-full dark:bg-darkPrimary dark:border-dark">
@@ -54,13 +51,6 @@ export default function Sidebar1() {
                                 <div className="space-y-1" key={key}>
                                     <div className="flex items-center justify-between pt-1 pb-2 px-3">
                                         <label className="text-xs text-zinc-500 uppercase dark:text-zinc-400">{flagParent.parentFlag}</label>
-                                        {
-                                            key == 0 && (
-                                                <button className="hidden xl:block" onClick={() => handlerMinimize()}>
-                                                    <BsArrowLeft />
-                                                </button>
-                                            )
-                                        }
                                     </div>
                                     {
                                         flagParent.menus.filter(res => res.parent == "").map((menu, key2) => {

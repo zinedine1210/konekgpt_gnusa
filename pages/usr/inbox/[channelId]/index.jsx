@@ -81,7 +81,7 @@ export default function TrainingInbox({ params }) {
       />
       <ScreenReader />
       <div className="flex">
-        <div className={`${!context.view || context.view == 1 ? 'fixed xl:relative':'hidden xl:block'} top-0 left-0 w-screen h-screen z-20 xl:w-64 xl:border-r xl:h-screen max-h-screen overflow-auto py-4 bg-gray-800`}>
+        <div className={`${!localStorage.getItem("view") || localStorage.getItem("view") == 1 ? 'fixed xl:relative':'hidden xl:block'} top-0 left-0 w-screen h-screen z-20 xl:w-64 xl:border-r xl:h-screen max-h-screen overflow-auto py-4 bg-gray-800`}>
           <label className="block text-sm xl:text-xs text-white uppercase dark:text-zinc-400 px-2">Setup Knowledge</label>
           <div className="px-2 mt-3">
             <input type="text" className="input-search w-full" placeholder="Search Menu" />
@@ -100,7 +100,7 @@ export default function TrainingInbox({ params }) {
         </div>
 
         {
-          context.view >= 2 && (
+          localStorage.getItem("view") >= 2 && (
             <>
               {
                 active == 1 && (

@@ -20,7 +20,7 @@ export default function Settings() {
     <Layout title="SETTINGS" desc="HALAMAN UTAMA">
       <Suspense fallback={"Loading"}>
         <section className="w-full bg-zinc-100 relative h-screen flex">
-          <div className={`${context.view == 2 ? "fixed top-0 left-0 w-screen h-screen z-20":"hidden xl:block"} xl:z-0 xl:relative xl:w-1/5 bg-white pt-16 mt-1`}>
+          <div className={`${localStorage.getItem("view") == 2 ? "fixed top-0 left-0 w-screen h-screen z-20":"hidden xl:block"} xl:z-0 xl:relative xl:w-1/5 bg-white pt-16 mt-1`}>
             <label className="block text-sm px-3 xl:text-xs text-zinc-500 uppercase dark:text-zinc-400">SETTINGS</label>
 
             <div className="space-y-2 mt-5 xl:mt-2">

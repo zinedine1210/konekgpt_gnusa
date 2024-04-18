@@ -117,7 +117,7 @@ export default function ChatLayout({ channelId }) {
                 <ModalCreateGroup />
             )
         }
-        <div className={`${context.view == 2 ? "fixed top-0 left-0 w-screen h-screen z-20":"hidden xl:block"} xl:z-0 xl:relative xl:w-1/4 bg-white dark:bg-darkPrimary`}>
+        <div className={`${localStorage.getItem("view") == 2 ? "fixed top-0 left-0 w-screen h-screen z-20":"hidden xl:block"} xl:z-0 xl:relative xl:w-1/4 bg-white dark:bg-darkPrimary`}>
             <div className='px-3 absolute top-0 bg-white dark:bg-darkPrimary left-0 w-full shadow-md z-20 pt-3'>
                 <div className="flex items-center justify-between">
                     <button className="xl:hidden" onClick={() => context.setData({...context, view: 1})}>
