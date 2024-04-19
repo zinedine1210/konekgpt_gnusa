@@ -41,19 +41,19 @@ export default function TableKnowledge() {
                                     </th>
 
                                     <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-zinc-500 dark:text-zinc-400">
-                                        Status
+                                        Description
                                     </th>
-
                                     <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-zinc-500 dark:text-zinc-400">
-                                        Created At
+                                        Code
                                     </th>
-
                                     <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-zinc-500 dark:text-zinc-400">
                                         Type
                                     </th>
-
+                                    <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-zinc-500 dark:text-zinc-400">
+                                        Created At
+                                    </th>
                                     <th scope="col" className="relative py-3.5 px-4">
-                                        <span className="sr-only">Edit</span>
+                                        <span className="sr-only">Action</span>
                                     </th>
                                 </tr>
                             </thead>

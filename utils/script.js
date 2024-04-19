@@ -67,11 +67,20 @@ export function getTimeAgo(timestamp) {
   }
 }
 
-export function getIdMenu(list, id){
+export function getIdMenu(list, id, asPath){
+  let final = false
   let result = null
-  list.forEach(parent => {
-    result = parent.menus.find(res => res.id == id)
-  });
+  const findOne = list.find(res => res.id == id)
+  if(findOne){
+    result = findOne['route']
+  }else{
+    list.forEach((element) => {
+      const findTwo = element.arrParent.find(res => res.id == id)
+      if(findTwo){
+        result = findTwo['route']
+      }
+    })
+  }
 
-  return result
+  if(asPath.includes(result)) return true
 }

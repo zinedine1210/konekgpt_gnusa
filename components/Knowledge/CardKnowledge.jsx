@@ -47,10 +47,10 @@ export default function CardKnowledge({item}) {
         <td className="px-4 py-4 text-sm font-medium text-zinc-700 whitespace-nowrap">
             <div className="inline-flex items-center gap-x-3">
                 <div className="flex items-center gap-x-2">
-                    <label htmlFor="Toggle2" className="inline-flex items-center space-x-4 cursor-pointer dark:text-gray-100">
+                    <label htmlFor={item.id} className="inline-flex items-center space-x-4 cursor-pointer dark:text-gray-100">
                         {/* <span>This</span> */}
                         <span className="relative">
-                            <input id="Toggle2" type="checkbox" className="hidden peer" />
+                            <input id={item.id} type="checkbox" checked disabled className="hidden peer" />
                             <div className="w-9 h-3 rounded-full shadow bg-zinc-200 dark:bg-gray-600 peer-checked:dark:bg-violet-400"></div>
                             <div className="absolute left-0 w-5 h-5 bg-green-500 rounded-full shadow -inset-y-1 peer-checked:right-0 peer-checked:left-auto dark:bg-violet-400"></div>
                         </span>
@@ -63,14 +63,11 @@ export default function CardKnowledge({item}) {
                 </div>
             </div>
         </td>
-        <td className="px-5 py-4 text-sm font-normal text-zinc-700 whitespace-nowrap">
-            <div className="flex items-center gap-2">
-                <span className="inline-block w-3 h-3 rounded-full bg-green-500"></span>
-                Active
-            </div>
+        <td className="px-5 py-4 text-sm font-normal max-w-md">
+            {item.description}
         </td>
         {/* <td className="px-4 py-4 text-sm text-zinc-500 dark:text-zinc-300 whitespace-nowrap">{moment(new Date(stuff._cd.epoch_time * 1000  )).local().format("DD MMMM YYYY, HH:mm")}</td> */}
-        <td className="px-4 py-4 text-sm text-zinc-500 dark:text-zinc-300 whitespace-nowrap">Jan 2022</td>
+        <td className="px-4 py-4 text-sm text-zinc-500 dark:text-zinc-300 whitespace-nowrap">{item.code}</td>
         <td className="px-4 py-4 text-sm text-zinc-500 dark:text-zinc-300 whitespace-nowrap">
             {item.type_training == 1 && <span className="bg-lime-100 text-lime-500 font-bold text-xs rounded-md uppercase py-1 px-3">Upload</span>}
             {item.type_training == 2 && <span className="bg-indigo-100 text-indigo-500 font-bold text-xs rounded-md uppercase py-1 px-3">Url</span>}

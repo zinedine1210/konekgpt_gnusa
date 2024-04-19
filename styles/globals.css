@@ -42,7 +42,7 @@ a {
   }
 
   .input-search {
-    @apply bg-zinc-50 text-sm py-2 px-5 transition-colors duration-300 rounded-sm disabled:bg-zinc-300 disabled:placeholder:text-black disabled:text-black outline-none border-2 hover:bg-zinc-100 focus:bg-white focus:border-lightPrimary dark:bg-black;
+    @apply bg-zinc-50 text-sm py-2 px-5 transition-colors duration-300 rounded-sm disabled:bg-zinc-300 disabled:placeholder:text-black disabled:text-black outline-none border-2 dark:border-zinc-500 dark:focus:border-lightPrimary hover:bg-zinc-100 focus:bg-white focus:border-lightPrimary dark:bg-black;
   }
   .user-avatar {
     @apply flex items-center justify-center rounded-full shadow-md font-bold;

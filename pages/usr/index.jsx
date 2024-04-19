@@ -36,7 +36,7 @@ export default function Dashboard() {
                   Now
                 </div>
               </div>
-              <div className="flex items-center justify-between bg-white px-5 rounded-md shadow-md h-full">
+              <div className="flex items-center justify-between bg-white py-5 xl:py-0 dark:bg-darkPrimary px-5 rounded-md shadow-md h-full">
                 <div>
                   <h1 className="text-zinc-500 dark:text-zinc-300 font-bold text-xl mb-2">New Clients</h1>
                   <p className="font-bold text-black dark:text-white text-4xl">+3.500 <span className="text-lime-500 font-bold text-xl">+2%</span></p>
@@ -45,7 +45,7 @@ export default function Dashboard() {
                   <BsGlobe className="text-white text-3xl"/>
                 </div>
               </div>
-              <div className="flex items-center justify-between bg-white p-5 rounded-md shadow-md h-full">
+              <div className="flex items-center justify-between bg-white py-5 xl:py-0 dark:bg-darkPrimary p-5 rounded-md shadow-md h-full">
                 <div>
                   <h1 className="text-zinc-500 dark:text-zinc-300 font-bold text-xl mb-2">{"Today's Users"}</h1>
                   <p className="font-bold text-black dark:text-white text-4xl">+300 <span className="text-lime-500 font-bold text-xl">+20%</span></p>
@@ -54,7 +54,7 @@ export default function Dashboard() {
                   <FaUser className="text-white text-3xl"/>
                 </div>
               </div>
-              <div className="flex items-center justify-between bg-white p-5 rounded-md shadow-md h-full">
+              <div className="flex items-center justify-between bg-white py-5 xl:py-0 dark:bg-darkPrimary p-5 rounded-md shadow-md h-full">
                 <div>
                   <h1 className="text-zinc-500 dark:text-zinc-300 font-bold text-xl mb-2">Inbox</h1>
                   <p className="font-bold text-black dark:text-white text-4xl">30 <span className="text-red-500 font-bold text-xl">-2%</span></p>

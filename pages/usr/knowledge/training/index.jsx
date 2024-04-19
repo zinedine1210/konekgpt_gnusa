@@ -16,8 +16,8 @@ export default function HalamanTraining() {
     <Layout title={"Training"}>
       <Suspense fallback={"Loading"}>
         <div className="px-5 xl:px-10 pt-20">
-          <label className="text-sm font-bold text-zinc-600 uppercase dark:text-zinc-400">Knowledge Base</label>
-          <p className="text-sm text-zinc-500 font-light">Your AI understands many topics, but you can add specific knowledge about your company or products to supplement it.</p>
+          <label className="text-sm font-bold text-zinc-600 uppercase dark:text-white">Knowledge Base</label>
+          <p className="text-sm text-zinc-500 dark:text-zinc-300 font-light">Your AI understands many topics, but you can add specific knowledge about your company or products to supplement it.</p>
 
           <div className="flex gap-5">
             <div className={`my-5 w-full ${context.modal ? context.modal.name == "simulationKnowledge" ? "xl:w-auto":"xl:w-full":""}`}>

@@ -45,9 +45,23 @@ export default function LayoutSidebar() {
   }
 
   const getId = () => {
-    if(context.menus){
-      const id = context.menus.find(res => res.route == router.asPath)?.['id']
-      return id
+    if(context.menus && m){
+      let dataResult = null
+      const thisPath = router.pathname;
+      context.menus.forEach(element => {
+        element.menus.forEach((element2) => {
+          if(element2.route == thisPath){
+            dataResult = element2
+          }else{
+            element2.arrParent.forEach((element3) => {
+              if(element3.route == thisPath){
+                dataResult = element3
+              }
+            })
+          }
+        })
+      });
+      return dataResult['id']
     }
   }
 

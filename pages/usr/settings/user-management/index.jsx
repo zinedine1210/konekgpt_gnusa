@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function UserManagement() {
   return (
-    <Layout title={"Halo"}>
+    <Layout title={"UserManagement"}>
         
     </Layout>
   )
