@@ -28,8 +28,8 @@ export default function SessionChat(){
 
     useEffect(() => {
         ScrollOnTop()
-    }, []);
-
+    }, [])
+    
 
     return (
         <>

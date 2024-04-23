@@ -1,10 +1,7 @@
 import { MyContext } from '@/context/MyProvider'
 import WhatsappRepository from '@/repositories/WhatsappRepository'
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { FaUser, FaVideo } from 'react-icons/fa'
 import { HiOutlineArrowSmRight } from 'react-icons/hi'
-import { IoDocument, IoImage, IoLocation } from 'react-icons/io5'
-import { TfiClip } from 'react-icons/tfi'
 import Swal from 'sweetalert2'
 
 export default function EditorPersonal(props) {
@@ -46,6 +43,9 @@ export default function EditorPersonal(props) {
         console.log(result);
         if(result.success){
             let getOneDataFromMe = JSON.parse(JSON.stringify(detail.messages.find(res => res.channel_identity == res.user_id)))
+            if(!getOneDataFromMe){
+                getOneDataFromMe = JSON.parse(JSON.stringify(detail.messages[0]))
+            }
             getOneDataFromMe.msg = data
             detail.messages.push(getOneDataFromMe)
             context.setData({...context, chatDetail:detail})

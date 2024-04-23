@@ -8,7 +8,7 @@ export default function InformationInbox({ data }) {
   }
   
   return (
-    <div>
+    <div className="p-2 xl:p-10">
         <h1 className="font-bold text-lg xl:text-xl">Information</h1>
         <p className="font-light text-xs xl:text-sm">Knowledge information that you are currently using</p>
 
@@ -19,23 +19,23 @@ export default function InformationInbox({ data }) {
               <div className="bg-white dark:bg-darkPrimary rounded-md shadow-md w-full xl:w-1/3 p-5 font-mono text-xs xl:text-sm space-y-1">
                 <div className="flex items-center justify-between">
                   <h1 className="font-semibold text-blue-500 dark:text-blue-300">Name</h1>
-                  <p>{knowledge.name}</p>
+                  <p>{knowledge?.name}</p>
                 </div>
                 <div className="flex items-center justify-between">
                   <h1 className="font-semibold text-blue-500 dark:text-blue-300">Code</h1>
-                  <p>{knowledge.code}</p>
+                  <p>{knowledge?.code}</p>
                 </div>
                 <div className="flex items-center justify-between">
                   <h1 className="font-semibold text-blue-500 dark:text-blue-300">Type Training</h1>
-                  <p>{typeTraining[knowledge.type_training]}</p>
+                  <p>{typeTraining[knowledge?.type_training]}</p>
                 </div>
                 <div className="flex items-center justify-between">
                   <h1 className="font-semibold text-blue-500 dark:text-blue-300">ORG ID</h1>
-                  <p>{knowledge.org_id}</p>
+                  <p>{knowledge?.org_id}</p>
                 </div>
                 <div>
                   <h1 className="font-semibold text-blue-500 dark:text-blue-300">Description</h1>
-                  <p className="mt-2 border dark:border-zinc-500 rounded-md px-2 py-3">{knowledge.description}</p>
+                  <p className="mt-2 border dark:border-zinc-500 rounded-md px-2 py-3">{knowledge?.description}</p>
                 </div>
               </div>
               {

@@ -93,7 +93,7 @@ export default function LayoutSidebar() {
     <div className='flex'>
       <Sidebar1 />
       {
-        subMenus ? subMenus.arrParent.length > 0 && (
+        subMenus ? subMenus?.arrParent.length > 0 && (
           <SubMenu menus={subMenus.arrParent}/>
         )
         :""

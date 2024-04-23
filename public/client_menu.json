@@ -193,7 +193,7 @@
         "route": "/usr/inbox",
         "name": "Inbox",
         "flag": "content",
-        "show": true
+        "show": false
       },
       {
         "description": "",

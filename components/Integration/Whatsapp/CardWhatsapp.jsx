@@ -241,8 +241,9 @@ function InformationKnowledge({ item }){
     }
 
     const gotoInbox = async () => {
+        localStorage.setItem("view", 1)
         if(item.active){
-            router.push(`/usr/inbox/${item.id}?m=clm_inbox`, undefined, {
+            router.push(`/usr/inbox/${item.knowledge_id}?m=clm_inbox`, undefined, {
                 shallow: true,
                 target: "_blank"
             })

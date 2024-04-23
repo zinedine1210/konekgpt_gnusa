@@ -7,7 +7,7 @@ import KnowledgeRepository from "@/repositories/KnowledgeRepository"
 import DetailChat from "./DetailChat"
 import InfoPersonal from "./InfoPersonal"
 
-export default function ChatLayout({ channelId }) {
+export default function ChatLayout({ knowledgeId }) {
     const context = useContext(MyContext)
     const dropRef = useRef(null)
     const [open, setOpen] = useState(false)
@@ -30,13 +30,14 @@ export default function ChatLayout({ channelId }) {
     }, [context.allChatList])
 
     const getChatTry = async () => {    
+        console.log("chat try")
         const result = await KnowledgeRepository.getChatByKnowledge({
-          id: channelId,
+          id: knowledgeId,
           xa: {
             XA: JSON.parse(localStorage.getItem("XA"))
           }
         })
-        const getChannelData = JSON.parse(localStorage.getItem("whatsappChannel")).find(res => res.knowledge_id == channelId)
+        const getChannelData = JSON.parse(localStorage.getItem("whatsappChannel")).find(res => res.knowledge_id == knowledgeId)
         const filterMyMessage = result.data.res.filter(res => res.channel_identity == getChannelData.identity).reverse()
         // kelola data
         let arr = []
@@ -86,6 +87,8 @@ export default function ChatLayout({ channelId }) {
                 })
             })
         }
+
+        console.log(arr)
         context.setData((prev) => ({
             ...prev,
             allChatList: arr.reverse(),
@@ -109,6 +112,10 @@ export default function ChatLayout({ channelId }) {
         localStorage.setItem("draftChatList", JSON.stringify(replaceChatlist))
     }
 
+    const handleClose = () => {
+        context.setData({...context, view: 1})
+        localStorage.setItem("view", 1)
+    }
 
   return (
     <div className="w-full bg-zinc-100 dark:bg-dark relative h-screen flex">
@@ -120,7 +127,7 @@ export default function ChatLayout({ channelId }) {
         <div className={`${localStorage.getItem("view") == 2 ? "fixed top-0 left-0 w-screen h-screen z-20":"hidden xl:block"} xl:z-0 xl:relative xl:w-1/4 bg-white dark:bg-darkPrimary`}>
             <div className='px-3 absolute top-0 bg-white dark:bg-darkPrimary left-0 w-full shadow-md z-20 pt-3'>
                 <div className="flex items-center justify-between">
-                    <button className="xl:hidden" onClick={() => context.setData({...context, view: 1})}>
+                    <button className="xl:hidden" onClick={() => handleClose()}>
                     <BsChevronLeft/>
                     </button>
                     <label className="block text-sm px-3 xl:text-xs text-zinc-500 uppercase dark:text-zinc-400">INBOX</label>
@@ -185,7 +192,7 @@ export default function ChatLayout({ channelId }) {
         </div>
         {
             context.chatDetail && (
-                <DetailChat />
+                <DetailChat getChatTry={() => getChatTry()}/>
             )
         }
         {

@@ -1,8 +1,10 @@
 import KnowledgeRepository from "@/repositories/KnowledgeRepository"
 import Link from "next/link"
+import { useRouter } from "next/router"
 import Swal from "sweetalert2"
 
-export default function CardSelectKnowledge({ item, channelId, active=true }) {
+export default function CardSelectKnowledge2({ item, channelId, active=true }) {
+    const router = useRouter()
     const handleSelectKnowledge = async (itemKnowledge) => {
         let obj = {
             "knowledge_id": itemKnowledge.id, //diambil dari knowledge id
@@ -20,12 +22,16 @@ export default function CardSelectKnowledge({ item, channelId, active=true }) {
             let updateChannel = JSON.parse(localStorage.getItem("whatsappChannel"))
             updateChannel = updateChannel.filter(res => res.id !== channelId)
             updateChannel.push(result.data)
-            localStorage.setItem("whatsappChannel", JSON.stringify(updateChannel)) 
-            window.location.reload()
+            localStorage.setItem("whatsappChannel", JSON.stringify(updateChannel))
+            router.push(`/usr/inbox/${itemKnowledge.id}?m=clm_inbox`)
+            setTimeout(() => {
+                router.reload()
+            }, 3000);
             Swal.fire({
                 icon: "info",
                 position: "top-end",
                 title: "Success Updated",
+                text: "Within 3 seconds you will be directed to the related page",
                 showCloseButton: false
             })
         }else{
