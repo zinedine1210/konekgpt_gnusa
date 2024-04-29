@@ -92,8 +92,8 @@ export default function ModalQRWhatsapp(props) {
       const response = await WhatsappRepository.statusSession({id:id})
       if(response.success && response.data.status == "authenticated"){
         setConnect(true)
-        console.log("hallo")
         setData(null)
+        setId(null)
         setTimeout(() => {
           insertChannel(id)
         }, 5000);

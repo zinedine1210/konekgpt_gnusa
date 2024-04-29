@@ -115,7 +115,7 @@ export default function TrainingInbox({ params }) {
           {
             active <= 1 && (
               <>
-                <ChatLayout knowledgeId={knowledgeId}/>
+                <ChatLayout knowledgeId={knowledgeId} allData={data}/>
               </>
             )
           }

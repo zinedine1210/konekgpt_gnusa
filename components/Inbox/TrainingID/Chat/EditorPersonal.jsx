@@ -42,7 +42,7 @@ export default function EditorPersonal(props) {
         })
         console.log(result);
         if(result.success){
-            let getOneDataFromMe = JSON.parse(JSON.stringify(detail.messages.find(res => res.channel_identity == res.user_id)))
+            let getOneDataFromMe = detail.messages.find(res => res.channel_identity == res.user_id) ?? JSON.parse(JSON.stringify(detail.messages.find(res => res.channel_identity == res.user_id)))
             if(!getOneDataFromMe){
                 getOneDataFromMe = JSON.parse(JSON.stringify(detail.messages[0]))
             }

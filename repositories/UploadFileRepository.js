@@ -64,11 +64,6 @@ class UploadFileRepository {
     }
 
 
-    // AuthRepository.getFile({XA:getXa, table:"ktp", refKey:res.data.id, size:"m"}).then(res => {
-    //     setKtp(res._ktp)
-    // })
-    // https://adm.kmus.org/koperasi
-
     async getFile(params){
         const reponse = await Repository.get(
             `${baseUrl}/dms/rdb/browsebykey/${params.table}/${params.refKey}?mode=1&presigned=${params.size}`,
@@ -91,6 +86,29 @@ class UploadFileRepository {
         });
         return reponse;
     }    
+
+    async deleteMetadata(params){
+        const reponse = await Repository.delete(
+            `${baseUrl}/dmsv2/rdb/del/${params.uid}`,
+            { 
+                headers: {
+                    XA:params.XA
+                },
+                contentType:"application/cbor",
+                responseType: "arraybuffer"
+            }
+        ).then((response) => {
+            let result = cbor.decode(response.data)
+            return result;
+            // return response
+        })
+        .catch((error) => {
+            // let result = cbor.decode(error.response.data)
+            // return result;
+            return error
+        });
+        return reponse;
+    }
 }
 
 export default new UploadFileRepository();

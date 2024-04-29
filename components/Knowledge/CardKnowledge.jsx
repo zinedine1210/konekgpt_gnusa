@@ -2,8 +2,8 @@ import { MyContext } from "@/context/MyProvider";
 import KnowledgeRepository from "@/repositories/KnowledgeRepository";
 import Link from "next/link";
 import { useContext } from "react";
-import { BsChatQuote, BsChatQuoteFill, BsInbox, BsInboxFill, BsPencilFill } from "react-icons/bs";
-import { IoEyeSharp, IoTrash } from "react-icons/io5";
+import { BsChatQuoteFill, BsInboxFill, BsPencilFill } from "react-icons/bs";
+import { IoTrash } from "react-icons/io5";
 import Swal from "sweetalert2";
 
 export default function CardKnowledge({item}) {
@@ -47,15 +47,13 @@ export default function CardKnowledge({item}) {
         <td className="px-4 py-4 text-sm font-medium text-zinc-700 whitespace-nowrap">
             <div className="inline-flex items-center gap-x-3">
                 <div className="flex items-center gap-x-2">
-                    <label htmlFor={item.id} className="inline-flex items-center space-x-4 cursor-pointer dark:text-gray-100">
-                        {/* <span>This</span> */}
+                    {/* <label htmlFor={item.id} className="inline-flex items-center space-x-4 cursor-pointer dark:text-gray-100">
                         <span className="relative">
                             <input id={item.id} type="checkbox" checked disabled className="hidden peer" />
                             <div className="w-9 h-3 rounded-full shadow bg-zinc-200 dark:bg-gray-600 peer-checked:dark:bg-violet-400"></div>
                             <div className="absolute left-0 w-5 h-5 bg-green-500 rounded-full shadow -inset-y-1 peer-checked:right-0 peer-checked:left-auto dark:bg-violet-400"></div>
                         </span>
-                        {/* <span>That</span> */}
-                    </label>
+                    </label> */}
                     <div>
                         <h2 className="font-normal text-zinc-800 dark:text-white ">{item.name}</h2>
                         <p className="text-xs font-normal text-zinc-500 dark:text-zinc-400">{item.id}</p>
@@ -82,11 +80,16 @@ export default function CardKnowledge({item}) {
                     <BsPencilFill />
                 </button>
             </Link>
-            {/* <Link href={`/usr/inbox/${item.id}?m=clm_inbox`} target="_blank" shallow>
+            {/* <Link href={`/usr/knowledge/simulation?id=${item.id}&m=clm_knowledge`} target="_blank" shallow>
                 <button className="p-2 text-purple-500 transition-colors duration-200 rounded-lg dark:text-purple-300 hover:bg-purple-100">
                     <BsInboxFill className="text-base"/>
                 </button>
             </Link> */}
+            <Link href={`/usr/knowledge/simulation?id=${item.id}&m=clm_knowledge`}>
+                <button className="p-2 text-purple-500 transition-colors duration-200 rounded-lg dark:text-purple-300 hover:bg-purple-100">
+                    <BsInboxFill className="text-base"/>
+                </button>
+            </Link>
             <button onClick={() => context.setData({...context, view:3, modal:{name:"simulationKnowledge", data:item}})} className="p-2 text-indigo-500 transition-colors duration-200 rounded-lg dark:text-indigo-300 hover:bg-indigo-100">
                 <BsChatQuoteFill className="text-base"/>
             </button>

@@ -1,10 +1,22 @@
 import { MyContext } from '@/context/MyProvider'
+import UploadFileRepository from '@/repositories/UploadFileRepository'
 import moment from 'moment'
 import React, { useContext } from 'react'
 import { BsEye } from 'react-icons/bs'
 
 export default function CardAttach({file, handlerCheckbox, collect}) {
     const context = useContext(MyContext)
+
+    const handleDelete = async () => {
+        console.log(file)
+        const result = await UploadFileRepository.deleteMetadata({
+            uid: file?.id,
+            XA: JSON.parse(localStorage.getItem("XA"))
+        })
+
+        console.log(result)
+    }
+    
 
   return (
     <tr>
@@ -48,7 +60,7 @@ export default function CardAttach({file, handlerCheckbox, collect}) {
             <button onClick={() => context.setData({...context, modal:{name:"insertKnowledge", files:[file.id]}})} className="bg-yellow-100 dark:bg-yellow-500 dark:hover:bg-yellow-600 p-2 text-zinc-500 transition-colors duration-200 rounded-lg dark:text-white hover:bg-yellow-200">
                 Training
             </button>
-            <button onClick={() => alert("No function available")} className="bg-red-100 dark:bg-red-500 dark:hover:bg-red-600 p-2 text-zinc-500 transition-colors duration-200 rounded-lg dark:text-white hover:bg-red-200">
+            <button onClick={() => handleDelete()} className="bg-red-100 dark:bg-red-500 dark:hover:bg-red-600 p-2 text-zinc-500 transition-colors duration-200 rounded-lg dark:text-white hover:bg-red-200">
                 Delete
             </button>
         </td>

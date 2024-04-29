@@ -2,8 +2,6 @@ import { useContext, useEffect, useState } from "react"
 import { MyContext } from "@/context/MyProvider"
 import KnowledgeRepository from "@/repositories/KnowledgeRepository"
 import CardAttach from "./CardAttach"
-import UploadFileRepository from "@/repositories/UploadFileRepository"
-import ModalInsertKnowledge from "./ModalInsertKnowledge"
 
 export default function TableAttachments({collect, setCollect}) {
     const context = useContext(MyContext)

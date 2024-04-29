@@ -6,6 +6,7 @@ import WhatsappRepository from "@/repositories/WhatsappRepository"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useContext, useEffect, useRef, useState } from "react"
+import { BsX } from "react-icons/bs"
 import { FaEye, FaPowerOff, FaTrash, FaWhatsapp } from "react-icons/fa"
 import Swal from "sweetalert2"
 
@@ -15,11 +16,6 @@ export default function CardWhatsapp(props) {
     const dropRef = useRef(null)
     const [open, setOpen] = useState(false)
 
-    const handleOutsideClick = (event) => {
-        if (dropRef.current && !dropRef.current.contains(event.target)) {
-            setOpen(false);
-        }
-    };
 
     useEffect(() => {
         async function getStatus(){
@@ -43,13 +39,6 @@ export default function CardWhatsapp(props) {
         getStatus()
 
     }, [context.modal])
-
-    useEffect(() => {
-        document.addEventListener('mousedown', handleOutsideClick);
-        return () => {
-            document.removeEventListener('mousedown', handleOutsideClick);
-        };
-    }, [])
 
     const handlerDeleteSession = () => {
         if(status == "authenticated"){
@@ -175,9 +164,9 @@ export default function CardWhatsapp(props) {
     }
 
   return (
-    <div ref={dropRef}>
+    <div>
         <div className="border-2 border-zinc-300 p-2 xl:p-4 flex items-center justify-between">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2" onClick={() => setOpen(!open)}>
                 <FaWhatsapp className="text-green-500 text-2xl"/>
                 <div>
                     <p className="dark:text-zinc-300 text-zinc-500 tracking-wider text-xs uppercase">{props.item?.name}</p>
@@ -196,7 +185,7 @@ export default function CardWhatsapp(props) {
                 <button title="Delete Session" onClick={() => handlerDeleteSession()}>
                     <FaTrash className="text-red-500"/>
                 </button>
-                <button title="Information Session" onClick={() => setOpen(!open)} className="btn-primary">
+                <button title="Information Session" onClick={() => setOpen(!open)} className="hidden xl:btn-primary">
                     <FaEye className="text-white"/>
                     <h1 className="hidden xl:block">{props.item?.knowledge_id ? "Info":"Connect"}</h1>
                 </button>
@@ -204,14 +193,14 @@ export default function CardWhatsapp(props) {
         </div>
 
         {
-            open && <InformationKnowledge item={props.item}/>
+            open && <InformationKnowledge item={props.item} setOpen={() => setOpen(false)}/>
         }
     </div>
   )
 }
 
 
-function InformationKnowledge({ item }){
+function InformationKnowledge({ item, setOpen }){
     const context = useContext(MyContext)
     const [data, setData] = useState(null)
     const [loading, setLoading] = useState(false)
@@ -266,7 +255,7 @@ function InformationKnowledge({ item }){
                     {
                         data ?
                         <div className="w-full py-5">
-                            <button onClick={() => setData(null)} className="text-red-500 pb-5 font-bold">Cancel</button>
+                            <button onClick={() => setData(null)} className="badge-red"><BsX className="text-xl" />Cancel</button>
                             <div className="grid grid-cols-1 gap-2 w-full">
                                 {
                                     data.map((item2, i) => {
@@ -282,6 +271,7 @@ function InformationKnowledge({ item }){
                         </div>
                         :
                             <div className="w-full py-5 text-sm space-y-3">
+                                <button onClick={() => setOpen()} className="badge-red"><BsX className="text-xl" />Close</button>
                                 <div className="flex items-center gap-5">
                                     Knowledge ID : 
                                     <p className="font-bold">{item.knowledge_id}</p>
@@ -340,7 +330,10 @@ function InformationKnowledge({ item }){
                             </div>
                         </>
                         :
-                        <button className="btn-primary mt-5" disabled={loading} onClick={() => handleConnect()}>{!loading ? "Connect Now":"Loading..."}</button>
+                        <div className="flex items-center gap-2 mt-5">
+                            <button className="btn-primary" disabled={loading} onClick={() => handleConnect()}>{!loading ? "Connect Now":"Loading..."}</button>
+                            <button className="btn-secondary" onClick={() => setOpen()}>Close</button>
+                        </div>
                     }
                 </div>
             }

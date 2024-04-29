@@ -7,10 +7,11 @@ import KnowledgeRepository from "@/repositories/KnowledgeRepository"
 import DetailChat from "./DetailChat"
 import InfoPersonal from "./InfoPersonal"
 
-export default function ChatLayout({ knowledgeId }) {
+export default function ChatLayout({ knowledgeId, allData }) {
     const context = useContext(MyContext)
     const dropRef = useRef(null)
     const [open, setOpen] = useState(false)
+    const [keyword, setKeyword] = useState("")
 
     const handleOutsideClick = (event) => {
         if (dropRef.current && !dropRef.current.contains(event.target)) {
@@ -19,7 +20,7 @@ export default function ChatLayout({ knowledgeId }) {
     };
 
     useEffect(() => {
-        if(!context.allChatList){
+        if(!context.allChatList && allData?.channelInformation){
             getChatTry()
         }
 
@@ -27,18 +28,21 @@ export default function ChatLayout({ knowledgeId }) {
         return () => {
             document.removeEventListener('mousedown', handleOutsideClick);
         };
-    }, [context.allChatList])
+    }, [context.allChatList, allData.channelInformation])
 
     const getChatTry = async () => {    
-        console.log("chat try")
+        // console.log("chat try")
         const result = await KnowledgeRepository.getChatByKnowledge({
           id: knowledgeId,
           xa: {
             XA: JSON.parse(localStorage.getItem("XA"))
           }
         })
-        const getChannelData = JSON.parse(localStorage.getItem("whatsappChannel")).find(res => res.knowledge_id == knowledgeId)
-        const filterMyMessage = result.data.res.filter(res => res.channel_identity == getChannelData.identity).reverse()
+
+        let filterMyMessage = result.data.res
+        allData.channelInformation.forEach(el => {
+            filterMyMessage = filterMyMessage.filter(res => res.channel_identity == el.identity).reverse()
+        })
         // kelola data
         let arr = []
         filterMyMessage.forEach((el) => {
@@ -57,7 +61,7 @@ export default function ChatLayout({ knowledgeId }) {
                     find.messages.push(el)
                 }else{
                     obj['from'] = el.to_id
-                    obj['fromName'] = el.to_name
+                    obj['fromName'] = el.user_name
                     arr.push(obj)
                 }
             }else{
@@ -87,7 +91,7 @@ export default function ChatLayout({ knowledgeId }) {
                 })
             })
         }
-
+        
         console.log(arr)
         context.setData((prev) => ({
             ...prev,
@@ -136,22 +140,29 @@ export default function ChatLayout({ knowledgeId }) {
                             <FaEllipsisV className="text-zinc-500 text-sm"/>
                         </button>
                         <div className={`${open ? "":"hidden"} absolute top-full right-0 shadow-md rounded-md backdrop-blur-md w-44`}>
-                            <button onClick={() => context.setData({...context, modal:"modalcreategroup"})} className="hover:bg-blue-100 px-3 py-2 text-sm w-full text-start">
+                            {/* <button onClick={() => context.setData({...context, modal:"modalcreategroup"})} className="hover:bg-blue-100 px-3 py-2 text-sm w-full text-start">
                                 Create Group
-                            </button>
+                            </button> */}
                             <button onClick={() => context.setData({...context, allChatList:null})} className="hover:bg-blue-100 px-3 py-2 text-sm w-full text-start">
                                 Refresh Chat List
                             </button>
                         </div>
                     </div>
                 </div>
-                <input type="text" disabled={context.allChatList ? false:true} onChange={(e) => handlerKeyword(e.target.value)} name="" id="" className='input-search w-full my-2' placeholder='Search by Number or Last Message' />
+                <input type="text" disabled={context.allChatList ? false:true} onChange={(e) => setKeyword(e.target.value)} name="" id="" className='input-search w-full my-2' placeholder='Search by Name or Number or Last Message' />
             </div>
             <div className="max-h-screen overflow-auto absolute top-0 left-0 w-full pt-24 dark:bg-darkPrimary">
                 {
                     context.allChatList ?
                     context.allChatList.length > 0 ?
-                    context.allChatList.map((chatList, i) => {
+                    context.allChatList.filter(res => {
+                        if(
+                            res?.fromName.toLowerCase().includes(keyword.toLowerCase()) ||
+                            res?.from.toString().toLowerCase().includes(keyword.toLowerCase()) ||
+                            res?.messages[0].msg.toLowerCase().includes(keyword.toLowerCase())
+                        ) return true
+                        return false
+                    }).map((chatList, i) => {
                         return (
                             <button key={i} onClick={() => handlerDetailChat(chatList)} className="text-start w-full hover:bg-zinc-100 transition-all duration-300 border-b p-2 flex gap-2 cursor-pointer relative">
                                 <span className="bg-zinc-200 dark:bg-dark w-8 h-8 rounded-full flex items-center justify-center">
