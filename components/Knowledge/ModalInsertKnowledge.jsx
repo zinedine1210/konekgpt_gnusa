@@ -14,6 +14,7 @@ export default function ModalInsertKnowledge() {
     name: "",
     code: "",
     description: "",
+    prompt: ""
   });
 
   const handlerSubmit = async (e) => {
@@ -116,16 +117,35 @@ export default function ModalInsertKnowledge() {
             >
               Description <span className="text-red-500">*</span>
             </label>
-            <input
+            <textarea 
               onChange={(e) =>
                 setData({ ...data, description: e.target.value })
               }
               value={data.description}
               id="description"
-              type="text"
               className="input-search w-full"
-              placeholder="Description"
-            />
+              placeholder="Description of knowledge"
+              required
+            >
+            </textarea>
+          </div>
+          <div>
+            <label
+              htmlFor="prompt"
+              className="font-bold inline-block mb-2 text-sm"
+            >
+              Prompt
+            </label>
+            <textarea 
+              onChange={(e) =>
+                setData({ ...data, prompt: e.target.value })
+              }
+              value={data.prompt}
+              id="prompt"
+              className="input-search w-full"
+              placeholder="Exp. If you don't know the answer, just say 'Saya tidak tahu'"
+            >
+            </textarea>
           </div>
 
           {loading ? (

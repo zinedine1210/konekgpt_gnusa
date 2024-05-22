@@ -1,6 +1,7 @@
 import axios from 'axios';
 import cbor from 'cbor';
 import { baseUrl, customHeaders } from './Repository';
+import Swal from 'sweetalert2';
 
 class AuthRepository {
     constructor() {
@@ -81,6 +82,17 @@ class AuthRepository {
         )
         .then((response) => {
             let result = cbor.decode(response.data)
+            if(result.status == -1 && result.message == "Token Expired"){
+                localStorage.removeItem("XA")
+                Swal.fire({
+                    icon: "info",
+                    title: "Your token expired",
+                    text: "Please relog, you will redirect to login page",
+                    position: "top-right",
+                    timer: 3000
+                })
+                window.location.reload()
+            }
             return result;
         })
         .catch((error) => {

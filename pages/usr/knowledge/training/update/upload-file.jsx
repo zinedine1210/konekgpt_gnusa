@@ -145,16 +145,36 @@ export default function UpdateUploadFile() {
                       >
                         Description <span className="text-red-500">*</span>
                       </label>
-                      <input
+                      <textarea 
                         onChange={(e) =>
                           setData({ ...data, description: e.target.value })
                         }
                         value={data.description}
                         id="description"
-                        type="text"
+                        required
                         className="input-search w-full"
-                        placeholder="Description"
-                      />
+                        placeholder="Update your description knowledge"
+                      >
+                      </textarea>
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="prompt"
+                        className="font-bold inline-block mb-2 text-sm"
+                      >
+                        Prompt
+                      </label>
+                      <textarea 
+                        onChange={(e) =>
+                          setData({ ...data, prompt: e.target.value })
+                        }
+                        value={data.prompt}
+                        id="prompt"
+                        required
+                        className="input-search w-full"
+                        placeholder="Exp. If you don't know the answer, just say 'Saya tidak tahu'"
+                      >
+                      </textarea>
                     </div>
                     {loading ? (
                       <div role="status">

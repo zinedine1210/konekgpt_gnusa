@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2';
 import Repository, { baseUrl } from './Repositorycopy';
 import cbor from 'cbor';
 
@@ -15,6 +16,17 @@ class ChannelRepository {
         )
         .then((response) => {
             const data = cbor.decode(response.data)
+            if(data.status == -1 && data.message == "Token Expired"){
+                localStorage.removeItem("XA")
+                Swal.fire({
+                    icon: "info",
+                    title: "Your token expired",
+                    text: "Please relog, you will redirect to login page",
+                    position: "top-right",
+                    timer: 3000
+                })
+                window.location.reload()
+            }
             return data;
         })
         .catch((error) => {
@@ -37,6 +49,17 @@ class ChannelRepository {
         )
         .then((response) => {
             const data = cbor.decode(response.data)
+            if(data.status == -1 && data.message == "Token Expired"){
+                localStorage.removeItem("XA")
+                Swal.fire({
+                    icon: "info",
+                    title: "Your token expired",
+                    text: "Please relog, you will redirect to login page",
+                    position: "top-right",
+                    timer: 3000
+                })
+                window.location.reload()
+            }
             return data;
         })
         .catch((error) => {
@@ -59,6 +82,17 @@ class ChannelRepository {
         )
         .then((response) => {
             const data = cbor.decode(response.data)
+            if(data.status == -1 && data.message == "Token Expired"){
+                localStorage.removeItem("XA")
+                Swal.fire({
+                    icon: "info",
+                    title: "Your token expired",
+                    text: "Please relog, you will redirect to login page",
+                    position: "top-right",
+                    timer: 3000
+                })
+                window.location.reload()
+            }
             return data;
         })
         .catch((error) => {
@@ -79,6 +113,17 @@ class ChannelRepository {
         )
         .then((response) => {
             const data = cbor.decode(response.data)
+            if(data.status == -1 && data.message == "Token Expired"){
+                localStorage.removeItem("XA")
+                Swal.fire({
+                    icon: "info",
+                    title: "Your token expired",
+                    text: "Please relog, you will redirect to login page",
+                    position: "top-right",
+                    timer: 3000
+                })
+                window.location.reload()
+            }
             return data;
         })
         .catch((error) => {
@@ -100,6 +145,17 @@ class ChannelRepository {
         )
         .then((response) => {
             const data = cbor.decode(response.data)
+            if(data.status == -1 && data.message == "Token Expired"){
+                localStorage.removeItem("XA")
+                Swal.fire({
+                    icon: "info",
+                    title: "Your token expired",
+                    text: "Please relog, you will redirect to login page",
+                    position: "top-right",
+                    timer: 3000
+                })
+                window.location.reload()
+            }
             return data;
         })
         .catch((error) => {
