@@ -1,3 +1,4 @@
+import { data } from 'autoprefixer';
 import Repository, { baseUrl } from './Repositorycopy';
 import cbor from 'cbor';
 
@@ -88,9 +89,11 @@ class UploadFileRepository {
     }    
 
     async deleteMetadata(params){
+        const data = cbor.encode(params.data)
         const reponse = await Repository.delete(
-            `${baseUrl}/dmsv2/rdb/del/${params.uid}`,
+            `${baseUrl}/dmsv2/rdb/del`,
             { 
+                data: data,
                 headers: {
                     XA:params.XA
                 },

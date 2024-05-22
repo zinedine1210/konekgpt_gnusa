@@ -17,12 +17,6 @@ export default function TableAttachments({collect, setCollect}) {
         const getXA = JSON.parse(localStorage.getItem("XA"))
         const result = await KnowledgeRepository.getListFileKnowledge({XA:getXA})
         console.log("get list file =>", result.data);
-
-        // const getXa = JSON.parse(localStorage.getItem("XA"))
-        // const dataone = await UploadFileRepository.getFile({XA:getXa, table:"knowledge", refKey:result.data[0]?.id, size:"m"})
-        // console.log("dataone", dataone); 
-        // setData(dataone)
-        
         if(result?.status == 0){
             context.setData({...context, dataFilesKnowledge:result.data})
         }

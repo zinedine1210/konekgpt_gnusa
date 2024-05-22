@@ -1,12 +1,11 @@
 import Layout from '@/components/Layouts/Layout'
 import { MyContext } from '@/context/MyProvider'
 import KnowledgeRepository from '@/repositories/KnowledgeRepository'
-import UploadFileRepository from '@/repositories/UploadFileRepository'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { Suspense, useContext, useEffect, useState } from 'react'
-import { BsChat, BsChatLeftQuote, BsFile, BsFilePdf, BsFilePdfFill, BsFileWordFill } from 'react-icons/bs'
-import { FaHandPaper } from 'react-icons/fa'
+import { BsFile, BsFilePdfFill, BsFileWordFill } from 'react-icons/bs'
+import Typewriter from 'typewriter-effect';
 import { HiOutlineArrowSmRight, HiX } from 'react-icons/hi'
 
 export default function HalamanSimulation() {
@@ -33,9 +32,8 @@ export default function HalamanSimulation() {
             "text": defaultValue ?? value
         }
         const result = await KnowledgeRepository.simulationKnowledge({xa:{XA:JSON.parse(localStorage.getItem("XA"))}, data:obj})
-        console.log(result);
         if(result?.type == "success"){
-            setText([...text, {me:true, text:defaultValue ?? value}, {me:false, text:result.data}])
+            setText([...text, {me:true, text:defaultValue ?? value}, {me:false, text:result.data, effect: true}])
             setLoading(false)
             setValue("")
         }
@@ -49,6 +47,7 @@ export default function HalamanSimulation() {
                 XA: JSON.parse(localStorage.getItem("XA"))
             }
         })
+        console.log(result)
 
         let resultData = result?.data
         if(result?.status == 0 && resultData){
@@ -72,8 +71,10 @@ export default function HalamanSimulation() {
                     }
                 })
                 resultData._files = allFilesByID
-                console.log(resultData)
+            }else{
+                setOpen(false)
             }
+            console.log(resultData)
             setData(resultData)
         }else{
             alert("Something went wrong, or nothing data found")
@@ -89,17 +90,18 @@ export default function HalamanSimulation() {
     <Layout title={"Training"}>
       <Suspense fallback={"Loading"}>
         <div className="px-2 xl:px-5 pt-16">
-            <div className='bg-white dark:bg-darkSecondary rounded-xl shadow-xl w-full overflow-hidden'>
+            <div className='bg-white dark:bg-darkSecondary rounded-xl shadow-xl w-full overflow-hidden h-full'>
                 <div className='px-5 py-2 bg-lightPrimary text-white dark:bg-darkPrimary dark:border-b flex items-center justify-between'>
                     <div>
                         <h1 className='font-bold uppercase tracking-wider'>{data?.name}</h1>
-                        <p className='text-sm'>{data?.code}</p>
+                        <p className='text-xs'>{data?.code}</p>
                     </div>
 
                     <div className='flex items-center gap-2'>
-                        <button className='btn-secondary xl:hidden' onClick={() => setOpen(!open)}>{open ? "Close":"Files"}</button>
+                        { data?._files && <button className='btn-secondary xl:hidden' onClick={() => setOpen(!open)}>{open ? "Close":"Files"}</button> }
+
                         <Link href={"/usr/knowledge/training?m=clm_knowledge_training"}>
-                            <button className='w-10 h-10 flex items-center justify-center hover:bg-white hover:bg-opacity-20 rounded-xl'><HiX className='text-2xl'/></button>
+                            <button className='w-8 h-8 xl:w-10 xl:h-10 flex items-center justify-center hover:bg-white hover:bg-opacity-20 rounded-xl'><HiX className='text-2xl'/></button>
                         </Link>
                     </div>
                 </div>
@@ -107,13 +109,18 @@ export default function HalamanSimulation() {
                     {
                         data && data?._files && (
                             <div className={`${!open && "hidden"} w-full xl:w-1/2 p-5 relative max-h-[900px] overflow-y-auto`}>
+                                <div className='bg-info text-sm xl:text-base p-2 bg-blue-50 mb-2 rounded-md text-blue-500'>
+                                    If there are problems when displaying the file, click title to open file in new tab
+                                </div>
                                 {
                                     data?._files.map((file, key) => {
                                         return (
                                             <div className='w-full mb-10' key={key}>
-                                                <h1 className='font-bold'>{file?.filestat?.["original-name"]}</h1>
+                                                <Link href={`${file?.refKey?.name?.url}`} target='_blank'>
+                                                    <h1 className='font-bold'>{file?.filestat?.["original-name"]}</h1>
+                                                </Link>
                                                 <p className='mb-3 font-light'>{file?.filestat?.["size"]} KB</p>
-                                                <embed src={file?.refKey?.name?.url} type="application/pdf" width="100%" height="600px" />
+                                                <iframe src={file?.refKey?.name?.url} type="application/pdf" width="100%" height="800px" />
                                             </div>
                                         )
                                     })
@@ -121,34 +128,34 @@ export default function HalamanSimulation() {
                             </div>
                         )
                     }
-                    <div className='relative w-full max-h-[900px] bg-lightPrimary dark:bg-black bg-opacity-20 overflow-y-auto'>
+                    <div className={`${open && "hidden xl:block"} relative w-full max-h-[900px] bg-lightPrimary dark:bg-black bg-opacity-20 overflow-y-auto`}>
                         <div className="h-full overflow-y-hidden hover:overflow-y-auto px-3 pt-2 pb-16">
                             <div className="space-y-2 w-full mx-auto">
                                 {
                                     data && (
                                         <div className='relative w-full'>
-                                            {
-                                                data?._files && (
-                                                        <div className="flex gap-2 mb-2">
-                                                            <span className="w-10 h-10 rounded-full text-white bg-lightPrimary flex items-center justify-center font-bold border-2 border-white">AI</span>
-                                                            <div>
-                                                                <h1 className="text-lightPrimary font-bold text-base py-1">KonekGPT</h1>
-                                                                <div className="space-y-2">
-                                                                    {
-                                                                        data._files.map((file, key) => {
-                                                                            return (
-                                                                                <div key={key} className="w-fit bg-white dark:bg-darkPrimary py-2 px-3 flex items-center justify-between gap-2 rounded-xl max-w-full relative">
+                                            <div className="flex gap-2 mb-2">
+                                                <span className="hidden w-8 h-8 xl:w-10 xl:h-10 rounded-full text-white bg-lightPrimary xl:flex items-center justify-center font-bold border-2 border-white">AI</span>
+                                                <div>
+                                                    <h1 className="text-lightPrimary font-bold text-base py-1">KonekGPT</h1>
+                                                        {data?._files ? (
+                                                            <div className="space-y-2">
+                                                                {
+                                                                    data._files.map((file, key) => {
+                                                                        return (
+                                                                            <Link key={key} href={file?.refKey?.name?.url} target='_blank'>
+                                                                                <div className="w-fit bg-white dark:bg-darkPrimary py-2 px-3 flex items-center justify-between gap-2 rounded-xl max-w- max-w-full relative">
                                                                                     {
                                                                                         file?.filestat?.['mime-type'] == "application/pdf" && (
                                                                                             <div>
-                                                                                                <BsFilePdfFill className='text-red-500 text-5xl' />
+                                                                                                <BsFilePdfFill className='text-red-500 text-3xl xl:text-5xl' />
                                                                                             </div>
                                                                                         )
                                                                                     }
                                                                                     {
                                                                                         file?.filestat?.['mime-type'] == "text/plain" && (
                                                                                             <div>
-                                                                                                <BsFile className='text-zinc-500 text-5xl' />
+                                                                                                <BsFile className='text-zinc-500 text-3xl xl:text-5xl' />
                                                                                             </div>
                                                                                         )
                                                                                     }
@@ -157,29 +164,38 @@ export default function HalamanSimulation() {
                                                                                         file?.filestat?.['mime-type'] == "application/word")
                                                                                         && (
                                                                                             <div>
-                                                                                                <BsFileWordFill className='text-blue-500 text-5xl' />
+                                                                                                <BsFileWordFill className='text-blue-500 text-3xl xl:text-5xl' />
                                                                                             </div>
                                                                                         )
                                                                                     }
                                                                                     <div>
-                                                                                        <h1 className="text-base">{file?.filestat?.['original-name']}</h1>
-                                                                                        <p className='text-sm text-zinc-600 dark:text-zinc-300'>{file?.filestat?.['size']} KB</p>
+                                                                                        <h1 className="text-xs xl:text-base">{file?.filestat?.['original-name']}</h1>
+                                                                                        <p className='text-xs text-zinc-600 dark:text-zinc-300'>{file?.filestat?.['size']} KB</p>
                                                                                     </div>
                                                                                 </div>
-                                                                            )
-                                                                        })
-                                                                    }
-                                                                    <div className="w-fit bg-white dark:bg-darkPrimary pt-1 pb-6 px-3 rounded-md max-w-[full] relative">
-                                                                        <h1 className="text-base mb-2">Ask AI something about documents, let's start the conversation with:</h1>
-                                                                        <button onClick={(e) => handlerSubmit(e, "Hallo, explain to me what you know")} className='btn-secondary w-full'>Hallo, explain to me what you know</button>
-                                                                        <button onClick={(e) => handlerSubmit(e, "What is the title?")} className='btn-secondary w-full'>What is the title?</button>
-                                                                        <button onClick={(e) => handlerSubmit(e, "What is the discussion in this document?")} className='btn-secondary w-full'>What is the discussion in this document?</button>
-                                                                    </div>
+                                                                            </Link>
+                                                                        )
+                                                                    })
+                                                                }
+                                                                <div className="w-fit bg-white dark:bg-darkPrimary pt-1 pb-6 px-3 rounded-md max-w-[full] relative">
+                                                                    <h1 className="text-xs xl:text-base">Description: </h1>
+                                                                    <p className='text-xs xl:text-base text-zinc-600 dark:text-zinc-300 mb-2'>{data?.description}</p>
+                                                                    <h1 className="text-xs xl:text-base mb-2">Ask AI something about documents, let's start the conversation with:</h1>
+                                                                    <button onClick={(e) => handlerSubmit(e, "Hallo, explain to me what you know")} className='btn-secondary w-full text-start'>Hallo, explain to me what you know</button>
+                                                                    <button onClick={(e) => handlerSubmit(e, "What is the title?")} className='btn-secondary w-full text-start'>What is the title?</button>
+                                                                    <button onClick={(e) => handlerSubmit(e, "What is the discussion in this document?")} className='btn-secondary w-full text-start'>What is the discussion in this document?</button>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    )
-                                            }
+                                                        ):(
+                                                            <div className="w-fit bg-white dark:bg-darkPrimary py-2 px-3 flex items-center justify-between gap-2 rounded-xl max-w- max-w-full relative">
+                                                                <div>
+                                                                    <h1 className="text-xs xl:text-base">Description</h1>
+                                                                    <p className='text-xs xl:text-base text-zinc-600 dark:text-zinc-300'>{data?.description}</p>
+                                                                </div>
+                                                            </div>
+                                                        )}
+                                                </div>
+                                            </div>
                                         </div>
                                     )
                                 }
@@ -189,46 +205,58 @@ export default function HalamanSimulation() {
                                         return (
                                             <div key={key} className="flex gap-2">
                                                 <div className="ml-auto">
-                                                    <h1 className="text-end text-zinc-500 dark:text-zinc-300 text-base py-1">You</h1>
+                                                    <h1 className="text-end text-zinc-500 dark:text-zinc-300 text-xs xl:text-base py-1">You</h1>
                                                     <div className="space-y-2">
-                                                        <div className="w-fit bg-blue-300 dark:bg-blue-500 pt-1 pb-6 px-3 rounded-md max-w-[300px] ml-auto relative">
-                                                            <h1 className="text-base">{item.text}</h1>
-                                                            {/* <span className="absolute bottom-1 right-1 text-base font-light text-zinc-500">00.00</span> */}
+                                                        <div className="w-fit bg-blue-300 dark:bg-blue-500 pt-1 pb-6 px-3 rounded-md max-w-[500px] ml-auto relative">
+                                                            <h1 className="text-xs xl:text-base">{item.text}</h1>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <span className="w-10 h-10 rounded-full bg-white dark:bg-darkPrimary flex items-center justify-center font-bold border border-lightPrimary">Y</span>
+                                                <span className="w-8 h-8 xl:w-10 xl:h-10 rounded-full bg-white dark:bg-darkPrimary flex items-center justify-center font-bold border border-lightPrimary">Y</span>
                                             </div>
                                         )
                                         
                                         else
                                         return (
                                             <div key={key} className="flex gap-2">
-                                                <span className="w-10 h-10 rounded-full bg-white dark:bg-darkPrimary flex items-center justify-center font-bold border border-lightPrimary">{data?.name.charAt(0)}</span>
+                                                <span className="w-8 h-8 xl:w-10 xl:h-10 rounded-full bg-white dark:bg-darkPrimary flex items-center justify-center font-bold border border-lightPrimary">{data?.name.charAt(0)}</span>
                                                 <div>
-                                                    <h1 className="text-zinc-500 dark:text-zinc-300 text-base py-1">{data?.name}</h1>
+                                                    <h1 className="text-zinc-500 dark:text-zinc-300 text-xs xl:text-base py-1">{data?.name}</h1>
                                                     <div className="space-y-2">
-                                                        <div className="w-fit bg-white dark:bg-darkPrimary pt-1 pb-6 px-3 rounded-md max-w-[300px] relative">
-                                                            <h1 className="text-base">{item.text}</h1>
-                                                            {/* <span className="absolute bottom-1 right-1 text-base font-light text-zinc-500">00.00</span> */}
+                                                        <div className="w-fit bg-white dark:bg-darkPrimary pt-1 pb-6 px-3 rounded-md max-w-[500px] relative">
+                                                            {
+                                                                item.hasOwnProperty("effect") ? 
+                                                                    <Typewriter
+                                                                        options={{
+                                                                            wrapperClassName:"text-xs xl:text-base",
+                                                                            delay:20
+                                                                        }}
+                                                                        onInit={(typewriter) => {
+                                                                        typewriter.typeString(item.text)
+                                                                            .callFunction(() => {
+                                                                                console.log('String typed out!');
+                                                                            })
+                                                                            .callFunction(() => {
+                                                                                delete item.effect
+                                                                            })
+                                                                            .start();
+                                                                        }}
+                                                                    />
+                                                                :
+                                                                    <h1 className="text-xs xl:text-base">{item.text}</h1>
+                                                            }
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         )
                                     })
-                                    // :
-                                    // <div className='text-center py-20'>
-                                    //     <h1 className='text-blue-500 text-xl font-bold'>No Conversation Yet</h1>
-                                    //     <p className='font-light text-zinc-600 dark:text-zinc-300'>Ask AI something about documents</p>
-                                    //     <BsChatLeftQuote className='text-[300px] mt-10 text-center mx-auto opacity-20'/>
-                                    // </div>
                                 }
                             </div>
                         </div>
-                        <div className="absolute right-1/2 translate-x-1/2 w-full px-5 bottom-5 overflow-hidden rounded-xl">
+                        <div className="fixed xl:absolute right-1/2 translate-x-1/2 w-full px-5 bottom-5 overflow-hidden rounded-xl">
                             <form onSubmit={(e) => handlerSubmit(e)} className="relative">
-                                <input disabled={loading} value={value} id="inputQuestion" type="text" className="outline-none peer p-2 w-full text-base border-2 border-blue-200 rounded-xl placeholder:text-zinc-500 pr-10 pl-5 bg-zinc-200 dark:bg-darkPrimary focus:bg-white transition-all duration-300" placeholder="Any Question?" maxLength={50} onChange={(e) => handlerChange(e.target.value)} />
+                                <input disabled={loading} value={value} id="inputQuestion" type="text" className="outline-none peer p-2 w-full text-xs xl:text-base border-2 border-blue-200 rounded-xl placeholder:text-zinc-500 pr-10 pl-5 bg-zinc-200 dark:bg-darkPrimary focus:bg-white transition-all duration-300" placeholder="Any Question?" maxLength={100} onChange={(e) => handlerChange(e.target.value)} />
                                 <button type="submit" className="absolute peer-focus:translate-x-0 -translate-x-5 opacity-0 peer-focus:opacity-100 hover:scale-125 transition-all duration-300 top-1/2 -translate-y-1/2 right-2 w-8 h-8 flex items-center justify-center peer-focus:visible invisible peer-disabled:opacity-100 peer-disabled:translate-x-0 peer-disabled:visible">
                                     {
                                         loading ?
@@ -244,7 +272,7 @@ export default function HalamanSimulation() {
                                     }
                                 </button>
                             </form>
-                            {/* <h1 className="text-end text-zinc-500 text-base p-1">{data ? data.length :"0"}/50</h1> */}
+                            {/* <h1 className="text-end text-zinc-500 text-xs xl:text-base p-1">{data ? data.length :"0"}/50</h1> */}
                         </div>
                     </div>
                 </div>

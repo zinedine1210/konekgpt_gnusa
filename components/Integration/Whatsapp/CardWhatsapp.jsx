@@ -229,22 +229,6 @@ function InformationKnowledge({ item, setOpen }){
         }
     }
 
-    const gotoInbox = async () => {
-        localStorage.setItem("view", 1)
-        if(item.active){
-            router.push(`/usr/inbox/${item.knowledge_id}?m=clm_inbox`, undefined, {
-                shallow: true,
-                target: "_blank"
-            })
-        }else{
-            Swal.fire({
-                icon: 'info', 
-                title: 'Disconnected Status',
-                text: 'This channel must be in status authenticated'
-            })
-        }
-    }
-
     return (
         <div className="w-full xl:w-1/2 border-l right-0 absolute bg-white xl:right-2 xl:bg-transparent p-5 top-5">
             <h1 className="font-bold text-xl flex items-center gap-5 uppercase pb-5 border-b border-dashed border-black">Information Of Knowledge <span className="badge-blue">{item.identity}</span></h1>
@@ -294,9 +278,9 @@ function InformationKnowledge({ item, setOpen }){
                                 </div>
 
                                 <div className="flex items-center gap-3">
-                                    <button disabled={loading} className="btn-primary" onClick={() => gotoInbox()}>
+                                    {/* <button disabled={loading} className="btn-primary" onClick={() => gotoInbox()}>
                                         Goto Inbox
-                                    </button>
+                                    </button> */}
                                     <button disabled={loading} className="btn-secondary" onClick={() => handleConnect()}>
                                         Change Knowledge
                                     </button>

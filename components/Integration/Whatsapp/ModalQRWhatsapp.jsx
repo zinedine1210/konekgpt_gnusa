@@ -18,6 +18,7 @@ export default function ModalQRWhatsapp(props) {
   useEffect(() => {
     async function getQRCode(valueId){
       const result = await WhatsappRepository.createSession({id:valueId, domain:baseDomain, isLegacy:false})
+      console.log("create session = ", result)
       if(result.success){
         setData(result.data)
       }else{
@@ -69,6 +70,7 @@ export default function ModalQRWhatsapp(props) {
       "identity": getID
     }
     const result = await ChannelRepository.insertChannel({xa:{XA:getxa}, data:obj})
+    console.log("insert channel = ", result)
     const getWhatsappList = JSON.parse(localStorage.getItem("whatsappChannel"))
     if(getWhatsappList){
       const getDetailWhatsappList = getWhatsappList.find(res => res.identity == getID)
@@ -89,7 +91,7 @@ export default function ModalQRWhatsapp(props) {
   async function checkStatus(id) {
     try {
       if(connect) return false
-      const response = await WhatsappRepository.statusSession({id:id})
+      const response = await WhatsappRepository.statusSession({ id: id })
       if(response.success && response.data.status == "authenticated"){
         setConnect(true)
         setData(null)

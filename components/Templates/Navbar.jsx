@@ -1,8 +1,10 @@
 import { MyContext } from "@/context/MyProvider"
 import AuthRepository from "@/repositories/AuthRepository"
+import { useTheme } from "next-themes"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useContext, useEffect, useRef, useState } from "react"
+import { BsMoonFill, BsSunFill } from "react-icons/bs"
 import { FaChevronLeft } from "react-icons/fa"
 import Swal from "sweetalert2"
 
@@ -11,12 +13,24 @@ export default function Navbar() {
     const dropRef = useRef(null)
     const [open, setOpen] = useState(false)
     const router = useRouter()
+    const { theme, setTheme } = useTheme("light")
 
     const handleOutsideClick = (event) => {
         if (dropRef.current && !dropRef.current.contains(event.target)) {
             setOpen(false);
         }
     };
+
+    // function openFullscreen() {
+    //     var elem = document.documentElement
+    //     if (elem.requestFullscreen) {
+    //       elem.requestFullscreen();
+    //     } else if (elem.webkitRequestFullscreen) { /* Safari */
+    //       elem.webkitRequestFullscreen();
+    //     } else if (elem.msRequestFullscreen) { /* IE11 */
+    //       elem.msRequestFullscreen();
+    //     }
+    // }
 
     useEffect(() => {
         document.addEventListener('mousedown', handleOutsideClick);
@@ -59,8 +73,17 @@ export default function Navbar() {
                         </div>
                         <p className="self-end text-xs font-extrabold uppercase mb-1 text-white">Gpt</p>
                     </button>
-
                     <div className="flex items-center">
+                        {/* <button onClick={openFullscreen()}>
+                            ahsahsa
+                        </button> */}
+                        <button onClick={() => setTheme(theme == "light" ? "dark":"light")}>
+                            {
+                                theme == "light" ?
+                                    <BsSunFill className='text-yellow-300 text-xl'/>
+                                :   <BsMoonFill className='text-blue-300 text-xl'/>
+                            }
+                        </button>
                         <button className="mx-0 xl:mx-4 text-white transition-colors duration-300 transform lg:block dark:text-zinc-200 hover:text-zinc-700 dark:hover:text-zinc-400 focus:text-zinc-700 dark:focus:text-zinc-400 focus:outline-none" aria-label="show notifications">
                             <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M15 17H20L18.5951 15.5951C18.2141 15.2141 18 14.6973 18 14.1585V11C18 8.38757 16.3304 6.16509 14 5.34142V5C14 3.89543 13.1046 3 12 3C10.8954 3 10 3.89543 10 5V5.34142C7.66962 6.16509 6 8.38757 6 11V14.1585C6 14.6973 5.78595 15.2141 5.40493 15.5951L4 17H9M15 17V18C15 19.6569 13.6569 21 12 21C10.3431 21 9 19.6569 9 18V17M15 17H9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>

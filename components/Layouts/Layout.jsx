@@ -116,7 +116,7 @@ export default function Layout({children, title, desc, image}) {
         <ScreenReader />
         {
           mounted && JSON.parse(localStorage.getItem("auth"))?.status == "authentication"?
-            <section style={{backgroundImage:"url('/images/bodyMain.jpg')"}} className="bg-center bg-cover w-screen flex items-center justify-center h-screen">
+            <section id="mainscreen" style={{backgroundImage:"url('/images/bodyMain.jpg')"}} className="bg-center bg-cover w-screen flex items-center justify-center h-screen">
               <content className="w-full h-full max-h-[1080px] max-w-[1920px] overflow-hidden relative xl:rounded-2xl shadow-md">
                 <Navbar />
                 <HelpButton />

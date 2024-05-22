@@ -1,12 +1,14 @@
 import { MyContext } from "@/context/MyProvider";
 import KnowledgeRepository from "@/repositories/KnowledgeRepository";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useContext } from "react";
 import { BsChatQuoteFill, BsInboxFill, BsPencilFill } from "react-icons/bs";
 import { IoTrash } from "react-icons/io5";
 import Swal from "sweetalert2";
 
 export default function CardKnowledge({item}) {
+    const router = useRouter()
     const context = useContext(MyContext)
 
     const handlerDelete = async () => {
@@ -31,9 +33,8 @@ export default function CardKnowledge({item}) {
                         title:"Something Wrong",
                         text:"Please try again later"
                     })
-                }
-            }})
-        
+            }}
+        })
     }
 
     let typeTraining = {
@@ -41,6 +42,15 @@ export default function CardKnowledge({item}) {
         2 : {name:"website"},
         4 : {name:"scratch"}
     }
+
+    const gotoInbox = async () => {
+        localStorage.setItem("view", 1)
+        router.push(`/usr/inbox/${item.id}?m=clm_inbox`, undefined, {
+            shallow: true,
+            target: "_blank"
+        })
+    }
+
 
   return (
     <tr>
@@ -64,14 +74,13 @@ export default function CardKnowledge({item}) {
         <td className="px-5 py-4 text-sm font-normal max-w-md">
             {item.description}
         </td>
-        {/* <td className="px-4 py-4 text-sm text-zinc-500 dark:text-zinc-300 whitespace-nowrap">{moment(new Date(stuff._cd.epoch_time * 1000  )).local().format("DD MMMM YYYY, HH:mm")}</td> */}
         <td className="px-4 py-4 text-sm text-zinc-500 dark:text-zinc-300 whitespace-nowrap">{item.code}</td>
         <td className="px-4 py-4 text-sm text-zinc-500 dark:text-zinc-300 whitespace-nowrap">
             {item.type_training == 1 && <span className="bg-lime-100 text-lime-500 font-bold text-xs rounded-md uppercase py-1 px-3">Upload</span>}
             {item.type_training == 2 && <span className="bg-indigo-100 text-indigo-500 font-bold text-xs rounded-md uppercase py-1 px-3">Url</span>}
             {item.type_training == 4 && <span className="bg-teal-100 text-teal-500 font-bold text-xs rounded-md uppercase py-1 px-3">Scratch</span>}
         </td>
-        <td className="px-4 py-4 text-sm whitespace-nowrap space-x-2">
+        <td className="px-4 py-4 text-sm whitespace-nowrap space-x-2 flex items-center">
             <button onClick={() => handlerDelete()} className="p-2 text-red-500 transition-colors duration-200 rounded-lg dark:text-red-300 hover:bg-red-100">
                 <IoTrash />
             </button>
@@ -80,11 +89,6 @@ export default function CardKnowledge({item}) {
                     <BsPencilFill />
                 </button>
             </Link>
-            {/* <Link href={`/usr/knowledge/simulation?id=${item.id}&m=clm_knowledge`} target="_blank" shallow>
-                <button className="p-2 text-purple-500 transition-colors duration-200 rounded-lg dark:text-purple-300 hover:bg-purple-100">
-                    <BsInboxFill className="text-base"/>
-                </button>
-            </Link> */}
             <Link href={`/usr/knowledge/simulation?id=${item.id}&m=clm_knowledge`}>
                 <button className="p-2 text-purple-500 transition-colors duration-200 rounded-lg dark:text-purple-300 hover:bg-purple-100">
                     <BsInboxFill className="text-base"/>
@@ -92,6 +96,9 @@ export default function CardKnowledge({item}) {
             </Link>
             <button onClick={() => context.setData({...context, view:3, modal:{name:"simulationKnowledge", data:item}})} className="p-2 text-indigo-500 transition-colors duration-200 rounded-lg dark:text-indigo-300 hover:bg-indigo-100">
                 <BsChatQuoteFill className="text-base"/>
+            </button>
+            <button className="btn-primary" onClick={() => gotoInbox()}>
+                Goto Inbox
             </button>
         </td>
     </tr>

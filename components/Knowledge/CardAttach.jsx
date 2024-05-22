@@ -3,18 +3,40 @@ import UploadFileRepository from '@/repositories/UploadFileRepository'
 import moment from 'moment'
 import React, { useContext } from 'react'
 import { BsEye } from 'react-icons/bs'
+import Swal from 'sweetalert2'
 
 export default function CardAttach({file, handlerCheckbox, collect}) {
     const context = useContext(MyContext)
 
     const handleDelete = async () => {
-        console.log(file)
-        const result = await UploadFileRepository.deleteMetadata({
-            uid: file?.id,
-            XA: JSON.parse(localStorage.getItem("XA"))
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then(async (result2) => {
+              if (result2.isConfirmed) {
+                const result = await UploadFileRepository.deleteMetadata({
+                    data: [file?.id],
+                    XA: JSON.parse(localStorage.getItem("XA"))
+                })
+                if(result?.status == 0){
+                    if(context?.dataFilesKnowledge){
+                        const filterdelete = context.dataFilesKnowledge.filter(res => res.id !== file.id)
+                        context.setData({ ...context, dataFilesKnowledge: filterdelete })
+                    }
+                }else{
+                    Swal.fire({
+                        icon:"error",
+                        title:"Something Wrong",
+                        text:"Please try again later"
+                    })
+                }
+            }
         })
-
-        console.log(result)
     }
     
 
