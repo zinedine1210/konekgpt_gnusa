@@ -5,9 +5,10 @@ import UploadFileRepository from '@/repositories/UploadFileRepository'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { Suspense, useContext, useState } from 'react'
-import { BsTrash } from 'react-icons/bs'
+import { BsChevronRight, BsTrash } from 'react-icons/bs'
 import { FaChevronLeft } from 'react-icons/fa'
 import { HiDocument } from 'react-icons/hi'
+import { IoAttach, IoDocumentAttachOutline } from 'react-icons/io5'
 import Swal from 'sweetalert2'
 
 export default function UploadFileKnowledge() {
@@ -72,32 +73,6 @@ export default function UploadFileKnowledge() {
 
             router.push("/usr/knowledge/attachment?m=clm_knowledge_attachment")
         }
-        
-        // let dataInsertKnowledge = JSON.parse(JSON.stringify(data))
-        // delete dataInsertKnowledge['upload']
-        
-        // // INSERT KNOWLEDGE
-
-        // const result = await KnowledgeRepository.insertKnowledge({xa:{XA:JSON.parse(localStorage.getItem("XA"))}, data:dataInsertKnowledge})
-        // console.log(result);
-        // if(result?.type == "success"){
-        //     if(context.dataKnowledge){
-        //         context.dataKnowledge.push(result.data)
-        //     }else{
-        //         context.setData({...context, dataKnowledge:[result.data]})
-        //     }
-        //     setLoading(false)
-        //     router.push("/usr/knowledge", { scroll:false })
-        // }else{
-        //     Swal.fire({
-        //         icon:"error",
-        //         title:"Something Wrong",
-        //         text:"Please try again later"
-        //     })
-        //     data._files = []
-        //     setLoading(false)
-        // }
-
     }
 
     const handlerUploadPDF = async (e) => {
@@ -139,20 +114,28 @@ export default function UploadFileKnowledge() {
             <section className="w-full bg-zinc-100 dark:bg-dark relative h-screen flex">
                 <div className="w-full xl:w-3/4 relative h-screen pt-16 overflow-y-auto">
                     <div className='mx-0 xl:mx-2'>
-                    <div className='bg-white dark:bg-darkPrimary rounded-md shadow-md p-3 xl:p-5'>
-                        <label className="text-base xl:text-xl dark:text-white font-semibold">Upload File</label>
-                        {/* <button onClick={() => console.log(data)}>Click me</button> */}
-                        <p className='text-sm font-light text-zinc-500 dark:text-zinc-300'>Upload your file business first here to train the knowledge AI</p>
-                        <div className="flex items-center gap-2 pt-1 pb-3 mt-3">
-                            <Link href={"/usr/knowledge/attachment?m=clm_knowledge_attachment"}>
-                                <h1 className="badge-blue">
-                                    <FaChevronLeft />
-                                    Back
-                                </h1>
+                    <div className='p-3 xl:p-5'>
+                        <div className="flex items-center gap-2 pt-1 pb-3 text-sm ">
+                            <Link
+                                href={
+                                "/usr/knowledge/attachment?m=clm_knowledge_attachment"
+                                }
+                                scroll={false}
+                                swallow={true}
+                                className="hover:text-blue-500"
+                            >
+                                <h1 className="flex items-center gap-2"><IoDocumentAttachOutline className="text-xl"/> Attachment Sources</h1>
                             </Link>
-                            /
-                            <h1 className="text-sm">Build From Upload</h1>
+                            <BsChevronRight className="text-xs font-bold"/>
+                            <h1>Train AI ChatBot</h1>
                         </div>
+                        <label className="text-base xl:text-xl dark:text-white font-semibold flex items-center gap-2">
+                            <IoAttach className='text-2xl'/>
+                            Upload File
+                        </label>
+                        <p className="font-light text-sm text-zinc-500 dark:text-zinc-300">
+                            Upload your file business first here to teach the AI ChatBot
+                        </p>
 
                         <form onSubmit={e => handlerSubmit(e)} className='my-5 space-y-4'>
                             <div className="w-full">
@@ -175,7 +158,7 @@ export default function UploadFileKnowledge() {
                                     
                                     :
                                     <label
-                                        className="flex justify-center items-center w-full h-32 px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
+                                        className="flex justify-center items-center w-full h-56 px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
                                         <div>
                                             <span className="flex items-center space-x-2">
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24"
