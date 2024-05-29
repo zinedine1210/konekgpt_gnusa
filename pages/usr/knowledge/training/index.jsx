@@ -38,7 +38,7 @@ export default function HalamanTraining() {
             </div>
             {
               context.modal && context.modal.name == "simulationKnowledge" && (
-                <SimulationKnowledge />
+                <SimulationKnowledge close={true}/>
               )
             }
           </div>

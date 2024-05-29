@@ -1,9 +1,10 @@
 import {HiOutlineArrowSmRight, HiX} from "react-icons/hi"
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { MyContext } from "@/context/MyProvider";
 import KnowledgeRepository from "@/repositories/KnowledgeRepository";
+import { BsChat, BsXCircle } from "react-icons/bs";
 
-export default function SimulationKnowledge() {
+export default function SimulationKnowledge({ close=false }) {
     const [data, setData] = useState("")
     const context = useContext(MyContext)
     const [text, setText] = useState([])
@@ -17,7 +18,7 @@ export default function SimulationKnowledge() {
         setLoading(true)
         e.preventDefault()
         let obj = {
-            "file_id": context.modal.data.id,
+            "file_id": thisData.id,
             "text": data
         }
         const result = await KnowledgeRepository.simulationKnowledge({xa:{XA:JSON.parse(localStorage.getItem("XA"))}, data:obj})
@@ -29,47 +30,59 @@ export default function SimulationKnowledge() {
         }
     }
 
+    const thisData = context.modal.data
   return (
-    <div className="fixed top-0 left-0 z-50 xl:block w-full xl:min-w-[300px] xl:max-w-[300px] h-screen xl:h-[640px] xl:border-8 border-black xl:z-0 xl:rounded-[20px] bg-white dark:bg-dark dark:border-black mx-auto outline outline-blue-300 shadow-2xl pb-16 xl:relative overflow-hidden">
-        <div className="w-full py-2 flex items-center justify-between bg-blue-100 dark:bg-blue-500 px-2">
-            <div>
-                <h1 className="text-sm">{context.modal.data.name}</h1>
-                <p className="text-xs text-zinc-600 dark:text-zinc-200">Simulation Knowledge</p>
+    <div className="fixed top-0 left-0 z-50 xl:block w-full xl:min-w-[300px] xl:max-w-[410px] h-screen xl:h-[760px] xl:border-8 border-black xl:z-0 xl:rounded-[20px] bg-white dark:bg-dark dark:border-black mx-auto outline outline-blue-300 shadow-2xl pb-16 xl:relative overflow-hidden">
+        <div className="w-full pt-4 pb-8 rounded-b-full flex items-center justify-between bg-blue-100 dark:bg-blue-500 px-2 text-center">
+            {
+                close && <button className="absolute top-2 right-2" onClick={() => context.setData({...context, view: 2, modal: null })}><BsXCircle className="text-xl" /></button>
+            }
+            <button className="absolute top-2 right-2 xl:hidden" onClick={() => context.setData({...context, view: 2, modal: null })}><BsXCircle className="text-xl" /></button>
+            <div className="w-full">
+                <h1 className="text-xl font-bold font-mono">Chat Simulation AI</h1>
+                <p className="text-sm font-medium text-zinc-600 dark:text-zinc-200">Ask any question our AI will answer!</p>
             </div>
-            <button className="flex items-center justify-center hover:bg-red-200 transition-colors duration-300 ease-in-out rounded-full w-6 h-6" onClick={() => context.setData({...context, modal:null, view:2})}>
-                <HiX />
-            </button>
         </div>
-        <div className="h-full overflow-y-hidden hover:overflow-y-auto px-3 pt-2 pb-16">
+        <div className="h-full overflow-y-hidden hover:overflow-y-auto px-3 pt-2 pb-20">
             <div className="space-y-2 w-full mx-auto">
+                <div className="flex gap-2">
+                    <span className="w-8 h-8 uppercase rounded-full bg-blue-500 text-white flex items-center justify-center font-bold border-2 border-white"><BsChat /></span>
+                    <div>
+                        <h1 className="text-zinc-500 text-sm font-medium py-1 first-letter:uppercase">ChatBot</h1>
+                        <div className="space-y-2">
+                            <div className="w-fit bg-white py-3 px-2 shadow-md rounded-md max-w-[300px] relative font-medium text-sm">
+                                <h1>Hi, there!! this knowledge about: </h1>
+                                <p className="text-blue-500 mt-1">{thisData.description}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 {
                     text.map((item, key) => {
                         if(item.me)
                         return (
                             <div key={key} className="flex gap-2">
                                 <div className="ml-auto">
-                                    <h1 className="text-end text-zinc-500 text-xs py-1">You</h1>
                                     <div className="space-y-2">
-                                        <div className="w-fit backdrop-blur-2xl pt-1 pb-6 px-1 shadow-md rounded-md max-w-[300px] ml-auto relative">
-                                            <h1 className="text-xs">{item.text}</h1>
-                                            <span className="absolute bottom-1 right-1 text-xs font-light text-zinc-500">00.00</span>
+                                        <div className="w-fit bg-blue-500 text-white pt-1 pb-6 px-1 shadow-md rounded-md min-w-[100px] max-w-[300px] ml-auto relative">
+                                            <h1 className="text-sm font-medium">{item.text}</h1>
+                                            <span className="absolute bottom-1 right-1 text-sm font-light text-white">00.00</span>
                                         </div>
                                     </div>
                                 </div>
-                                <span className="w-8 h-8 rounded-full bg-zinc-200 flex items-center justify-center font-bold border-2 border-white">Y</span>
                             </div>
                         )
                         
                         else
                         return (
                             <div key={key} className="flex gap-2">
-                                <span className="w-8 h-8 rounded-full bg-zinc-200 flex items-center justify-center font-bold border-2 border-white">GB</span>
+                                <span className="w-8 h-8 rounded-full uppercase bg-zinc-200 flex items-center justify-center font-bold border-2 border-white">{thisData.name.charAt(0,2)}</span>
                                 <div>
-                                    <h1 className="text-zinc-500 text-xs py-1">Gnusa Bot</h1>
+                                    <h1 className="text-zinc-500 text-sm font-medium py-1 first-letter:uppercase">{thisData.name}</h1>
                                     <div className="space-y-2">
-                                        <div className="w-fit bg-white pt-1 pb-6 px-1 shadow-md rounded-md max-w-[300px] relative">
-                                            <h1 className="text-xs">{item.text}</h1>
-                                            <span className="absolute bottom-1 right-1 text-xs font-light text-zinc-500">00.00</span>
+                                        <div className="w-fit bg-white pt-1 pb-6 px-1 shadow-md rounded-md min-w-[100px] max-w-[300px] relative">
+                                            <h1 className="text-sm font-medium">{item.text}</h1>
+                                            <span className="absolute bottom-1 right-1 text-sm font-light text-zinc-500">00.00</span>
                                         </div>
                                     </div>
                                 </div>
@@ -81,7 +94,7 @@ export default function SimulationKnowledge() {
         </div>
         <div className="fixed xl:absolute right-1/2 translate-x-1/2 w-full px-5 bottom-0 overflow-hidden rounded-xl">
             <form onSubmit={(e) => handlerSubmit(e)} className="relative">
-                <input disabled={loading} value={data} id="inputQuestion" type="text" className="outline-none peer p-2 w-full text-xs border-2 border-blue-200 rounded-xl placeholder:text-zinc-500 pr-10 pl-5 bg-zinc-200 dark:bg-darkPrimary focus:bg-white transition-all duration-300" placeholder="Any Question?" maxLength={50} onChange={(e) => handlerChange(e.target.value)} />
+                <input disabled={loading} value={data} id="inputQuestion" type="text" className="outline-none peer p-2 w-full text-sm font-medium border-2 border-blue-200 rounded-xl placeholder:text-zinc-500 pr-10 pl-5 bg-zinc-200 dark:bg-darkPrimary focus:bg-white transition-all duration-300" placeholder="Any Question?" maxLength={100} onChange={(e) => handlerChange(e.target.value)} />
                 <button type="submit" className="absolute peer-focus:translate-x-0 -translate-x-5 opacity-0 peer-focus:opacity-100 hover:scale-125 transition-all duration-300 top-1/2 -translate-y-1/2 right-2 w-8 h-8 flex items-center justify-center peer-focus:visible invisible">
                     {
                         loading ?
@@ -97,7 +110,7 @@ export default function SimulationKnowledge() {
                     }
                 </button>
             </form>
-            <h1 className="text-end text-zinc-500 text-xs p-1">{data ? data.length :"0"}/50</h1>
+            <h1 className="text-end text-zinc-500 text-sm font-medium p-1">{data ? data.length :"0"}/100</h1>
         </div>
     </div>
   )

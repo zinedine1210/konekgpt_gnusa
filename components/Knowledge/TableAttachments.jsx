@@ -5,7 +5,6 @@ import CardAttach from "./CardAttach"
 
 export default function TableAttachments({collect, setCollect}) {
     const context = useContext(MyContext)
-    
 
     useEffect(() => {
         if(!context.dataFilesKnowledge){
