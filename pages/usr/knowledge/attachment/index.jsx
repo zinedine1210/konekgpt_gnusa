@@ -63,7 +63,7 @@ export default function HalamanAttachment() {
 
         <div className="backdrop-blur-md w-full sticky bottom-0 left-0 px-5 py-2 border-t border-zinc-200 flex items-center justify-between">
           <h1 className="text-zinc-600 text-sm"><span className="font-bold text-3xl">{collect.length}</span> {collect.length == 1 ? "File":"Files"} Selected</h1>
-          <button className="btn-primary" onClick={() => context.setData({...context, modal:{name:"insertKnowledge", files:collect}})}>
+          <button className="btn-primary" onClick={() => context.setData({...context, modal:{ name:"insertKnowledge", files:collect}})}>
               {/* <IoCreate className='text-white font-bold text-lg'/> */}
               <TfiImport className="text-white font-bold text-lg"/>
               <span>Training AI ChatBot</span>

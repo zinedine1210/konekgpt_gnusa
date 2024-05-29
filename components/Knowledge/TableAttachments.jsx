@@ -48,10 +48,10 @@ export default function TableAttachments({collect, setCollect}) {
   return (
     <div className="w-full">
         <div className="flex flex-col">
-            <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6">
+            <div className="-mx-4 -my-2 overflow-x-auto xl:overflow-x-visible sm:-mx-6">
                 {/* <button onClick={() => console.log(collect)}>abskahsk</button> */}
                 <div className="inline-block min-w-full py-2 align-middle xl:px-6 lg:px-8">
-                    <div className="overflow-hidden">
+                    <div className="">
                         {
                             context.dataFilesKnowledge ?
                             context.dataFilesKnowledge.length > 0 ?
