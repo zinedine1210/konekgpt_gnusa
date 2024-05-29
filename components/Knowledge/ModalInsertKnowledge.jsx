@@ -65,18 +65,18 @@ export default function ModalInsertKnowledge() {
     <div className="absolute w-full h-full bg-black backdrop-blur-md bg-opacity-40 overflow-y-auto left-0 top-0 z-20 flex items-center justify-center">
       <div className="bg-white dark:bg-darkPrimary w-full xl:w-1/2 mx-auto rounded-md p-5">
         <div className="flex items-center justify-between">
-          <h1 className="font-bold">Create New Knowledge</h1>
+          <h1 className="font-bold">Train new AI ChatBot</h1>
           <button onClick={() => context.setData({ ...context, modal: null })}>
             <HiX />
           </button>
         </div>
         <p className="text-sm">
-          This action will be direct you to training Knowledge page
+          Train your own ChatBot from documents you choose
         </p>
         <form onSubmit={(e) => handlerSubmit(e)} className="my-5 space-y-4">
           <h1 className="bg-blue-100 text-blue-500 text-sm py-2 px-5 rounded-md inline-block">
             <span className="font-bold">{context.modal.files.length}</span>{" "}
-            Files Selected
+            Documents Selected
           </h1>
           <div>
             <label

@@ -37,7 +37,8 @@ return (
           <button className="text-start w-full block p-3 border border-zinc-200 rounded-md hover:border-blue-500">
             <TfiWorld className="text-green-500 text-4xl mb-2"/>
             <h1 className="text-sm font-bold">Build From Website</h1>
-            <p className="text-xs font-light">Create your story from your website url.</p>
+            <p className="text-xs font-light">Use url website to teach your AI chatbot.</p>
+            <p className="text-xs text-blue-500">This will instantly create an AI chatbot training</p>
           </button>
         </Link>
         <Link href={"/usr/knowledge/attachment/create_v2/upload-file?m=clm_knowledge_attachment"}>

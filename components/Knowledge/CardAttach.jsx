@@ -2,11 +2,15 @@ import { MyContext } from '@/context/MyProvider'
 import UploadFileRepository from '@/repositories/UploadFileRepository'
 import moment from 'moment'
 import React, { useContext } from 'react'
-import { BsEye } from 'react-icons/bs'
+import { BsDownload, BsEye, BsTrash } from 'react-icons/bs'
 import Swal from 'sweetalert2'
+import SelectReusable from '../Templates/SelectReusable'
+import { FaEllipsisH } from 'react-icons/fa'
+import { useRouter } from 'next/router'
 
 export default function CardAttach({file, handlerCheckbox, collect}) {
     const context = useContext(MyContext)
+    const router = useRouter()
 
     const handleDelete = async () => {
         Swal.fire({
@@ -38,6 +42,32 @@ export default function CardAttach({file, handlerCheckbox, collect}) {
             }
         })
     }
+
+
+    const bulkOptions = [
+        {
+            label: "Delete",
+            iconLabel: <BsTrash className='text-red-500' />,
+            onClick: () => {
+                handleDelete()
+            }
+        },
+        {
+            label: "View",
+            iconLabel: <BsEye className='text-blue-500' />,
+            onClick: (file) => {
+                router.push(file.refKey.name.url, undefined, {
+                    shallow: true,
+                    target: "_blank"
+                })
+            }
+        },
+        {
+            label: "Train AI",
+            iconLabel: <BsDownload className='text-zinc-500' />,
+            onClick: (file) => context.setData({...context, modal:{ name:"insertKnowledge", files:[file.id]}})
+        },
+    ]
     
 
   return (
@@ -71,20 +101,7 @@ export default function CardAttach({file, handlerCheckbox, collect}) {
         </td>
         <td className="px-4 py-4 text-sm text-zinc-500 dark:text-zinc-300 whitespace-nowrap">{moment(file._cd.epoch_time * 1000).format("MMM DD, YYYY")}</td>
         <td className="px-4 py-4 text-sm whitespace-nowrap flex items-center gap-2">
-            {/* <button className="px-1 py-1 text-zinc-500 transition-colors duration-200 rounded-lg dark:text-zinc-300 hover:bg-zinc-100">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
-                </svg>
-            </button> */}
-            <a target='_blank' href={file.refKey.name.url} className="flex items-center gap-1 bg-blue-100 dark:bg-blue-500 dark:hover:bg-blue-600 p-2 text-zinc-500 transition-colors duration-200 rounded-lg dark:text-white hover:bg-blue-200">
-                <BsEye /> View
-            </a>
-            <button onClick={() => context.setData({...context, modal:{name:"insertKnowledge", files:[file.id]}})} className="bg-yellow-100 dark:bg-yellow-500 dark:hover:bg-yellow-600 p-2 text-zinc-500 transition-colors duration-200 rounded-lg dark:text-white hover:bg-yellow-200">
-                Training
-            </button>
-            <button onClick={() => handleDelete()} className="bg-red-100 dark:bg-red-500 dark:hover:bg-red-600 p-2 text-zinc-500 transition-colors duration-200 rounded-lg dark:text-white hover:bg-red-200">
-                Delete
-            </button>
+            <SelectReusable data={file} options={bulkOptions} label={<FaEllipsisH className='text-zinc-500 dark:text-white'/>} customCss='w-8 h-8' position="right-0"/>
         </td>
     </tr>
   )

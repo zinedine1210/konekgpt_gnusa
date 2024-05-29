@@ -1,13 +1,10 @@
 import { useContext } from "react";
-import {BsArrowLeft} from "react-icons/bs"
-import MinSidebar from "./MinSidebar";
 import { MyContext } from "@/context/MyProvider";
 import { useRouter } from "next/router";
 import AuthRepository from "@/repositories/AuthRepository";
 import Swal from "sweetalert2";
 import { icon_menus } from "@/utils/icon_menu";
 import { getIdMenu } from "@/utils/script";
-import Link from "next/link";
 
 export default function Sidebar1() {
     const context = useContext(MyContext)
@@ -42,7 +39,7 @@ export default function Sidebar1() {
     }
     
   return (
-    <aside className={`${localStorage.getItem("view") == 1 ? "fixed top-0 left-0 w-screen z-20 xl:z-10 xl:relative xl:w-64":"hidden xl:block xl:w-64"} flex h-screen bg-white rtl:border-r-0 rtl:border-l dark:bg-red-500 dark:border-zinc-700`}>
+    <aside className={`${localStorage.getItem("view") == 1 ? "fixed top-0 left-0 w-screen z-20 xl:z-10 xl:relative xl:w-60":"hidden xl:block xl:w-60"} flex h-screen bg-white rtl:border-r-0 rtl:border-l dark:bg-red-500 dark:border-zinc-700`}>
         <div className="flex flex-col justify-between h-screen px-5 pt-16 pb-5 overflow-y-auto bg-white border-l border-r w-full dark:bg-darkPrimary dark:border-dark">
             <nav className="-mx-3 space-y-6 ">
                 {

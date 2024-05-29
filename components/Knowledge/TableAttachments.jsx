@@ -81,8 +81,8 @@ export default function TableAttachments({collect, setCollect}) {
                                             Date created
                                         </th>
 
-                                        <th scope="col" className="relative py-3.5 px-4">
-                                            <span className="sr-only">Edit</span>
+                                        <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-zinc-500 dark:text-zinc-400">
+                                            <span className="">Bulk Action</span>
                                         </th>
                                     </tr>
                                 </thead>

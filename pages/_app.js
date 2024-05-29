@@ -5,14 +5,16 @@ import '@/styles/globals.css'
 // import '@/styles/loading3.css'
 
 // import "../build.css"
+import "@/utils/scriptApp"
 import {appWithTranslation} from "next-i18next"
 import { useEffect, useState } from 'react'
 import { MyProvider } from '@/context/MyProvider'
-import WithAuth from '@/components/WithAuth'
 import { useRouter } from 'next/router'
 import nProgress from 'nprogress'
 import "nprogress/nprogress.css"
-
+import React from 'react';
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function MyApp({ Component, pageProps }) {
   const [mounted, setMounted] = useState(false)
@@ -54,6 +56,7 @@ function MyApp({ Component, pageProps }) {
     <>
       <ThemeProvider defaultTheme='light' enableSystem={false} attribute="class">
         <MyProvider>
+          <ToastContainer />
           <Component {...pageProps} />
         </MyProvider>
       </ThemeProvider>

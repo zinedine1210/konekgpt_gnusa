@@ -26,9 +26,9 @@ export default function HalamanAttachment() {
   }
 
   return (
-    <Layout title={"Attachments Knowledge"} desc={"Halaman untuk menambahkan atau upload file yang diperlukan"}>
+    <Layout title={"Attachment Sources"} desc={"Page to add or upload required files"}>
       <section className="pt-16 bg-zinc-100 dark:bg-dark h-full">
-        <div className='mx-0 xl:mx-2'>
+        <div className='mx-0 xl:mx-2 h-full'>
           <div className='p-3 xl:p-5'>
             <label className="text-sm font-bold text-zinc-600 uppercase dark:text-zinc-400">Attachments</label>
             <p className="text-sm text-zinc-500 font-light">Input your file business here to create knowledge</p>
@@ -66,7 +66,7 @@ export default function HalamanAttachment() {
           <button className="btn-primary" onClick={() => context.setData({...context, modal:{name:"insertKnowledge", files:collect}})}>
               {/* <IoCreate className='text-white font-bold text-lg'/> */}
               <TfiImport className="text-white font-bold text-lg"/>
-              <span>Training Bot</span>
+              <span>Training AI ChatBot</span>
           </button>
         </div>
       </section>

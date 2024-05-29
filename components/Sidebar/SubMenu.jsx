@@ -14,7 +14,7 @@ export default function SubMenu({ menus }) {
     }
     
   return (
-    <aside className={`${localStorage.getItem("view") == 2 ? "fixed top-0 left-0 w-screen h-screen z-20":"hidden xl:block"} xl:z-0 xl:relative h-screen xl:w-60 pt-16 bg-white dark:bg-darkPrimary dark:border-darkSecondary border-r`}>
+    <aside className={`${localStorage.getItem("view") == 2 ? "fixed top-0 left-0 w-screen h-screen z-20":"hidden xl:block"} xl:z-0 xl:relative h-screen xl:w-52 pt-16 bg-white dark:bg-darkPrimary dark:border-darkSecondary border-r`}>
       <div className='w-full'>
         <label className="px-3 text-xs text-zinc-500 uppercase dark:text-zinc-400">{menus[0]?.flag}</label>
 
