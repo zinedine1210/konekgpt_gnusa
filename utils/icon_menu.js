@@ -1,4 +1,4 @@
-import { BsCheckCircle, BsGear, BsInbox, BsPalette, BsPlugin, BsSkype, BsTelegram, BsWechat, BsWhatsapp } from "react-icons/bs";
+import { BsChat, BsChatFill, BsCheckCircle, BsGear, BsInbox, BsPalette, BsPlugin, BsSkype, BsTelegram, BsWechat, BsWhatsapp } from "react-icons/bs";
 import { FaChalkboardTeacher, FaHammer, FaInstagram, FaTasks } from "react-icons/fa";
 import { HiOutlinePuzzle, HiOutlineUsers, HiQuestionMarkCircle } from "react-icons/hi";
 import { IoAttachOutline, IoDocumentAttachOutline, IoLogoWhatsapp } from "react-icons/io5";
@@ -32,5 +32,6 @@ export const icon_menus = {
     // 'clm_knowledge_testing' : <FaInstagram />
     'clm_qna_service' : <FaHammer className="text-zinc-500"/>,
     'clm_qna_unanswered-question' : <HiQuestionMarkCircle className="w-4 h-4 text-zinc-500"/>,
-    'clm_check_number': <IoLogoWhatsapp className="w-4 h-4 text-zinc-500"/>
+    'clm_check_number': <IoLogoWhatsapp className="w-4 h-4 text-zinc-500"/>,
+    'clm_chats': <BsChat className="w-4 h-4 text-zinc-500"/>
 }

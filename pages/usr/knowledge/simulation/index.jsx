@@ -4,9 +4,10 @@ import KnowledgeRepository from '@/repositories/KnowledgeRepository'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { Suspense, useContext, useEffect, useState } from 'react'
-import { BsFile, BsFilePdfFill, BsFileWordFill } from 'react-icons/bs'
+import { BsChevronRight, BsFile, BsFilePdfFill, BsFileWordFill } from 'react-icons/bs'
 import Typewriter from 'typewriter-effect';
 import { HiOutlineArrowSmRight, HiX } from 'react-icons/hi'
+import { FaChalkboardTeacher } from 'react-icons/fa'
 
 export default function HalamanSimulation() {
     const router = useRouter()
@@ -90,21 +91,32 @@ export default function HalamanSimulation() {
     <Layout title={"Training"}>
       <Suspense fallback={"Loading"}>
         <div className="px-2 xl:px-5 pt-16">
-            <div className='bg-white dark:bg-darkSecondary rounded-xl shadow-xl w-full overflow-hidden h-full'>
-                <div className='px-5 py-2 bg-lightPrimary text-white dark:bg-darkPrimary dark:border-b flex items-center justify-between'>
-                    <div>
-                        <h1 className='font-bold uppercase tracking-wider'>{data?.name}</h1>
-                        <p className='text-xs'>{data?.code}</p>
-                    </div>
-
-                    <div className='flex items-center gap-2'>
-                        { data?._files && <button className='btn-secondary xl:hidden' onClick={() => setOpen(!open)}>{open ? "Close":"Files"}</button> }
-
-                        <Link href={"/usr/knowledge/training?m=clm_knowledge_training"}>
-                            <button className='w-8 h-8 xl:w-10 xl:h-10 flex items-center justify-center hover:bg-white hover:bg-opacity-20 rounded-xl'><HiX className='text-2xl'/></button>
-                        </Link>
-                    </div>
+            <div className="flex items-center gap-2 pt-1 pb-3 text-sm ">
+                  <Link
+                    href={
+                      "/usr/knowledge/training?m=clm_knowledge_training"
+                    }
+                    scroll={false}
+                    swallow={true}
+                    className="hover:text-blue-500"
+                  >
+                    <h1 className="flex items-center gap-2"><FaChalkboardTeacher className="text-xl"/> Knowledge Base</h1>
+                  </Link>
+                  <BsChevronRight className="text-xs font-bold"/>
+                  <Link
+                    href={
+                      `/usr/knowledge/training/information?m=clm_knowledge_training&id=${id}`
+                    }
+                    scroll={false}
+                    swallow={true}
+                    className="hover:text-blue-500"
+                  >
+                    <h1 className="flex items-center gap-2">Detail</h1>
+                  </Link>
+                  <BsChevronRight className="text-xs font-bold"/>
+                  <h1>Simulation</h1>
                 </div>
+            <div className='bg-white dark:bg-darkSecondary rounded-xl shadow-xl w-full overflow-hidden h-full'>
                 <div className='xl:flex w-full h-full max-h-[950px]'>
                     {
                         data && data?._files && (
@@ -140,11 +152,15 @@ export default function HalamanSimulation() {
                                                     <h1 className="text-lightPrimary font-bold text-base py-1">KonekGPT</h1>
                                                         {data?._files ? (
                                                             <div className="space-y-2">
+                                                                <div className="w-fit bg-gradient-to-r text-white from-lightPrimary via-lightPrimary/70 to-lightPrimary/30 dark:bg-darkPrimary pt-1 mb-2 pb-6 px-3 rounded-md max-w-full relative">
+                                                                    <h1 className="text-xs xl:text-base font-bold">Name: {data?.name}</h1>
+                                                                    <h1 className="text-xs xl:text-base font-bold">Code: {data?.code}</h1>
+                                                                </div>
                                                                 {
                                                                     data._files.map((file, key) => {
                                                                         return (
                                                                             <Link key={key} href={file?.refKey?.name?.url} target='_blank'>
-                                                                                <div className="w-fit bg-white dark:bg-darkPrimary py-2 px-3 flex items-center justify-between gap-2 rounded-xl max-w- max-w-full relative">
+                                                                                <div className="w-fit bg-white dark:bg-darkPrimary py-2 px-3 flex items-center justify-between gap-2 rounded-xl max-w-full relative">
                                                                                     {
                                                                                         file?.filestat?.['mime-type'] == "application/pdf" && (
                                                                                             <div>

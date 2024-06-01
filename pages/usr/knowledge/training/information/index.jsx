@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import React, { Suspense, useContext, useEffect, useState } from "react";
 import { BsChevronRight, BsPlusCircle, BsSave, BsTrash } from "react-icons/bs";
 import { FaChalkboardTeacher } from "react-icons/fa";
+import { HiOutlinePuzzle } from "react-icons/hi";
 import Swal from "sweetalert2";
 
 export default function UpdateKnowledge() {
@@ -123,11 +124,13 @@ export default function UpdateKnowledge() {
     })
   }
 
+  console.log(data)
+
   if(data)
   return (
     <Layout
       title={"Information of Knowledge"}
-      desc={"Create and training a AI ChatBot from url website"}
+      desc={"Create and training a AI ChatBot"}
     >
       <Suspense fallback={"Loading"}>
         <section className="w-full bg-zinc-100 dark:bg-dark relative h-screen xl:flex gap-5">
@@ -146,7 +149,7 @@ export default function UpdateKnowledge() {
                     <h1 className="flex items-center gap-2"><FaChalkboardTeacher className="text-xl"/> Knowledge Base</h1>
                   </Link>
                   <BsChevronRight className="text-xs font-bold"/>
-                  <h1>Detail Information Knowledge</h1>
+                  <h1>Detail</h1>
                 </div>
 
                 {/* Form */}
@@ -169,7 +172,10 @@ export default function UpdateKnowledge() {
                                 <button onClick={() => setTab(3)} class={`${tab == 3 ? "text-blue-500 border-b-2 border-blue-500":"text-zinc-500 hover:text-zinc-600"} inline-block px-4 py-2 border-b-2 border-transparent rounded-t-lg`} aria-current="page">Connections</button>
                             </li>
                             <li class="me-2">
-                                <button onClick={() => setTab(4)} class={`${tab == 4 ? "text-blue-500 border-b-2 border-blue-500":"text-zinc-500 hover:text-zinc-600"} inline-block px-4 py-2 border-b-2 border-transparent rounded-t-lg`} aria-current="page">Settings</button>
+                                <button onClick={() => setTab(4)} class={`${tab == 4 ? "text-blue-500 border-b-2 border-blue-500":"text-zinc-500 hover:text-zinc-600"} inline-block px-4 py-2 border-b-2 border-transparent rounded-t-lg`} aria-current="page">Simulation</button>
+                            </li>
+                            <li class="me-2">
+                                <button onClick={() => setTab(5)} class={`${tab == 5 ? "text-blue-500 border-b-2 border-blue-500":"text-zinc-500 hover:text-zinc-600"} inline-block px-4 py-2 border-b-2 border-transparent rounded-t-lg`} aria-current="page">Settings</button>
                             </li>
                         </ul>
                     </div>
@@ -267,7 +273,13 @@ export default function UpdateKnowledge() {
                     )}
                     {tab == 3 && (
                       <div className="px-10 py-5">
-                        <h1 className="font-bold mb-5">Integration</h1>
+                        <div className=" mb-5 ">
+                          <h1 className="font-bold flex items-center gap-2 text-2xl">
+                            <HiOutlinePuzzle />
+                            Integration
+                          </h1>
+                          <p className="">Connect your konekGPT with a broad range of third-party tools and services</p>
+                        </div>
                         <div className="space-y-2">
                           <div className="px-5">
                             <WhatsappIntegration knowledge={data}/>
@@ -276,6 +288,12 @@ export default function UpdateKnowledge() {
                       </div>
                     )}
                     {tab == 4 && (
+                      <div className="w-full px-10 py-5">
+                        <h1 className="font-bold mb-5">Simulation on WebChat</h1>
+                        <Link href={`/usr/knowledge/simulation?id=${data.id}&m=clm_knowledge_training`}><button className="btn-secondary">Click here..</button></Link>
+                      </div>
+                    )}
+                    {tab == 5 && (
                       <div className="px-10 py-5">
                         <div className="border-b border-red-500 text-red-500">
                           <h1 className="font-bold">Danger Zone</h1>

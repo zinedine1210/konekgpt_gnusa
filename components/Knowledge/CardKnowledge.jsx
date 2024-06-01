@@ -9,12 +9,6 @@ export default function CardKnowledge({item}) {
     const router = useRouter()
     const context = useContext(MyContext)
 
-    let typeTraining = {
-        1 : {name:"upload-file"},
-        2 : {name:"website"},
-        4 : {name:"scratch"}
-    }
-
     const gotoInbox = async () => {
         localStorage.setItem("view", 1)
         router.push(`/usr/inbox/${item.id}?m=clm_inbox`, undefined, {
@@ -29,7 +23,7 @@ export default function CardKnowledge({item}) {
             label: "View and Edit",
             iconLabel: <BsPencilFill className='text-blue-500' />,
             onClick: (item) => {
-                router.push(`/usr/knowledge/training/update?m=clm_knowledge_training&id=${item.id}`, undefined, {
+                router.push(`/usr/knowledge/training/information?m=clm_knowledge_training&id=${item.id}`, undefined, {
                     shallow: true,
                     target: "_blank"
                 })
@@ -66,14 +60,9 @@ export default function CardKnowledge({item}) {
         </td>
         <td className="px-4 py-4 text-sm whitespace-nowrap space-x-2 flex items-center">
             <SelectReusable data={item} options={bulkOptions} label={<FaEllipsisH className='text-zinc-500 dark:text-white'/>} customCss='w-8 h-8' position="left-0"/>
-            {/* <Link href={`/usr/knowledge/simulation?id=${item.id}&m=clm_knowledge`}>
-                <button className="p-2 text-purple-500 transition-colors duration-200 rounded-lg dark:text-purple-300 hover:bg-purple-100">
-                    <BsInboxFill className="text-base"/>
-                </button>
-            </Link>
             <button className="btn-primary" onClick={() => gotoInbox()}>
-                Goto Inbox
-            </button> */}
+                Inbox
+            </button>
         </td>
     </tr>
   )

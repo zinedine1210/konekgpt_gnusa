@@ -107,7 +107,7 @@ export default function TrainingInbox({ params }) {
             <button onClick={() => handleClick(8)} className="w-full hover:bg-gray-900 text-start duration-300 ease-in-out px-5 py-2 text-white flex items-center gap-2 text-sm"><FaUser className=" text-blue-500" />Contacts</button>
             <button onClick={() => handleClick(9)} className="w-full hover:bg-gray-900 text-start duration-300 ease-in-out px-5 py-2 text-white flex items-center gap-2 text-sm"><FaUser className=" text-blue-500" />Prompt</button>
             <button onClick={() => handleClick(10)} className="w-full hover:bg-gray-900 text-start duration-300 ease-in-out px-5 py-2 text-white flex items-center gap-2 text-sm"><IoSettings className=" text-blue-500" />Settings</button>
-            <Link href={"/usr/integration/whatsapp?m=clm_integration"}>
+            <Link href={"/usr/knowledge/training?m=clm_knowledge_training"}>
               <button className="w-full hover:bg-red-500 hover:text-white text-start duration-300 ease-in-out px-5 py-2 flex items-center gap-2 text-red-500 font-semibold mt-5">Close</button>
             </Link>
           </div>
